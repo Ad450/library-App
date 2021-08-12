@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:library_project/Authentication/auth.dart';
 import 'package:library_project/Models/user.dart';
+import 'package:library_project/UI/Books.dart';
 import 'package:library_project/constants/constants.dart';
 import 'package:library_project/provider/stateProvider.dart';
 import 'package:provider/provider.dart';
@@ -101,6 +102,13 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                 await Auth.getVerification(_userMap, context);
 
                                 print("is validated");
+
+                                if (_provider.isVerified) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => BookScreen()));
+                                }
                               }
                             },
                             child: Text(

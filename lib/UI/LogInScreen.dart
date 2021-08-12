@@ -28,8 +28,7 @@ class _LogInScreenState extends State<LogInScreen> {
   bool _obscureText = true;
 
   Widget _loadingIndicator() {
-    return LoadingIndicator(
-      indicatorType: Indicator.ballRotateChase,
+    return CircularProgressIndicator(
       backgroundColor: Colors.indigo.shade900,
     );
   }
