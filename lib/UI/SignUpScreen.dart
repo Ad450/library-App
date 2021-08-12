@@ -279,7 +279,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     var _userMap =
                                         User().userMap(_email, _password);
 
-                                    _provider.changeAuthSuccessfullState(true);
+                                    _provider.changeSignUpLoading(true);
                                     print("$_userMap");
                                     await Auth.signUp(_userMap, context);
                                     _emailController.clear();

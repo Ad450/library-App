@@ -47,7 +47,7 @@ class StateProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void changeAuthSuccessfullState(bool state) {
+  void changeSignUpLoading(bool state) {
     _isAuthLoading = state;
     notifyListeners();
   }

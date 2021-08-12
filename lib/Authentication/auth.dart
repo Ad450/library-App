@@ -45,13 +45,13 @@ class Auth {
         if (response.statusCode == 201) {
           // print(json.decode(response.body));
           // print("registered ");
-          _stateProvider.changeAuthSuccessfullState(false);
+          _stateProvider.changeSignUpLoading(false);
           _stateProvider.changeHasSignedUp(true);
         } else {
           var responseData = json.decode(response.body);
           print(responseData["message"]);
           _stateProvider.changeAuthMessage(responseData["message"]);
-          _stateProvider.changeAuthSuccessfullState(false);
+          _stateProvider.changeSignUpLoading(false);
         }
       } catch (error) {
         print(error);
