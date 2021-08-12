@@ -38,6 +38,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
+  void _closeDialog(){
+    Navigator.pop(context);
+  }
+
+  Future<dynamic> _showDialog(BuildContext context){
+   return showDialog(context: context, builder: (context){
+     return AlertDialog(title: Text("some dummy text"), actions:<Widget>[
+       TextButton(child: Text("OK"), onPressed:() => _closeDialog())
+     ]);
+   });
+}
+
   @override
   Widget build(BuildContext context) {
     var _provider = Provider.of<StateProvider>(context);
