@@ -72,10 +72,12 @@ class Auth {
           headers: {"content-type": "application/json"});
       print("function got here");
       print(_response.statusCode);
+
       if (_response.statusCode == 200) {
         var dataFromApi = json.decode(_response.body);
         print(dataFromApi);
         var _stateProvider = _provider(_context);
+
         _stateProvider.changeLogInState(true);
         _stateProvider.changeLoginLoading(false);
       }
