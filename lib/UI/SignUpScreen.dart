@@ -30,25 +30,34 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget _loadingIndicator() {
     return Scaffold(
       body: Center(
-        child: LoadingIndicator(
-          indicatorType: Indicator.ballRotateChase,
+        child: CircularProgressIndicator(
           backgroundColor: Colors.indigo.shade900,
         ),
       ),
     );
   }
 
-  void _closeDialog(){
+  void _closeDialog() {
     Navigator.pop(context);
   }
 
-  Future<dynamic> _showDialog(BuildContext context){
-   return showDialog(context: context, builder: (context){
-     return AlertDialog(title: Text("some dummy text"), actions:<Widget>[
-       TextButton(child: Text("OK"), onPressed:() => _closeDialog())
-     ]);
-   });
-}
+  Future<dynamic> _showDialog(BuildContext context, String message) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+              title: Text(message),
+              content: Text("please try again"),
+              actions: <Widget>[
+                TextButton(
+                    child: Text(
+                      "OK",
+                      style: TextStyle(color: Colors.indigo.shade900),
+                    ),
+                    onPressed: () => _closeDialog())
+              ]);
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -275,6 +284,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     await Auth.signUp(_userMap, context);
                                     _emailController.clear();
                                     _passwordController.clear();
+
+                                    if (_provider.getAuthMessage != null) {
+                                      _showDialog(
+                                          context, _provider.getAuthMessage!);
+                                    }
 
                                     if (_provider.hasSignedUp) {
                                       Navigator.push(

@@ -50,7 +50,8 @@ class Auth {
         } else {
           var responseData = json.decode(response.body);
           print(responseData["message"]);
-          _verificationMessage = responseData["message"];
+          _stateProvider.changeAuthMessage(responseData["message"]);
+          _stateProvider.changeAuthSuccessfullState(false);
         }
       } catch (error) {
         print(error);

@@ -7,6 +7,9 @@ class StateProvider with ChangeNotifier {
   bool _hasSignedUp = false;
   bool _isLoginLoading = false;
   bool _verificationLoading = false;
+  String? _authMessage;
+
+  String? get getAuthMessage => _authMessage;
 
   bool get hasSignedUp => _hasSignedUp;
 
@@ -26,6 +29,11 @@ class StateProvider with ChangeNotifier {
 
   void changeIsVerifiedState(bool state) {
     _isVerified = state;
+    notifyListeners();
+  }
+
+  void changeAuthMessage(String message) {
+    _authMessage = message;
     notifyListeners();
   }
 
