@@ -48,7 +48,9 @@ class Auth {
           _stateProvider.changeAuthSuccessfullState(false);
           _stateProvider.changeHasSignedUp(true);
         } else {
-          print(response.statusCode);
+          var responseData = json.decode(response.body);
+          print(responseData["message"]);
+          _verificationMessage = responseData["message"];
         }
       } catch (error) {
         print(error);
