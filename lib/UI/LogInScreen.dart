@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:library_project/Authentication/auth.dart';
 import 'package:library_project/Models/user.dart';
+import 'package:library_project/UI/ForgotPassword.dart';
 import 'package:library_project/UI/verification.dart';
+import 'package:library_project/Widgets/LogInWidget.dart';
 import 'package:library_project/constants/constants.dart';
 import 'package:library_project/provider/stateProvider.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -33,6 +35,28 @@ class _LogInScreenState extends State<LogInScreen> {
     );
   }
 
+  void _handleLogin(dynamic _provider) async {
+    setState(() {
+      _email = _emailController.value.text;
+      _password = _passwordController.value.text;
+    });
+    var _userMap = User().userMap(_email, _password);
+    print(_userMap);
+    _provider.changeLoginLoading(true);
+    await Auth.login(_userMap, context);
+    print("login button working");
+    _emailController.clear();
+    _passwordController.clear();
+    if (_provider.isLoggedIn) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => VerificationScreen(),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var _provider = Provider.of<StateProvider>(context);
@@ -49,118 +73,7 @@ class _LogInScreenState extends State<LogInScreen> {
                       SizedBox(
                         height: 40,
                       ),
-                      Text(
-                        "Login Now ",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.indigo.shade900,
-                          fontSize: 30,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Please login to continue using our app",
-                          style: TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.w400,
-                              height: 1),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 80,
-                      ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "Enter via Social Networks",
-                          style: TextStyle(
-                            color: Colors.indigo.shade900,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Card(
-                            borderOnForeground: true,
-                            elevation: 10,
-                            shape: CircleBorder(),
-                            child: ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.white),
-                                shape:
-                                    MaterialStateProperty.all<OutlinedBorder>(
-                                        CircleBorder()),
-                              ),
-                              child: Image.asset(
-                                Constants.googleImage,
-                                height: 30,
-                                width: 20,
-                              ),
-                              // TODO: this handler will authenticate user using google auth
-                              onPressed: () {},
-                            ),
-                          ),
-                          Card(
-                            borderOnForeground: true,
-                            elevation: 20,
-                            shape: CircleBorder(),
-                            child: ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.white),
-                                shape:
-                                    MaterialStateProperty.all<OutlinedBorder>(
-                                  CircleBorder(),
-                                ),
-                              ),
-                              child: Icon(Icons.facebook,
-                                  color: Colors.indigo.shade900),
-                              // TODO: this handler will authenticate user using facebook auth
-                              onPressed: () {},
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "or login with",
-                          style: TextStyle(
-                              color: Colors.indigo.shade900,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "email",
-                          style: TextStyle(
-                            color: Colors.indigo.shade900,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      LogInWidget(),
                       Form(
                         key: _formKey,
                         child: Column(
@@ -234,7 +147,13 @@ class _LogInScreenState extends State<LogInScreen> {
                               alignment: Alignment.centerRight,
                               child: InkWell(
                                 //TODO: send user to forgot password page
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ForgotPasswordScreen()));
+                                },
                                 child: Text("forgot Password",
                                     style: TextStyle(
                                         color: Colors.indigo.shade900,
@@ -259,28 +178,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                 //TODO: login user and show home screen
                                 onPressed: () async {
                                   if (_formKey.currentState!.validate()) {
-                                    setState(() {
-                                      _email = _emailController.value.text;
-                                      _password =
-                                          _passwordController.value.text;
-                                    });
-                                    var _userMap =
-                                        User().userMap(_email, _password);
-                                    print(_userMap);
-                                    _provider.changeLoginLoading(true);
-                                    await Auth.login(_userMap, context);
-                                    print("login button working");
-                                    _emailController.clear();
-                                    _passwordController.clear();
-                                    if (_provider.isLoggedIn) {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              VerificationScreen(),
-                                        ),
-                                      );
-                                    }
+                                    _handleLogin(_provider);
                                   }
                                 },
                                 child: Text(

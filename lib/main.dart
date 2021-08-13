@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:library_project/UI/Books.dart';
+import 'package:library_project/UI/ForgotPassword.dart';
 import 'package:library_project/provider/stateProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +25,9 @@ class MyApp extends StatelessWidget {
           LogInScreen.logInScreenUrl: (context) => LogInScreen(),
           VerificationScreen.verificationScreenRoute: (context) =>
               VerificationScreen(),
-          BookScreen.booksPageUrl: (context) => BookScreen()
+          BookScreen.booksPageUrl: (context) => BookScreen(),
+          ForgotPasswordScreen.forgotPasswordUrl: (context) =>
+              ForgotPasswordScreen()
         },
         title: _title,
         home: WelcomeScreen(),
