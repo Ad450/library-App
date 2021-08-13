@@ -1,13 +1,11 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:library_project/Authentication/auth.dart';
 import 'package:library_project/Models/user.dart';
 import 'package:library_project/UI/verification.dart';
 import 'package:library_project/Widgets/SignUpWidget.dart';
-import 'package:library_project/constants/constants.dart';
+
 import 'package:library_project/provider/stateProvider.dart';
-import 'package:loading_indicator/loading_indicator.dart';
+
 import 'package:provider/provider.dart';
 
 import 'LogInScreen.dart';
@@ -44,13 +42,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
     Navigator.pop(context);
   }
 
-  Future<dynamic> _showDialog(BuildContext context, String message) {
+  @override
+  void dispose() {
+    super.dispose();
+    _showDialog(context, null);
+  }
+
+  Future<dynamic> _showDialog(BuildContext context, String? message) {
     return showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text(message),
-          content: Text("please try again"),
+          title: Text(message ?? "nothing here"),
+          content: Text("please try again or login"),
           actions: <Widget>[
             TextButton(
                 child: Text(
