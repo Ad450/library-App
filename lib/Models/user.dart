@@ -41,9 +41,7 @@ class User {
   }
 
   Map<String, dynamic>? _userMapForVerification(String? email) {
-    if (email != null) {
-      return {"email": email};
-    }
+    return {"email": email};
   }
 
   Map<String, dynamic>? getUserMapFromVerification(String? email) {

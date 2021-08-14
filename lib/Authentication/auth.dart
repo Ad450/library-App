@@ -66,6 +66,7 @@ class Auth {
 
   static Future<void> _loginUser(
       Map<String, dynamic> _userMap, BuildContext _context) async {
+    var _stateProvider = _provider(_context);
     try {
       print(_userMap);
       Uri _loginUrl = Uri.parse(_loginEndpoint);
@@ -78,9 +79,13 @@ class Auth {
       if (_response.statusCode == 200) {
         var dataFromApi = json.decode(_response.body);
         print(dataFromApi);
-        var _stateProvider = _provider(_context);
 
         _stateProvider.changeLogInState(true);
+        _stateProvider.changeLoginLoading(false);
+      } else {
+        var dataFromApi = json.decode(_response.body);
+
+        _stateProvider.changeLoginMessage(dataFromApi["message"]);
         _stateProvider.changeLoginLoading(false);
       }
     } catch (error) {
@@ -95,7 +100,7 @@ class Auth {
 
   static Future<void> _handleVerification(
       Map<String, dynamic> _userMap, BuildContext _context) async {
-    var _provider = Provider.of<StateProvider>(_context);
+    var _stateProvider = _provider(_context);
     var _response = await http.post(Uri.parse(_verificationEndpoint),
         body: json.encode(_userMap),
         headers: {"content-type": "application/json"});
@@ -103,10 +108,12 @@ class Auth {
       print(_userMap);
       if (_response.statusCode == 200) {
         dynamic _result = json.decode(_response.body);
-        _provider.changeIsVerifiedState(true);
-        _provider.changeVerificationLoadingState(false);
-        _verificationMessage = _result.message;
-        print(_verificationMessage);
+        _stateProvider.changeIsVerifiedState(true);
+        _stateProvider.changeVerificationLoadingState(false);
+        _stateProvider.changeVerificationMessage(_result["message"]);
+      } else {
+        dynamic _result = json.decode(_response.body);
+        _stateProvider.changeVerificationMessage(_result["message"]);
       }
     } catch (error) {
       // will use exceptions later

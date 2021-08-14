@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:library_project/Authentication/auth.dart';
 import 'package:library_project/Models/user.dart';
 import 'package:library_project/UI/verification.dart';
+import 'package:library_project/Widgets/GoogleFBWidget.dart';
 import 'package:library_project/Widgets/SignUpWidget.dart';
 
 import 'package:library_project/provider/stateProvider.dart';
@@ -114,7 +115,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       SizedBox(
                         height: 40,
                       ),
-                      SignUpWidget(),
+                      // TODO: authenticate using fb and google
+                      GoogleFBWidget(
+                        authTextMessage:
+                            "Please Register with email and sign up to continue using our app",
+                        authMessage: "Sign Up",
+                        authGoogleFunction: () {},
+                        authFBFunction: () {},
+                      ),
                       Form(
                         key: _formKey,
                         child: Column(
@@ -236,14 +244,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       builder: (context) => LogInScreen()));
                             },
                             child: Text(
-                              "Login",
+                              "Login ",
                               style: TextStyle(
                                   color: Colors.indigo.shade900,
                                   fontWeight: FontWeight.bold),
                             ),
-                          )
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
                         ],
-                      )
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      InkWell(
+                          child: Text("Already have an account? please verify.",
+                              style: TextStyle(
+                                  color: Colors.indigo.shade900,
+                                  fontWeight: FontWeight.bold)),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        VerificationScreen()));
+                          })
                     ],
                   ),
                 ),

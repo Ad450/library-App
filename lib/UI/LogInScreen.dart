@@ -3,7 +3,7 @@ import 'package:library_project/Authentication/auth.dart';
 import 'package:library_project/Models/user.dart';
 import 'package:library_project/UI/ForgotPassword.dart';
 import 'package:library_project/UI/verification.dart';
-import 'package:library_project/Widgets/LogInWidget.dart';
+import 'package:library_project/Widgets/GoogleFBWidget.dart';
 import 'package:library_project/constants/constants.dart';
 import 'package:library_project/provider/stateProvider.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -30,12 +30,34 @@ class _LogInScreenState extends State<LogInScreen> {
   bool _obscureText = true;
 
   Widget _loadingIndicator() {
-    return CircularProgressIndicator(
-      backgroundColor: Colors.indigo.shade900,
+    return Scaffold(
+      body: Center(
+          child: CircularProgressIndicator(
+        backgroundColor: Colors.indigo.shade900,
+      )),
     );
   }
 
-  void _handleLogin(dynamic _provider) async {
+  void closeDialog() {
+    Navigator.pop(context);
+  }
+
+  Future<void> _showDialog(String _title) {
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text(_title),
+              content: Text("please try again"),
+              actions: <Widget>[
+                TextButton(
+                  child: Text("OK"),
+                  onPressed: closeDialog,
+                )
+              ],
+            ));
+  }
+
+  void _handleLogin(StateProvider _provider) async {
     setState(() {
       _email = _emailController.value.text;
       _password = _passwordController.value.text;
@@ -47,6 +69,7 @@ class _LogInScreenState extends State<LogInScreen> {
     print("login button working");
     _emailController.clear();
     _passwordController.clear();
+
     if (_provider.isLoggedIn) {
       Navigator.push(
         context,
@@ -54,10 +77,10 @@ class _LogInScreenState extends State<LogInScreen> {
           builder: (context) => VerificationScreen(),
         ),
       );
+    } else if (_provider.loginMessage != null) {
+      _showDialog(_provider.loginMessage!);
     }
   }
-
- 
 
   @override
   Widget build(BuildContext context) {
@@ -73,9 +96,16 @@ class _LogInScreenState extends State<LogInScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       SizedBox(
-                        height: 40,
+                        height: 50,
                       ),
-                      LogInWidget(),
+                      //TODO: implement login with facebook and google
+                      GoogleFBWidget(
+                        authFBFunction: () {},
+                        authGoogleFunction: () {},
+                        authMessage: "Login",
+                        authTextMessage:
+                            "please login with email to continue using our app",
+                      ),
                       Form(
                         key: _formKey,
                         child: Column(
@@ -227,7 +257,22 @@ class _LogInScreenState extends State<LogInScreen> {
                             ),
                           )
                         ],
-                      )
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      InkWell(
+                          child: Text("Already have an account? please verify.",
+                              style: TextStyle(
+                                  color: Colors.indigo.shade900,
+                                  fontWeight: FontWeight.bold)),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        VerificationScreen()));
+                          })
                     ],
                   ),
                 ),

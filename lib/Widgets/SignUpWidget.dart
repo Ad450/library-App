@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:library_project/constants/constants.dart';
 
-
 class SignUpWidget extends StatelessWidget {
   const SignUpWidget();
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
           "Sign Up",

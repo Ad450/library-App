@@ -1,16 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:library_project/constants/constants.dart';
 
-class LogInWidget extends StatelessWidget {
-  const LogInWidget({Key? key}) : super(key: key);
+class GoogleFBWidget extends StatelessWidget {
+  final String? authMessage;
+  final String? authTextMessage;
+  final Function? authGoogleFunction;
+  final Function? authFBFunction;
+
+  const GoogleFBWidget(
+      {Key? key,
+        @required this.authMessage,
+        @required this.authTextMessage,
+        @required this.authGoogleFunction,
+        @required this.authFBFunction
+      })
+      : super(key: key);
+
+  void _authGoogleFunction() {
+    authGoogleFunction!();
+  }
+  void _authFBFunction(){
+    authFBFunction!();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
         child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          "Login Now ",
+          authMessage!,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.indigo.shade900,
@@ -23,7 +43,7 @@ class LogInWidget extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            "Please login to continue using our app",
+            authTextMessage!,
             style: TextStyle(
                 color: Colors.black87, fontWeight: FontWeight.w400, height: 1),
           ),
@@ -63,8 +83,8 @@ class LogInWidget extends StatelessWidget {
                   height: 30,
                   width: 20,
                 ),
-                // TODO: this handler will authenticate user using google auth
-                onPressed: () {},
+                
+                onPressed: _authGoogleFunction,
               ),
             ),
             Card(
@@ -80,8 +100,8 @@ class LogInWidget extends StatelessWidget {
                   ),
                 ),
                 child: Icon(Icons.facebook, color: Colors.indigo.shade900),
-                // TODO: this handler will authenticate user using facebook auth
-                onPressed: () {},
+              
+                onPressed:_authFBFunction
               ),
             ),
           ],
