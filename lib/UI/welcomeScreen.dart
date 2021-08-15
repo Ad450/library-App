@@ -18,6 +18,8 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   bool? prefIsVerified;
   SharedPrefs _sharedPrefs = SharedPrefs();
+
+  // trying to get the value before build method is called
   _WelcomeScreenState() {
     _prepareSharedPref();
   }
@@ -29,6 +31,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // _provider gives the value of isVerified....check auth class ..handleVerification
     print(prefIsVerified);
     var _provider = Provider.of<StateProvider>(context);
     _sharedPrefs.setBookScreen(_provider.isVerified);
