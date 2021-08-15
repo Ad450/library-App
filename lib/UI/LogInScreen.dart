@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:library_project/Authentication/auth.dart';
 import 'package:library_project/Models/user.dart';
+import 'package:library_project/UI/Books.dart';
 import 'package:library_project/UI/ForgotPassword.dart';
 import 'package:library_project/UI/verification.dart';
 import 'package:library_project/Widgets/GoogleFBWidget.dart';
@@ -74,12 +75,18 @@ class _LogInScreenState extends State<LogInScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => VerificationScreen(),
+          builder: (context) => BookScreen(),
         ),
       );
     } else if (_provider.loginMessage != null) {
       _showDialog(_provider.loginMessage!);
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _loadingIndicator();
   }
 
   @override

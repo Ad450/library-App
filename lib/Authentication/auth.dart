@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:library_project/SharedPrefs.dart';
 import 'package:library_project/provider/stateProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +19,7 @@ class Auth {
 
   static Map<String, dynamic>? _userMap;
 
+  static SharedPrefs _sharedPrefs = SharedPrefs();
   // signing Up users
 
   String? get verificationMessage => _verificationMessage;
@@ -111,8 +113,11 @@ class Auth {
         _stateProvider.changeIsVerifiedState(true);
         _stateProvider.changeVerificationLoadingState(false);
         _stateProvider.changeVerificationMessage(_result["message"]);
+       
       } else {
+        print(_response.statusCode);
         dynamic _result = json.decode(_response.body);
+        _stateProvider.changeVerificationLoadingState(false);
         _stateProvider.changeVerificationMessage(_result["message"]);
       }
     } catch (error) {

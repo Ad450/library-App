@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_project/SharedPrefs.dart';
 import 'package:library_project/UI/Books.dart';
 import 'package:library_project/UI/ForgotPassword.dart';
 import 'package:library_project/provider/stateProvider.dart';
@@ -9,14 +10,16 @@ import 'UI/SignUpScreen.dart';
 import 'UI/verification.dart';
 import 'UI/welcomeScreen.dart';
 
-void main() {
+void main() async {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+
   final _title = "Uenr library";
   @override
   Widget build(BuildContext context) {
+    
     return ChangeNotifierProvider(
       create: (context) => StateProvider(),
       child: MaterialApp(
