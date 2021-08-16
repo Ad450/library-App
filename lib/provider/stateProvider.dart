@@ -11,6 +11,10 @@ class StateProvider with ChangeNotifier {
   String? _loginMessage;
   String? _verificationMessage;
 
+  Map<String, dynamic>? _userInfo;
+
+  Map<String, dynamic>? get userInfo => _userInfo;
+
   String? get verificationMessage => _verificationMessage;
 
   String? get loginMessage => _loginMessage;
@@ -35,6 +39,11 @@ class StateProvider with ChangeNotifier {
 
   void changeLoginMessage(String? message) {
     _loginMessage = message;
+    notifyListeners();
+  }
+
+  void setUserInfo(Map<String, dynamic> userInfo) {
+    _userInfo = userInfo;
     notifyListeners();
   }
 

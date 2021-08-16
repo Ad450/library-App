@@ -1,4 +1,3 @@
-import 'package:library_project/provider/stateProvider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs {
@@ -6,27 +5,28 @@ class SharedPrefs {
   String _prefKey = "isVerified";
   bool? _prefIsVerifiedBool;
 
+  String get prefKey => _prefKey;
   bool? get showHomeScreen => _showHomeScreen;
 
   bool? get prefIsVerifiedBool => _prefIsVerifiedBool;
 
-  Future<void> _setShowBookScreenHandler(bool? isVerified) async {
+  Future<void> _setShowBookScreenHandler(bool isVerified) async {
     SharedPreferences _sharedPrefs = await SharedPreferences.getInstance();
-    _sharedPrefs.setBool(_prefKey, isVerified ?? false);
+    _sharedPrefs.setBool(_prefKey, isVerified);
   }
 
-  Future<void> setBookScreen(bool? isVerified) async {
+  Future<void> setBookScreen(bool isVerified) async {
     await _setShowBookScreenHandler(isVerified);
   }
 
-  Future<bool?> _getHomeScreenHandler() async {
+  Future<bool> _getHomeScreenHandler() async {
     SharedPreferences _sharedPrefs = await SharedPreferences.getInstance();
-    bool? _prefsBool = _sharedPrefs.getBool(_prefKey) ?? false;
+    bool _prefsBool = _sharedPrefs.getBool(_prefKey) ?? false;
     return _prefsBool;
   }
 
-  Future<bool?> getHomeScreen() async {
-    _prefIsVerifiedBool = await _getHomeScreenHandler();
-    return _prefIsVerifiedBool;
+  Future<bool> getHomeScreen() async {
+    bool prefBool = await _getHomeScreenHandler();
+    return prefBool;
   }
 }

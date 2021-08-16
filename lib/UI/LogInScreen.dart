@@ -51,7 +51,10 @@ class _LogInScreenState extends State<LogInScreen> {
               content: Text("please try again"),
               actions: <Widget>[
                 TextButton(
-                  child: Text("OK"),
+                  child: Text(
+                    "OK",
+                    style: TextStyle(color: Colors.indigo.shade900),
+                  ),
                   onPressed: closeDialog,
                 )
               ],

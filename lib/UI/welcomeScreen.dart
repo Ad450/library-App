@@ -4,40 +4,31 @@ import 'package:library_project/UI/Books.dart';
 import 'package:library_project/constants/constants.dart';
 import 'package:library_project/provider/stateProvider.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'LogInScreen.dart';
 import 'SignUpScreen.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({Key? key}) : super(key: key);
-
+  final bool prefBool;
+  const WelcomeScreen(this.prefBool);
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  bool? prefIsVerified;
   SharedPrefs _sharedPrefs = SharedPrefs();
 
   // trying to get the value before build method is called
-  _WelcomeScreenState() {
-    _prepareSharedPref();
-  }
-
-  void _prepareSharedPref() async {
-    prefIsVerified = await _sharedPrefs.getHomeScreen() ?? false;
-    print(prefIsVerified);
-  }
 
   @override
   Widget build(BuildContext context) {
     // _provider gives the value of isVerified....check auth class ..handleVerification
-    print(prefIsVerified);
+    print(widget.prefBool);
     var _provider = Provider.of<StateProvider>(context);
     _sharedPrefs.setBookScreen(_provider.isVerified);
 
     // print(prefIsVerified);
-    return prefIsVerified!
+    return widget.prefBool
         ? BookScreen()
         : Scaffold(
             backgroundColor: Constants.color,

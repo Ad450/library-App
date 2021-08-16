@@ -17,6 +17,9 @@ class Auth {
   static String _verificationEndpoint =
       "https://uenrlibrary.herokuapp.com/api/auth/resend-verification-link";
 
+  static String _retrieveUsersEndpoint =
+      "https://uenrlibrary.herokuapp.com/api/auth/retrieve-all-users";
+
   static Map<String, dynamic>? _userMap;
 
   static SharedPrefs _sharedPrefs = SharedPrefs();
@@ -113,7 +116,7 @@ class Auth {
         _stateProvider.changeIsVerifiedState(true);
         _stateProvider.changeVerificationLoadingState(false);
         _stateProvider.changeVerificationMessage(_result["message"]);
-       
+        _sharedPrefs.setBookScreen(_stateProvider.isVerified);
       } else {
         print(_response.statusCode);
         dynamic _result = json.decode(_response.body);
@@ -129,5 +132,25 @@ class Auth {
   static Future<void> getVerification(
       Map<String, dynamic> userMap, BuildContext _context) async {
     await _handleVerification(userMap, _context);
+  }
+
+  static Future<void> _handleRetrieveUsers(BuildContext _context) async {
+    Uri _url = Uri.parse(_retrieveUsersEndpoint);
+    final response = await http.get(_url);
+    var _stateProvider = _provider(_context);
+    try {
+      if (response.statusCode == 200) {
+        var userInfo = json.decode(response.body);
+        _stateProvider.setUserInfo(userInfo["data"]);
+      } else {
+        print(response.statusCode);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  static Future<void> handleRetrieveUsers(BuildContext _context) async {
+    await _handleRetrieveUsers(_context);
   }
 }
