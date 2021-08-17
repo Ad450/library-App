@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:library_project/SharedPrefs.dart';
 import 'package:library_project/UI/Books.dart';
 import 'package:library_project/constants/constants.dart';
@@ -23,13 +24,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     // _provider gives the value of isVerified....check auth class ..handleVerification
-    print(widget.prefBool);
+   // print(widget.prefBool);
     var _provider = Provider.of<StateProvider>(context);
     _sharedPrefs.setBookScreen(_provider.isVerified);
 
     // print(prefIsVerified);
     return widget.prefBool
-        ? BookScreen()
+        ? GiveDetailsScreen()
         : Scaffold(
             backgroundColor: Constants.color,
             body: SafeArea(
@@ -43,11 +44,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                     Text(
                       "Welcome",
-                      style: TextStyle(
+                      style: GoogleFonts.quicksand(
                         fontWeight: FontWeight.bold,
                         color: Colors.indigo.shade900,
                         fontSize: 30,
-                      ),
+                      
+                      )
                     ),
                     SizedBox(
                       height: 15,

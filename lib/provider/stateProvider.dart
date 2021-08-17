@@ -11,6 +11,8 @@ class StateProvider with ChangeNotifier {
   String? _loginMessage;
   String? _verificationMessage;
 
+  // StateProvider({isVerified : false, isLoggedIn : false , isAuthLoading}): _isVerified= isVerified;
+
   Map<String, dynamic>? _userInfo;
 
   Map<String, dynamic>? get userInfo => _userInfo;

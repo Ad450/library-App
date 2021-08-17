@@ -59,7 +59,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
 
       if (_provider.isVerified) {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => BookScreen()));
+            context, MaterialPageRoute(builder: (context) => GiveDetailsScreen()));
       } else if (_provider.verificationMessage != null) {
         _showDialog(_provider.verificationMessage!);
       }

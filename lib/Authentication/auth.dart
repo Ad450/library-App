@@ -39,16 +39,15 @@ class Auth {
     print(json.encode(_userMap));
 
     Uri _url = Uri.parse(_signUpEndpoint);
+    assert(_userMap != null);
     if (_userMap != null) {
       try {
         print("function got here too");
         var response = await http.post(_url,
             body: json.encode(_userMap),
             headers: {"content-type": "application/json"});
-        // print(response.statusCode);
+
         if (response.statusCode == 201) {
-          // print(json.decode(response.body));
-          // print("registered ");
           _stateProvider.changeSignUpLoading(false);
           _stateProvider.changeHasSignedUp(true);
         } else {
@@ -72,8 +71,10 @@ class Auth {
   static Future<void> _loginUser(
       Map<String, dynamic> _userMap, BuildContext _context) async {
     var _stateProvider = _provider(_context);
+    assert(_userMap.isNotEmpty);
     try {
       print(_userMap);
+
       Uri _loginUrl = Uri.parse(_loginEndpoint);
       var _response = await http.post(_loginUrl,
           body: json.encode(_userMap),
@@ -109,6 +110,8 @@ class Auth {
     var _response = await http.post(Uri.parse(_verificationEndpoint),
         body: json.encode(_userMap),
         headers: {"content-type": "application/json"});
+
+    assert(_userMap.isNotEmpty);
     try {
       print(_userMap);
       if (_response.statusCode == 200) {

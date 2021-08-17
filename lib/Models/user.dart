@@ -20,18 +20,18 @@ class User {
       this.fullname,
       this.level});
 
-  //
-  // User userfromMap(Map datafromApi) {
-  //   return User(
-  //       email: datafromApi["email"],
-  //       userName: datafromApi["username"],
-  //       profileImage: datafromApi["profile_image"],
-  //       programOfStudy: datafromApi["program_of_study"],
-  //       level: datafromApi["level"],
-  //       fullname: datafromApi["fullname"],
-  //       universityName: datafromApi["university_name"],
-  //       id: datafromApi["id"]);
-  // }
+  factory User.fromMap(Map datafromApi) {
+    return User(
+        email: datafromApi["email"],
+        userName: datafromApi["username"],
+        profileImage: datafromApi["profile_image"],
+        programOfStudy: datafromApi["program_of_study"],
+        level: datafromApi["level"],
+        fullname: datafromApi["fullname"],
+        universityName: datafromApi["university_name"],
+        id: datafromApi["id"]);
+  }
+
   Map<String, dynamic> _returnUserObject(String? email, String? password) {
     return {"email": email, "password": password};
   }

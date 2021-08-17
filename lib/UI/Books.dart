@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class BookScreen extends StatelessWidget {
-  const BookScreen({Key? key}) : super(key: key);
+class GiveDetailsScreen extends StatelessWidget {
+  const GiveDetailsScreen({Key? key}) : super(key: key);
 
   static final booksPageUrl = "/booksPage";
   @override

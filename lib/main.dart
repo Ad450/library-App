@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           LogInScreen.logInScreenUrl: (context) => LogInScreen(),
           VerificationScreen.verificationScreenRoute: (context) =>
               VerificationScreen(),
-          BookScreen.booksPageUrl: (context) => BookScreen(),
+          GiveDetailsScreen.booksPageUrl: (context) => GiveDetailsScreen(),
           ForgotPasswordScreen.forgotPasswordUrl: (context) =>
               ForgotPasswordScreen()
         },

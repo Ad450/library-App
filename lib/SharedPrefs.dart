@@ -22,6 +22,7 @@ class SharedPrefs {
   Future<bool> _getHomeScreenHandler() async {
     SharedPreferences _sharedPrefs = await SharedPreferences.getInstance();
     bool _prefsBool = _sharedPrefs.getBool(_prefKey) ?? false;
+    assert(_sharedPrefs.containsKey(_prefKey));
     return _prefsBool;
   }
 

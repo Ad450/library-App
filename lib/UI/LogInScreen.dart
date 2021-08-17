@@ -78,7 +78,7 @@ class _LogInScreenState extends State<LogInScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => BookScreen(),
+          builder: (context) => GiveDetailsScreen(),
         ),
       );
     } else if (_provider.loginMessage != null) {
