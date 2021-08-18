@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:library_project/SharedPrefs.dart';
-import 'package:library_project/UI/Books.dart';
+
 import 'package:library_project/UI/ForgotPassword.dart';
 import 'package:library_project/provider/stateProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'UI/LogInScreen.dart';
-import 'UI/SignUpScreen.dart';
+import 'UI/GiveDetailScreen.dart';
+import 'UI/landingScreen.dart';
+import 'UI/LoginScreen.dart';
 import 'UI/verification.dart';
 import 'UI/welcomeScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   bool prefBool = await SharedPrefs().getHomeScreen();
-  
+
   runApp(MyApp(prefBool));
 }
 
@@ -29,8 +30,7 @@ class MyApp extends StatelessWidget {
       create: (context) => StateProvider(),
       child: MaterialApp(
         routes: {
-          SignUpScreen.signUpScreenUrl: (context) => SignUpScreen(),
-          LogInScreen.logInScreenUrl: (context) => LogInScreen(),
+          LoginScreen.loginScreenUrl: (context) => LoginScreen(),
           VerificationScreen.verificationScreenRoute: (context) =>
               VerificationScreen(),
           GiveDetailsScreen.booksPageUrl: (context) => GiveDetailsScreen(),

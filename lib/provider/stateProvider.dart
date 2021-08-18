@@ -71,6 +71,7 @@ class StateProvider with ChangeNotifier {
 
   void changeLoginLoading(bool state) {
     _isLoginLoading = state;
+    print("got here");
     notifyListeners();
   }
 

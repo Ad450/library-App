@@ -1,74 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:library_project/Authentication/auth.dart';
 import 'package:library_project/Models/user.dart';
-import 'package:library_project/UI/Books.dart';
-import 'package:library_project/UI/ForgotPassword.dart';
-import 'package:library_project/UI/verification.dart';
-import 'package:library_project/Widgets/GoogleFBWidget.dart';
-import 'package:library_project/constants/constants.dart';
+import 'package:library_project/Widgets/CustomForms.dart';
+
 import 'package:library_project/provider/stateProvider.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+
 import 'package:provider/provider.dart';
 
-import 'SignUpScreen.dart';
+import 'GiveDetailScreen.dart';
 
-class LogInScreen extends StatefulWidget {
-  const LogInScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
-  static final String logInScreenUrl = "/LogInScreen";
+  static String loginScreenUrl = "/SignUpScreen";
 
   @override
-  _LogInScreenState createState() => _LogInScreenState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LogInScreenState extends State<LogInScreen> {
-  final _formKey = GlobalKey<FormState>();
-  String _email = "";
-  var _password = "";
-
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  bool _obscureText = true;
-
-  Widget _loadingIndicator() {
-    return Scaffold(
-      body: Center(
-          child: CircularProgressIndicator(
-        backgroundColor: Colors.indigo.shade900,
-      )),
-    );
-  }
-
-  void closeDialog() {
+class _LoginScreenState extends State<LoginScreen> {
+  void _closeDialog() {
     Navigator.pop(context);
   }
 
-  Future<void> _showDialog(String _title) {
-    return showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              title: Text(_title),
-              content: Text("please try again"),
-              actions: <Widget>[
-                TextButton(
-                  child: Text(
-                    "OK",
-                    style: TextStyle(color: Colors.indigo.shade900),
-                  ),
-                  onPressed: closeDialog,
-                )
-              ],
-            ));
-  }
-
-  void _handleLogin(StateProvider _provider) async {
+  void _handleLogin(
+      StateProvider _provider,
+      String? _email,
+      String? _password,
+      TextEditingController _emailController,
+      TextEditingController _passwordController) async {
     setState(() {
       _email = _emailController.value.text;
       _password = _passwordController.value.text;
     });
     var _userMap = User().userMap(_email, _password);
-    print(_userMap);
+    assert(_userMap.isNotEmpty);
     _provider.changeLoginLoading(true);
+    print(_provider.isAuthLoading);
     await Auth.login(_userMap, context);
     print("login button working");
     _emailController.clear();
@@ -86,208 +55,44 @@ class _LogInScreenState extends State<LogInScreen> {
     }
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _loadingIndicator();
+  Future<void> _showDialog(String _title) {
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text(_title),
+              content: Text("please try again"),
+              actions: <Widget>[
+                TextButton(
+                  child: Text(
+                    "OK",
+                    style: TextStyle(color: Colors.indigo.shade900),
+                  ),
+                  onPressed: _closeDialog,
+                )
+              ],
+            ));
+  }
+
+  Widget _loadingIndicator() {
+    return Scaffold(
+      body: Center(
+          child: CircularProgressIndicator(
+        color: Colors.amberAccent,
+      )),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     var _provider = Provider.of<StateProvider>(context);
-    return Scaffold(
-      body: SafeArea(
-        child: _provider.isLoginLoading
-            ? _loadingIndicator()
-            : Container(
-                margin: EdgeInsets.only(left: 30, right: 30),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(
-                        height: 50,
-                      ),
-                      //TODO: implement login with facebook and google
-                      GoogleFBWidget(
-                        authFBFunction: () {},
-                        authGoogleFunction: () {},
-                        authMessage: "Login",
-                        authTextMessage:
-                            "please login with email to continue using our app",
-                      ),
-                      Form(
-                        key: _formKey,
-                        child: Column(
-                          children: <Widget>[
-                            Card(
-                              elevation: 15,
-                              child: TextFormField(
-                                keyboardType: TextInputType.emailAddress,
-                                cursorColor: Colors.indigo.shade900,
-                                validator: (input) {
-                                  if (input!.isEmpty) {
-                                    return "please enter your email";
-                                  }
-                                  return null;
-                                },
-                                controller: _emailController,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: "enter email",
-                                  contentPadding: EdgeInsets.only(left: 20),
-                                  hintStyle: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.indigo.shade900),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Card(
-                              elevation: 15,
-                              child: TextFormField(
-                                keyboardType: TextInputType.visiblePassword,
-                                obscureText: _obscureText,
-                                cursorColor: Colors.indigo.shade900,
-                                validator: (input) {
-                                  if (input!.isEmpty) {
-                                    return "please enter your password";
-                                  }
-                                  return null;
-                                },
-                                controller: _passwordController,
-                                decoration: InputDecoration(
-                                  alignLabelWithHint: true,
-                                  suffixIcon: InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          _obscureText = !_obscureText;
-                                        });
-                                      },
-                                      child: Icon(
-                                        _obscureText
-                                            ? Icons.remove_red_eye_sharp
-                                            : Icons.remove_red_eye_outlined,
-                                        color: Colors.indigo.shade900,
-                                      )),
-                                  border: InputBorder.none,
-                                  hintText: "enter password",
-                                  contentPadding:
-                                      EdgeInsets.only(left: 20, top: 14),
-                                  hintStyle: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.indigo.shade900),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: InkWell(
-                                //TODO: send user to forgot password page
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ForgotPasswordScreen()));
-                                },
-                                child: Text("forgot Password",
-                                    style: TextStyle(
-                                        color: Colors.indigo.shade900,
-                                        fontWeight: FontWeight.bold)),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Align(
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.indigo.shade900,
-                                  elevation: 10,
-                                  padding: EdgeInsets.only(
-                                      left: 144,
-                                      right: 144,
-                                      top: 10,
-                                      bottom: 10),
-                                ),
-
-                                //TODO: login user and show home screen
-                                onPressed: () async {
-                                  if (_formKey.currentState!.validate()) {
-                                    _handleLogin(_provider);
-                                  }
-                                },
-                                child: Text(
-                                  "Login",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15,
-                                    letterSpacing: 1,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Dont have an account?",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          InkWell(
-                            //TODO: sends user to the signUp screen
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SignUpScreen(),
-                                ),
-                              );
-                            },
-                            child: Text(
-                              "Sign Up",
-                              style: TextStyle(
-                                  color: Colors.indigo.shade900,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      InkWell(
-                          child: Text("Already have an account? please verify.",
-                              style: TextStyle(
-                                  color: Colors.indigo.shade900,
-                                  fontWeight: FontWeight.bold)),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        VerificationScreen()));
-                          })
-                    ],
-                  ),
-                ),
-              ),
-      ),
-    );
+    MediaQueryData _mediaQuery = MediaQuery.of(context);
+    var height = _mediaQuery.size.height / 4.5;
+    return _provider.isLoginLoading
+        ? _loadingIndicator()
+        : CustomForms(
+            buttonTitle: "Login",
+            title: "Login",
+            paddingDecider: 7,
+            authHandler: _handleLogin);
   }
 }

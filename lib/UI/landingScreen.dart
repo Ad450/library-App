@@ -1,0 +1,128 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:library_project/Authentication/auth.dart';
+import 'package:library_project/Models/user.dart';
+
+import 'package:library_project/UI/ForgotPassword.dart';
+import 'package:library_project/UI/SignUpScreen.dart';
+import 'package:library_project/UI/verification.dart';
+import 'package:library_project/Widgets/GoogleFBWidget.dart';
+import 'package:library_project/Widgets/customButton.dart';
+import 'package:library_project/Widgets/logo.dart';
+import 'package:library_project/constants/constants.dart';
+import 'package:library_project/provider/stateProvider.dart';
+import 'package:loading_indicator/loading_indicator.dart';
+import 'package:provider/provider.dart';
+
+import 'GiveDetailScreen.dart';
+import 'LoginScreen.dart';
+
+class LandingScreen extends StatelessWidget {
+  const LandingScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    MediaQueryData _mediaQuery = MediaQuery.of(context);
+    var height = _mediaQuery.size.height / 7;
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          margin: EdgeInsets.only(left: 30, right: 30),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(
+                  height: 70,
+                ),
+                CustomLogo(
+                  containerColor: Colors.amberAccent,
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                Text(
+                  "Welcome",
+                  textAlign: TextAlign.start,
+                  style:
+                      GoogleFonts.quicksand(color: Colors.black, fontSize: 30),
+                ),
+                RichText(
+                  textAlign: TextAlign.start,
+                  text: TextSpan(children: <TextSpan>[
+                    TextSpan(
+                        text: "sign in to continue \n",
+                        style: GoogleFonts.quicksand(
+                            color: Colors.black, fontSize: 30)),
+                    TextSpan(
+                        text: "on Unilib",
+                        style: GoogleFonts.quicksand(
+                            color: Colors.amberAccent, fontSize: 30))
+                  ]),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                CustomButton(
+                    onTap: () => Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginScreen())),
+                    padding: _mediaQuery.size.longestSide / 6,
+                    title: "Login",
+                    color: Colors.amberAccent,
+                    textColor: Colors.black),
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Or",
+                    style:
+                        GoogleFonts.quicksand(color: Colors.grey, fontSize: 20),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                CustomButton(
+                    //TODO: login with google here
+                    onTap: () {},
+                    padding: _mediaQuery.size.longestSide / 14,
+                    title: "Login with Google",
+                    color: Colors.lightBlue[100],
+                    textColor: Colors.lightBlue[900]),
+                Container(
+                  margin: EdgeInsets.only(top: height),
+                  child: Column(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Not registered yet?",
+                          style: GoogleFonts.quicksand(
+                              color: Colors.grey, fontSize: 15),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      CustomButton(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SignUpScreen())),
+                          padding: _mediaQuery.size.longestSide / 14,
+                          title: "Create an Account",
+                          color: Colors.grey[800],
+                          textColor: Colors.white),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
