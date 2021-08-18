@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:library_project/UI/verification.dart';
 import 'package:library_project/Widgets/customButton.dart';
 import 'package:library_project/Widgets/logo.dart';
 
@@ -130,6 +131,27 @@ class _CustomFormsState extends State<CustomForms> {
                           focusedBorder: UnderlineInputBorder(
                               borderSide:
                                   BorderSide(color: Colors.amberAccent)),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        alignment: Alignment.centerRight,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        VerificationScreen()));
+                          },
+                          child: Text(
+                            "resend verification link",
+                            style: GoogleFonts.quicksand(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                       SizedBox(

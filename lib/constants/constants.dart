@@ -13,4 +13,6 @@ class Constants {
   static String get home2 => _home2;
   static String _logo = "images/logo.png";
   static String get logo => _logo;
+  static String _verifyImage = "images/verify.png";
+  static String get verifyImage => _verifyImage;
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:library_project/Authentication/auth.dart';
 import 'package:library_project/Models/user.dart';
 
 import 'package:library_project/UI/GiveDetailScreen.dart';
+import 'package:library_project/Widgets/customButton.dart';
 import 'package:library_project/constants/constants.dart';
 import 'package:library_project/provider/stateProvider.dart';
 import 'package:provider/provider.dart';
@@ -59,8 +61,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
       print("is validated");
 
       if (_provider.isVerified) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => GiveDetailsScreen()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => GiveDetailsScreen()));
       } else if (_provider.verificationMessage != null) {
         _showDialog(_provider.verificationMessage!);
       }
@@ -91,67 +93,48 @@ class _VerificationScreenState extends State<VerificationScreen> {
                             alignment: Alignment.centerLeft,
                             child: Text(
                               "Please verify your email",
-                              style: TextStyle(
-                                  color: Colors.indigo.shade900,
-                                  fontWeight: FontWeight.bold),
+                              style: GoogleFonts.quicksand(
+                                color: Colors.black,
+                              ),
                             ),
                           ),
                           SizedBox(
                             height: 50,
                           ),
-                          Image.asset(Constants.secondScreenUrl),
+                          Image.asset(Constants.verifyImage),
                           SizedBox(
                             height: 80,
                           ),
-                          Card(
-                            elevation: 15,
-                            child: TextFormField(
-                              controller: _emailController,
-                              keyboardType: TextInputType.emailAddress,
-                              // autovalidateMode: AutovalidateMode.always,
-                              cursorColor: Colors.indigo.shade900,
-                              validator: (input) {
-                                if (input!.isEmpty) {
-                                  return "please enter your email";
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "enter email",
-                                alignLabelWithHint: true,
-                                contentPadding: EdgeInsets.only(left: 20),
-                                hintStyle: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.indigo.shade900),
-                              ),
+                          TextFormField(
+                            keyboardType: TextInputType.emailAddress,
+                            cursorColor: Colors.amberAccent,
+                            validator: (input) {
+                              if (input!.isEmpty) {
+                                return "please enter your email";
+                              }
+                              return null;
+                            },
+                            controller: _emailController,
+                            decoration: InputDecoration(
+                              labelText: "Email",
+                              labelStyle:
+                                  GoogleFonts.quicksand(color: Colors.black),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.amberAccent)),
+                              hintStyle: TextStyle(
+                                  fontSize: 15, color: Colors.amberAccent),
                             ),
                           ),
                           SizedBox(
-                            height: 20,
+                            height: 30,
                           ),
-                          Align(
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.indigo.shade900,
-                                elevation: 10,
-                                padding: EdgeInsets.only(
-                                    left: 135, right: 135, top: 10, bottom: 10),
-                              ),
-                              //TODO: verify user
-                              onPressed: () {
-                                _handleVerification(_provider);
-                              },
-                              child: Text(
-                                "verify",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  letterSpacing: 1,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
+                          CustomButton(
+                            title: "verify ",
+                            color: Colors.amberAccent,
+                            textColor: Colors.black,
+                            padding: 7,
+                            onTap: () => _handleVerification(_provider),
                           ),
                         ],
                       ),
