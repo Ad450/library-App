@@ -141,10 +141,11 @@ class _CustomFormsState extends State<CustomForms> {
                         child: InkWell(
                           onTap: () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        VerificationScreen()));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => VerificationScreen(),
+                              ),
+                            );
                           },
                           child: Text(
                             "resend verification link",

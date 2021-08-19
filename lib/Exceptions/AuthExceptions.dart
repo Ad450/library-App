@@ -1,5 +1,7 @@
-class AuthException implements Exception {
-  String _loginExceptionString = "could not login, please try again";
+import 'dart:io';
 
-  void loginException() => throw _loginExceptionString;
+class AuthException extends SocketException {
+  String message = "Please check internet connection";
+
+  AuthException(this.message) : super(message);
 }

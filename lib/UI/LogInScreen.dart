@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:library_project/Authentication/auth.dart';
 import 'package:library_project/Models/user.dart';
+import 'package:library_project/UI/LoadingScreen.dart';
 import 'package:library_project/Widgets/CustomForms.dart';
 
 import 'package:library_project/provider/stateProvider.dart';
@@ -75,10 +76,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _loadingIndicator() {
     return Scaffold(
-      body: Center(
+      body: Container(
+        constraints: BoxConstraints(maxHeight: double.infinity),
+        decoration: BoxDecoration(color: Colors.transparent),
+        child: Center(
           child: CircularProgressIndicator(
-        color: Colors.amberAccent,
-      )),
+            color: Colors.amberAccent,
+          ),
+        ),
+      ),
     );
   }
 
@@ -88,7 +94,9 @@ class _LoginScreenState extends State<LoginScreen> {
     MediaQueryData _mediaQuery = MediaQuery.of(context);
     var height = _mediaQuery.size.height / 4.5;
     return _provider.isLoginLoading
-        ? _loadingIndicator()
+        ? LoadingScreen(
+            authTitle: "please wait while we log you in!",
+          )
         : CustomForms(
             buttonTitle: "Login",
             title: "Login",

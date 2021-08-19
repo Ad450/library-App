@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:library_project/Authentication/auth.dart';
 import 'package:library_project/Models/user.dart';
+import 'package:library_project/UI/LoadingScreen.dart';
 import 'package:library_project/UI/verification.dart';
 import 'package:library_project/Widgets/CustomForms.dart';
 
@@ -32,7 +33,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       builder: (context) {
         return AlertDialog(
           title: Text(message ?? "nothing here"),
-          content: Text("please try again or login"),
+          content: Text("please try again "),
           actions: <Widget>[
             TextButton(
                 child: Text(
@@ -88,7 +89,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     var _provider = Provider.of<StateProvider>(context);
 
     return _provider.isAuthLoading
-        ? _loadingIndicator()
+        ? LoadingScreen(authTitle: "please wait while we register you!")
         : CustomForms(
             buttonTitle: "Register",
             title: "Sign Up",

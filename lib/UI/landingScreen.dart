@@ -41,23 +41,27 @@ class LandingScreen extends StatelessWidget {
                 SizedBox(
                   height: 40,
                 ),
-                Text(
-                  "Welcome",
-                  textAlign: TextAlign.start,
-                  style:
-                      GoogleFonts.quicksand(color: Colors.black, fontSize: 30),
-                ),
+                Text("Welcome",
+                    textAlign: TextAlign.start,
+                    style: GoogleFonts.quicksand(
+                        color: Colors.black,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold)),
                 RichText(
                   textAlign: TextAlign.start,
                   text: TextSpan(children: <TextSpan>[
                     TextSpan(
                         text: "sign in to continue \n",
                         style: GoogleFonts.quicksand(
-                            color: Colors.black, fontSize: 30)),
+                            color: Colors.black,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold)),
                     TextSpan(
                         text: "on Unilib",
                         style: GoogleFonts.quicksand(
-                            color: Colors.amberAccent, fontSize: 30))
+                            color: Colors.amberAccent,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold))
                   ]),
                 ),
                 SizedBox(

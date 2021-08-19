@@ -4,6 +4,7 @@ import 'package:library_project/Authentication/auth.dart';
 import 'package:library_project/Models/user.dart';
 
 import 'package:library_project/UI/GiveDetailScreen.dart';
+import 'package:library_project/UI/LoadingScreen.dart';
 import 'package:library_project/Widgets/customButton.dart';
 import 'package:library_project/constants/constants.dart';
 import 'package:library_project/provider/stateProvider.dart';
@@ -25,9 +26,11 @@ class _VerificationScreenState extends State<VerificationScreen> {
 
   Widget _loadingIndicator() {
     return Scaffold(
-        body: Center(
-            child: CircularProgressIndicator(
-                backgroundColor: Colors.indigo.shade900)));
+      body: Center(
+        child:
+            CircularProgressIndicator(backgroundColor: Colors.indigo.shade900),
+      ),
+    );
   }
 
   void disposeDialog() {
@@ -36,16 +39,18 @@ class _VerificationScreenState extends State<VerificationScreen> {
 
   Future<void> _showDialog(String message) {
     return showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-                title: Text(message),
-                content: Text("please try again"),
-                actions: <Widget>[
-                  TextButton(
-                    child: Text("OK"),
-                    onPressed: disposeDialog,
-                  )
-                ]));
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(message),
+        content: Text("please try again"),
+        actions: <Widget>[
+          TextButton(
+            child: Text("OK"),
+            onPressed: disposeDialog,
+          ),
+        ],
+      ),
+    );
   }
 
   void _handleVerification(StateProvider _provider) async {
@@ -72,15 +77,19 @@ class _VerificationScreenState extends State<VerificationScreen> {
   @override
   Widget build(BuildContext context) {
     var _provider = Provider.of<StateProvider>(context);
+    MediaQueryData _mediaQuery = MediaQuery.of(context);
+    var height = _mediaQuery.size.height / 6;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           child: _provider.verificationLoading
-              ? _loadingIndicator()
+              ? LoadingScreen(
+                  authTitle: "please wait while we verify your account",
+                )
               : SingleChildScrollView(
                   child: Container(
-                    margin: EdgeInsets.only(left: 30, right: 30, top: 50),
+                    margin: EdgeInsets.only(left: 30, right: 30, top: 30),
                     child: Form(
                       key: _key,
                       child: Column(
@@ -94,8 +103,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
                             child: Text(
                               "Please verify your email",
                               style: GoogleFonts.quicksand(
-                                color: Colors.black,
-                              ),
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           SizedBox(
@@ -103,7 +112,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                           ),
                           Image.asset(Constants.verifyImage),
                           SizedBox(
-                            height: 80,
+                            height: 50,
                           ),
                           TextFormField(
                             keyboardType: TextInputType.emailAddress,
@@ -135,6 +144,18 @@ class _VerificationScreenState extends State<VerificationScreen> {
                             textColor: Colors.black,
                             padding: 7,
                             onTap: () => _handleVerification(_provider),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: height),
+                            child: Text("unilib",
+                                style: GoogleFonts.quicksand(
+                                    color: Colors.black,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 2)),
                           ),
                         ],
                       ),

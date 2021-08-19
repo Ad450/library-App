@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:library_project/Exceptions/AuthExceptions.dart';
 import 'package:library_project/SharedPrefs.dart';
 import 'package:library_project/provider/stateProvider.dart';
 import 'package:provider/provider.dart';
@@ -56,9 +58,11 @@ class Auth {
           _stateProvider.changeAuthMessage(responseData["message"]);
           _stateProvider.changeSignUpLoading(false);
         }
-      } catch (error) {
-        print(error);
-        print("could not signUp");
+      } on SocketException catch (e) {
+        _stateProvider.changeSignUpLoading(false);
+        _stateProvider
+            .changeAuthMessage("please check your internet connection");
+        print(e);
       }
     }
   }
@@ -94,8 +98,11 @@ class Auth {
         _stateProvider.changeLoginMessage(dataFromApi["message"]);
         _stateProvider.changeLoginLoading(false);
       }
-    } catch (error) {
-      print(error);
+    } on SocketException catch (e) {
+      _stateProvider.changeLoginLoading(false);
+      _stateProvider
+          .changeLoginMessage("Please check your internet connection");
+      print(e);
     }
   }
 
@@ -126,9 +133,11 @@ class Auth {
         _stateProvider.changeVerificationLoadingState(false);
         _stateProvider.changeVerificationMessage(_result["message"]);
       }
-    } catch (error) {
-      // will use exceptions later
-      print(error);
+    } on SocketException catch (e) {
+      _stateProvider.changeVerificationLoadingState(false);
+      _stateProvider
+          .changeVerificationMessage("please check your internet connection");
+      print(e);
     }
   }
 
