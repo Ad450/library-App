@@ -32,16 +32,34 @@ class CustomForms extends StatefulWidget {
 
 class _CustomFormsState extends State<CustomForms> {
   final _formKey = GlobalKey<FormState>();
+
   String? _email;
   String? _password;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscureText = true;
 
-  void handleAuth(StateProvider _provider) {
+  void handleAuth(
+    StateProvider _provider,
+  ) {
     widget._authHandler!(
-        _provider, _email, _password, _emailController, _passwordController);
+      _provider,
+      _email,
+      _password,
+      _emailController,
+      _passwordController,
+    );
   }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    
+    super.dispose();
+  }
+
+
 
   @override
   Widget build(BuildContext context) {

@@ -1,20 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:library_project/Authentication/auth.dart';
-import 'package:library_project/Models/user.dart';
 
-import 'package:library_project/UI/ForgotPassword.dart';
 import 'package:library_project/UI/SignUpScreen.dart';
-import 'package:library_project/UI/verification.dart';
-import 'package:library_project/Widgets/GoogleFBWidget.dart';
+
 import 'package:library_project/Widgets/customButton.dart';
 import 'package:library_project/Widgets/logo.dart';
-import 'package:library_project/constants/constants.dart';
-import 'package:library_project/provider/stateProvider.dart';
-import 'package:loading_indicator/loading_indicator.dart';
-import 'package:provider/provider.dart';
 
-import 'GiveDetailScreen.dart';
 import 'LoginScreen.dart';
 
 class LandingScreen extends StatelessWidget {

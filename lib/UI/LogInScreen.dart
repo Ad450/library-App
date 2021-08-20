@@ -21,16 +21,18 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  GlobalKey _loginScaffoldKey = GlobalKey();
   void _closeDialog() {
     Navigator.pop(context);
   }
 
   void _handleLogin(
-      StateProvider _provider,
-      String? _email,
-      String? _password,
-      TextEditingController _emailController,
-      TextEditingController _passwordController) async {
+    StateProvider _provider,
+    String? _email,
+    String? _password,
+    TextEditingController _emailController,
+    TextEditingController _passwordController,
+  ) async {
     setState(() {
       _email = _emailController.value.text;
       _password = _passwordController.value.text;
@@ -38,8 +40,11 @@ class _LoginScreenState extends State<LoginScreen> {
     var _userMap = User().userMap(_email, _password);
     assert(_userMap.isNotEmpty);
     _provider.changeLoginLoading(true);
-    print(_provider.isAuthLoading);
-    await Auth.login(_userMap, context);
+    
+    if (_LoginScreenState().mounted) {
+      await Auth.login(_userMap, context);
+    }
+
     print("login button working");
     _emailController.clear();
     _passwordController.clear();
@@ -51,27 +56,32 @@ class _LoginScreenState extends State<LoginScreen> {
           builder: (context) => GiveDetailsScreen(),
         ),
       );
-    } else if (_provider.loginMessage != null) {
-      _showDialog(_provider.loginMessage!);
+    } else if (_LoginScreenState().mounted) {
+      if (_provider.loginMessage != null) {
+        _showDialog(_provider.loginMessage!);
+      }
     }
   }
 
-  Future<void> _showDialog(String _title) {
+  Future<void> _showDialog(
+    String _title,
+  ) {
     return showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              title: Text(_title),
-              content: Text("please try again"),
-              actions: <Widget>[
-                TextButton(
-                  child: Text(
-                    "OK",
-                    style: TextStyle(color: Colors.indigo.shade900),
-                  ),
-                  onPressed: _closeDialog,
-                )
-              ],
-            ));
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(_title),
+        content: Text("please try again"),
+        actions: <Widget>[
+          TextButton(
+            child: Text(
+              "OK",
+              style: TextStyle(color: Colors.indigo.shade900),
+            ),
+            onPressed: _closeDialog,
+          )
+        ],
+      ),
+    );
   }
 
   Widget _loadingIndicator() {
@@ -89,18 +99,25 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var _provider = Provider.of<StateProvider>(context);
     MediaQueryData _mediaQuery = MediaQuery.of(context);
     var height = _mediaQuery.size.height / 4.5;
-    return _provider.isLoginLoading
-        ? LoadingScreen(
-            authTitle: "please wait while we log you in!",
-          )
-        : CustomForms(
-            buttonTitle: "Login",
-            title: "Login",
-            paddingDecider: 7,
-            authHandler: _handleLogin);
+    return Scaffold(
+        // key: _loginScaffoldKey,
+        body: _provider.isLoginLoading
+            ? LoadingScreen(
+                authTitle: "please wait while we log you in!",
+              )
+            : CustomForms(
+                buttonTitle: "Login",
+                title: "Login",
+                paddingDecider: 7,
+                authHandler: _handleLogin));
   }
 }

@@ -61,17 +61,28 @@ class _VerificationScreenState extends State<VerificationScreen> {
       Map<String, dynamic> _userMap =
           User().getUserMapFromVerification(_email)!;
       _provider.changeVerificationLoadingState(true);
-      await Auth.getVerification(_userMap, context);
+      if (_VerificationScreenState().mounted) {
+        await Auth.getVerification(_userMap, context);
+      }
+
       _emailController.clear();
       print("is validated");
 
       if (_provider.isVerified) {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => GiveDetailsScreen()));
-      } else if (_provider.verificationMessage != null) {
-        _showDialog(_provider.verificationMessage!);
+      } else if (_VerificationScreenState().mounted) {
+        if (_provider.verificationMessage != null) {
+          _showDialog(_provider.verificationMessage!);
+        }
       }
     }
+  }
+
+  @override
+  void dispose() {
+    _showDialog("");
+    super.dispose();
   }
 
   @override

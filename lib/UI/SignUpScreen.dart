@@ -17,15 +17,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  Widget _loadingIndicator() {
-    return Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(
-          backgroundColor: Colors.amberAccent,
-        ),
-      ),
-    );
-  }
+
 
   Future<dynamic> _showDialog(BuildContext context, String? message) {
     return showDialog(
@@ -66,13 +58,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     _provider.changeSignUpLoading(true);
     print("$_userMap");
-    await Auth.signUp(_userMap, context);
+    if (_SignUpScreenState().mounted) {
+      await Auth.signUp(_userMap, context);
+    }
+
     _emailController.clear();
     _passwordController.clear();
-
-    if (_provider.getAuthMessage != null) {
-      _showDialog(context, _provider.getAuthMessage!);
-    }
 
     if (_provider.hasSignedUp) {
       Navigator.push(
@@ -81,7 +72,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
           builder: (context) => VerificationScreen(),
         ),
       );
+    } else if (_SignUpScreenState().mounted) {
+      if (_provider.getAuthMessage != null) {
+        _showDialog(context, _provider.getAuthMessage!);
+      }
     }
+  }
+
+  @override
+  void dispose() {
+    _showDialog(context, "");
+    super.dispose();
   }
 
   @override
