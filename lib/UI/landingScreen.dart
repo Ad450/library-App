@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:library_project/UI/GiveDetailScreen.dart';
 
 import 'package:library_project/UI/SignUpScreen.dart';
 
@@ -59,8 +60,11 @@ class LandingScreen extends StatelessWidget {
                   height: 50,
                 ),
                 CustomButton(
-                    onTap: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginScreen())),
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            // navigating to login page...just testing the GiveDetailsScreen
+                            builder: (context) => GiveDetailsScreen())),
                     padding: _mediaQuery.size.longestSide / 6,
                     title: "Login",
                     color: Colors.amberAccent,

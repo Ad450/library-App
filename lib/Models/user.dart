@@ -32,6 +32,10 @@ class User {
         id: datafromApi["id"]);
   }
 
+  static List<int> _userLevels = [100, 200, 300, 400];
+
+  static List<int> get getUserLevels => _userLevels;
+
   Map<String, dynamic> _returnUserObject(String? email, String? password) {
     return {"email": email, "password": password};
   }
