@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:library_project/SharedPrefs.dart';
+import 'package:library_project/UI/GiveDetailScreen.dart';
 
 import 'package:library_project/Widgets/customButton.dart';
 import 'package:library_project/Widgets/logo.dart';
@@ -13,8 +14,9 @@ import 'landingScreen.dart';
 import 'LoginScreen.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  final bool prefBool;
-  const WelcomeScreen(this.prefBool);
+  final bool isVerified;
+  final bool isLoggedIn;
+  const WelcomeScreen(this.isVerified, this.isLoggedIn);
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
@@ -29,13 +31,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     // _provider gives the value of isVerified....check auth class ..handleVerification
     // print(widget.prefBool);
     var _provider = Provider.of<StateProvider>(context);
-    _sharedPrefs.setBookScreen(_provider.isVerified);
+
     final _mediaHeight = MediaQuery.of(context).size.height;
     final _mediaWidth = MediaQuery.of(context).size.width;
 
     // print(prefIsVerified);
-    return widget.prefBool
-        ? BookScreen()
+    return widget.isVerified || widget.isLoggedIn
+        ? GiveDetailsScreen()
         : SafeArea(
             child: PageView(children: [
               Scaffold(
@@ -50,11 +52,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       right: _mediaWidth * 0.2,
                       bottom: _mediaHeight * 0.4,
                       child: CustomLogo(),
-                    ),                    
+                    ),
                   ],
                 ),
               ),
-
               LandingScreen()
             ]),
           );

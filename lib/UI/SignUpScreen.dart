@@ -17,8 +17,6 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-
-
   Future<dynamic> _showDialog(BuildContext context, String? message) {
     return showDialog(
       context: context,
@@ -44,11 +42,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void _handleSignUp(
-      StateProvider _provider,
-      String? _email,
-      String? _password,
-      TextEditingController _emailController,
-      TextEditingController _passwordController) async {
+    StateProvider _provider,
+    String? _email,
+    String? _password,
+    TextEditingController _emailController,
+    TextEditingController _passwordController,
+  ) async {
     // sign user
     setState(() {
       _email = _emailController.value.text;
@@ -58,9 +57,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     _provider.changeSignUpLoading(true);
     print("$_userMap");
-    if (_SignUpScreenState().mounted) {
-      await Auth.signUp(_userMap, context);
-    }
+
+    await Auth.signUp(_userMap, context);
 
     _emailController.clear();
     _passwordController.clear();
@@ -72,10 +70,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
           builder: (context) => VerificationScreen(),
         ),
       );
-    } else if (_SignUpScreenState().mounted) {
-      if (_provider.getAuthMessage != null) {
-        _showDialog(context, _provider.getAuthMessage!);
-      }
+    }
+    if (_provider.getAuthMessage != null) {
+      _showDialog(context, _provider.getAuthMessage!);
     }
   }
 

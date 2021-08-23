@@ -14,15 +14,17 @@ import 'UI/welcomeScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  bool prefBool = await SharedPrefs().getHomeScreen();
-
-  runApp(MyApp(prefBool));
+  bool isVerified = await SharedPrefs().getIsVerifiedDB();
+  bool isLoggedIn = await SharedPrefs().getIsloggedInDB();
+  print("$isVerified " "  $isLoggedIn");
+  runApp(MyApp(isVerified, isLoggedIn));
 }
 
 class MyApp extends StatelessWidget {
   final _title = "Uenr library";
-  final bool prefBool;
-  MyApp(this.prefBool);
+  final bool isVerified;
+  final bool isLoggedIn;
+  MyApp(this.isVerified, this.isLoggedIn);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class MyApp extends StatelessWidget {
               ForgotPasswordScreen()
         },
         title: _title,
-        home: WelcomeScreen(prefBool),
+        home: WelcomeScreen(isVerified, isLoggedIn),
       ),
     );
   }

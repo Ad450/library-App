@@ -91,6 +91,7 @@ class Auth {
         print(dataFromApi);
 
         _stateProvider.changeLogInState(true);
+        SharedPrefs().setLoggedInDB(true);
         _stateProvider.changeLoginLoading(false);
       } else {
         var dataFromApi = json.decode(_response.body);
@@ -126,7 +127,7 @@ class Auth {
         _stateProvider.changeIsVerifiedState(true);
         _stateProvider.changeVerificationLoadingState(false);
         _stateProvider.changeVerificationMessage(_result["message"]);
-        _sharedPrefs.setBookScreen(_stateProvider.isVerified);
+        _sharedPrefs.setIsVerifiedDB(true);
       } else {
         print(_response.statusCode);
         dynamic _result = json.decode(_response.body);
@@ -165,4 +166,14 @@ class Auth {
   static Future<void> handleRetrieveUsers(BuildContext _context) async {
     await _handleRetrieveUsers(_context);
   }
+
+  // get two booleans
+  //one to determine whether to show the landing screen or GiveDetailsScreen if logged in
+  // one to also determine whether to show the bookscreen or the profile screen in the GiveDetailsScreen
+  // set userID sharedPrefs at the time of loggin in if status code is 200
+  // get UserId in the initstate of the profile Screen from GiveDetailsScreen
+  // set one boolean say finishedProfile to true.inintial value to be false
+  // set the other boolean to say isLoginIn to true . initial value to be false
+  // finishedProfile is put on GiveDetailsScreen
+  // isLoginIn is put on the first welcome screen scaffold widget after the material widget
 }

@@ -38,6 +38,7 @@ class _CustomFormsState extends State<CustomForms> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscureText = true;
+// bool _customFormStateMounted = _CustomFormsState().mounted;
 
   void handleAuth(
     StateProvider _provider,
@@ -51,15 +52,13 @@ class _CustomFormsState extends State<CustomForms> {
     );
   }
 
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _emailController.dispose();
+  //   _passwordController.dispose();
 
-
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {

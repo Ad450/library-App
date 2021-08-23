@@ -63,8 +63,8 @@ class LandingScreen extends StatelessWidget {
                     onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            // navigating to login page...just testing the GiveDetailsScreen
-                            builder: (context) => GiveDetailsScreen())),
+                            //TODO: navigating to login page...just testing the GiveDetailsScreen
+                            builder: (context) => LoginScreen())),
                     padding: _mediaQuery.size.longestSide / 6,
                     title: "Login",
                     color: Colors.amberAccent,

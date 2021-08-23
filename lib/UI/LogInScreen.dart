@@ -40,11 +40,10 @@ class _LoginScreenState extends State<LoginScreen> {
     var _userMap = User().userMap(_email, _password);
     assert(_userMap.isNotEmpty);
     _provider.changeLoginLoading(true);
-    
-    if (_LoginScreenState().mounted) {
-      await Auth.login(_userMap, context);
-    }
 
+       print("function call got here");
+    await Auth.login(_userMap, context);
+    
     print("login button working");
     _emailController.clear();
     _passwordController.clear();
@@ -56,10 +55,8 @@ class _LoginScreenState extends State<LoginScreen> {
           builder: (context) => GiveDetailsScreen(),
         ),
       );
-    } else if (_LoginScreenState().mounted) {
-      if (_provider.loginMessage != null) {
-        _showDialog(_provider.loginMessage!);
-      }
+    } else if (_provider.loginMessage != null) {
+      _showDialog(_provider.loginMessage!);
     }
   }
 
@@ -96,11 +93,6 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
