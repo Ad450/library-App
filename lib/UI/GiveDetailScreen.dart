@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:library_project/Widgets/Overview.dart';
-import 'package:library_project/Widgets/customButton.dart';
 import 'package:library_project/Widgets/profile.dart';
 
 class GiveDetailsScreen extends StatefulWidget {
@@ -50,8 +49,8 @@ class _GiveDetailsScreenState extends State<GiveDetailsScreen>
       appBar: PreferredSize(
         child: AppBar(
           leading: IconButton(
-              color: Colors.black,
-              onPressed: () => Navigator.pop(context),
+              color: Colors.white,
+              onPressed: () {},
               icon: Icon(Icons.keyboard_arrow_left_outlined)),
           backgroundColor: Colors.white,
           title: Text(

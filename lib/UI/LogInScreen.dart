@@ -3,10 +3,7 @@ import 'package:library_project/Authentication/auth.dart';
 import 'package:library_project/Models/user.dart';
 import 'package:library_project/UI/LoadingScreen.dart';
 import 'package:library_project/Widgets/CustomForms.dart';
-
 import 'package:library_project/provider/stateProvider.dart';
-import 'package:loading_indicator/loading_indicator.dart';
-
 import 'package:provider/provider.dart';
 
 import 'GiveDetailScreen.dart';
@@ -41,13 +38,12 @@ class _LoginScreenState extends State<LoginScreen> {
     assert(_userMap.isNotEmpty);
     _provider.changeLoginLoading(true);
 
-       print("function call got here");
     await Auth.login(_userMap, context);
-    
+
     print("login button working");
     _emailController.clear();
     _passwordController.clear();
-
+    print(_provider.isLoggedIn);
     if (_provider.isLoggedIn) {
       Navigator.push(
         context,
@@ -93,6 +89,11 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override

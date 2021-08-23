@@ -81,7 +81,7 @@ class StateProvider with ChangeNotifier {
   }
 
   void changeLogInState(bool state) {
-    _isVerified = state;
+    _isLoggedIn = state;
     notifyListeners();
   }
 

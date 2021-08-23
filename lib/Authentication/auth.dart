@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:library_project/Exceptions/AuthExceptions.dart';
 import 'package:library_project/SharedPrefs.dart';
 import 'package:library_project/provider/stateProvider.dart';
 import 'package:provider/provider.dart';
@@ -89,7 +88,6 @@ class Auth {
       if (_response.statusCode == 200) {
         var dataFromApi = json.decode(_response.body);
         print(dataFromApi);
-
         _stateProvider.changeLogInState(true);
         SharedPrefs().setLoggedInDB(true);
         _stateProvider.changeLoginLoading(false);

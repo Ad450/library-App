@@ -69,7 +69,6 @@ class SharedPrefs {
 
   Future<bool> getIsloggedInDB() async {
     SharedPreferences _sharedPrefs = await SharedPreferences.getInstance();
-   
     return await _getIsLoggedIn();
   }
 }

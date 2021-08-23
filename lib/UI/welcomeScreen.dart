@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:library_project/SharedPrefs.dart';
 import 'package:library_project/UI/GiveDetailScreen.dart';
-
-import 'package:library_project/Widgets/customButton.dart';
 import 'package:library_project/Widgets/logo.dart';
-import 'package:library_project/constants/constants.dart';
 import 'package:library_project/provider/stateProvider.dart';
 import 'package:provider/provider.dart';
 
-import 'BookScreen.dart';
 import 'landingScreen.dart';
-import 'LoginScreen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   final bool isVerified;
@@ -36,7 +30,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     final _mediaWidth = MediaQuery.of(context).size.width;
 
     // print(prefIsVerified);
-    return widget.isVerified || widget.isLoggedIn
+    return widget.isVerified
+        // || widget.isLoggedIn
         ? GiveDetailsScreen()
         : SafeArea(
             child: PageView(children: [
