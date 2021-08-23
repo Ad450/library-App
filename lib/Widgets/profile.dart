@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:library_project/Models/user.dart';
+import 'package:library_project/SharedPrefs.dart';
 import 'package:library_project/Widgets/customButton.dart';
 
 class Profile extends StatefulWidget {
@@ -14,9 +15,22 @@ class _ProfileState extends State<Profile> {
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _programOfStudy = TextEditingController();
   TextEditingController _nameOfSchool = TextEditingController();
+  GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  SharedPrefs _sharedPrefs = SharedPrefs();
 
-  GlobalKey _formkey = GlobalKey<FormState>();
   int _dropDownValue = 100;
+
+  int? _id;
+
+  getID() async {
+    return await _sharedPrefs.getUserIdDB();
+  }
+
+  @override
+  void initState() {
+    _id = getID();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -192,7 +206,13 @@ class _ProfileState extends State<Profile> {
                   alignment: Alignment.centerRight,
                   child: RawMaterialButton(
                     //TODO: implement push user info into database
-                    onPressed: () {},
+                    onPressed: () {
+                      if (_formkey.currentState!.validate()) {
+                        print("works now");
+                        print(_id);
+                        // user's id to create a field in the database
+                      }
+                    },
                     child: Text(
                       "submit",
                       style: GoogleFonts.quicksand(

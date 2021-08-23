@@ -89,7 +89,8 @@ class Auth {
         var dataFromApi = json.decode(_response.body);
         print(dataFromApi);
         _stateProvider.changeLogInState(true);
-        SharedPrefs().setLoggedInDB(true);
+        _sharedPrefs.setLoggedInDB(true);
+        _sharedPrefs.setUserIdDB(dataFromApi["id"]);
         _stateProvider.changeLoginLoading(false);
       } else {
         var dataFromApi = json.decode(_response.body);
@@ -124,6 +125,7 @@ class Auth {
         dynamic _result = json.decode(_response.body);
         _stateProvider.changeIsVerifiedState(true);
         _stateProvider.changeVerificationLoadingState(false);
+
         _stateProvider.changeVerificationMessage(_result["message"]);
         _sharedPrefs.setIsVerifiedDB(true);
       } else {
@@ -175,3 +177,8 @@ class Auth {
   // finishedProfile is put on GiveDetailsScreen
   // isLoginIn is put on the first welcome screen scaffold widget after the material widget
 }
+
+
+// continue with the user profile form .. post form by user id 
+// intentionally interrupt signUp and the login process to check the respond of the widgets
+// collect first screen pageView from litmus 

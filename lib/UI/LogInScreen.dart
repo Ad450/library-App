@@ -18,7 +18,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  GlobalKey _loginScaffoldKey = GlobalKey();
   void _closeDialog() {
     Navigator.pop(context);
   }

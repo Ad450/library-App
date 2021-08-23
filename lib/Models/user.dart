@@ -32,7 +32,7 @@ class User {
         id: datafromApi["id"]);
   }
 
-  static List<int> _userLevels = [100, 200, 300, 400];
+  static List<int> _userLevels = <int>[100, 200, 300, 400];
 
   static List<int> get getUserLevels => _userLevels;
 
@@ -51,5 +51,15 @@ class User {
   Map<String, dynamic>? getUserMapFromVerification(String? email) {
     if (email == null) return null;
     return _userMapForVerification(email);
+  }
+
+  Map<String, dynamic> _userProfileMap(String _id, String _username,
+      String _programName, String _universityName) {
+    return {
+      "username": _username,
+      "id": _id,
+      "program_of_study": _programName,
+      "university_name": _universityName
+    };
   }
 }
