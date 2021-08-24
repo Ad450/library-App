@@ -69,6 +69,7 @@ class SharedPrefs {
 
   Future<bool> getIsloggedInDB() async {
     SharedPreferences _sharedPrefs = await SharedPreferences.getInstance();
+    assert(_sharedPrefs.containsKey(_isLoggedInKey));
     return await _getIsLoggedIn();
   }
 }

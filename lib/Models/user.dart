@@ -62,4 +62,9 @@ class User {
       "university_name": _universityName
     };
   }
+
+  Map<String, dynamic> userProfileMap(
+      String id, String username, String programName, String universityName) {
+    return _userProfileMap(id, username, programName, universityName);
+  }
 }

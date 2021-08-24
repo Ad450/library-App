@@ -20,7 +20,7 @@ class _ProfileState extends State<Profile> {
 
   int _dropDownValue = 100;
 
-  int? _id;
+  var _id;
 
   getID() async {
     return await _sharedPrefs.getUserIdDB();
