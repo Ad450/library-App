@@ -15,7 +15,8 @@ class StateProvider with ChangeNotifier {
   bool _showSnackBar = false;
   bool? _userFormAuthLoading;
 
-  
+
+
   // StateProvider({isVerified : false, isLoggedIn : false , isAuthLoading}): _isVerified= isVerified;
 
   Map<String, dynamic>? _userInfo = {};
