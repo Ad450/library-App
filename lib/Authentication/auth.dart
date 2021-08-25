@@ -91,6 +91,7 @@ class Auth {
         _stateProvider.changeLogInState(true);
         _sharedPrefs.setLoggedInDB(true);
         _sharedPrefs.setUserIdDB(dataFromApi["id"]);
+        print(dataFromApi["id"]);
         _stateProvider.changeLoginLoading(false);
       } else {
         var dataFromApi = json.decode(_response.body);
@@ -154,7 +155,7 @@ class Auth {
     try {
       if (response.statusCode == 200) {
         var userInfo = json.decode(response.body);
-        _stateProvider.setUserInfo(userInfo["data"]);
+        _stateProvider.setUserInfo(userInfo);
       } else {
         print(response.statusCode);
       }
@@ -167,18 +168,43 @@ class Auth {
     await _handleRetrieveUsers(_context);
   }
 
-  // get two booleans
-  //one to determine whether to show the landing screen or GiveDetailsScreen if logged in
-  // one to also determine whether to show the bookscreen or the profile screen in the GiveDetailsScreen
-  // set userID sharedPrefs at the time of loggin in if status code is 200
-  // get UserId in the initstate of the profile Screen from GiveDetailsScreen
-  // set one boolean say finishedProfile to true.inintial value to be false
-  // set the other boolean to say isLoginIn to true . initial value to be false
-  // finishedProfile is put on GiveDetailsScreen
-  // isLoginIn is put on the first welcome screen scaffold widget after the material widget
+  static Future<void> _handleProfile(
+      Map<String, dynamic> _userMap, BuildContext _context) async {
+    var url = Uri.parse(_loginEndpoint);
+    var _provider = Provider.of<StateProvider>(_context);
+    try {
+      var _response = await http.post(url,
+          body: json.encode(_userMap),
+          headers: {"content-type": "application/json"});
+
+      if (_response.statusCode == 200) {
+        _provider.changeUserFormPostSuccess(true);
+        _provider.changeUserFormAuthLoading(false);
+      }
+    } on SocketException catch (e) {
+      // display a snackbar if socket Exception occurs
+      _provider.changeUserFormAuthMessage(
+          "No internet connection, please try again");
+      print(e);
+    }
+  }
+
+  static Future<void> handleProfile(
+      Map<String, dynamic> _userMap, BuildContext context) async {
+    await _handleProfile(_userMap, context);
+  }
 }
 
+// get two booleans
+//one to determine whether to show the landing screen or GiveDetailsScreen if logged in
+// one to also determine whether to show the bookscreen or the profile screen in the GiveDetailsScreen
+// set userID sharedPrefs at the time of loggin in if status code is 200
+// get UserId in the initstate of the profile Screen from GiveDetailsScreen
+// set one boolean say finishedProfile to true.inintial value to be false
+// set the other boolean to say isLoginIn to true . initial value to be false
+// finishedProfile is put on GiveDetailsScreen
+// isLoginIn is put on the first welcome screen scaffold widget after the material widget
 
-// continue with the user profile form .. post form by user id 
+// continue with the user profile form .. post form by user id
 // intentionally interrupt signUp and the login process to check the respond of the widgets
-// collect first screen pageView from litmus 
+// collect first screen pageView from litmus

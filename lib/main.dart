@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:library_project/SharedPrefs.dart';
 
 import 'package:library_project/UI/ForgotPassword.dart';
+
 import 'package:library_project/provider/stateProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
               VerificationScreen(),
           GiveDetailsScreen.detailsUrl: (context) => GiveDetailsScreen(),
           ForgotPasswordScreen.forgotPasswordUrl: (context) =>
-              ForgotPasswordScreen()
+              ForgotPasswordScreen(),
         },
         title: _title,
         home: WelcomeScreen(isVerified, isLoggedIn),

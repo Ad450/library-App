@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:library_project/Authentication/auth.dart';
 import 'package:library_project/Models/user.dart';
 import 'package:library_project/SharedPrefs.dart';
+import 'package:library_project/UI/BookScreen.dart';
+import 'package:library_project/Widgets/Overview.dart';
 import 'package:library_project/Widgets/customButton.dart';
+import 'package:library_project/provider/stateProvider.dart';
+import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+  final int? _currentIndex;
+
+  const Profile({Key? key, @required int? currentIndex})
+      : _currentIndex = currentIndex,
+        super(key: key);
 
   @override
   _ProfileState createState() => _ProfileState();
@@ -13,23 +22,59 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   TextEditingController _usernameController = TextEditingController();
-  TextEditingController _programOfStudy = TextEditingController();
-  TextEditingController _nameOfSchool = TextEditingController();
+  TextEditingController _programOfStudyController = TextEditingController();
+  TextEditingController _nameOfSchoolController = TextEditingController();
   GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   SharedPrefs _sharedPrefs = SharedPrefs();
 
-  int _dropDownValue = 100;
+  int levelOfEducation = 100;
 
   var _id;
 
   getID() async {
-    return await _sharedPrefs.getUserIdDB();
+    var userID = await _sharedPrefs.getUserIdDB();
+    return userID;
   }
 
   @override
   void initState() {
     _id = getID();
+    print(_id);
     super.initState();
+  }
+
+  Future<void> _handleUserPost(
+      Map<String, dynamic> _userMap, BuildContext context) async {
+    // try loading  a spinner at the start of the auth
+    var _provider = Provider.of<StateProvider>(context);
+    _provider.changeUserFormAuthLoading(true);
+    ScaffoldMessenger.of(context).showSnackBar(_showSnackBar("Loading..."));
+    await Auth.handleProfile(_userMap, context);
+
+    if (_provider.userFormPostSuccessful!) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          _showSnackBar("Please check overview or proceed to home"));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => BookScreen()));
+    } else {
+      var errorMessage = _provider.userFormAuthMessage;
+      ScaffoldMessenger.of(context).showSnackBar(_showSnackBar(errorMessage!));
+    }
+    // end the loading spinner at the end of the auth
+  }
+
+  SnackBar _showSnackBar(String authMessage) {
+    return SnackBar(
+      content: Text(
+        authMessage,
+        style: GoogleFonts.quicksand(fontSize: 20, fontWeight: FontWeight.bold),
+      ),
+      action: SnackBarAction(
+        textColor: Colors.black,
+        label: "",
+        onPressed: () => Navigator.pop(context),
+      ),
+    );
   }
 
   @override
@@ -95,7 +140,7 @@ class _ProfileState extends State<Profile> {
                   height: 10,
                 ),
                 TextFormField(
-                  keyboardType: TextInputType.emailAddress,
+                  keyboardType: TextInputType.text,
                   cursorColor: Colors.amberAccent,
                   validator: (input) {
                     if (input!.isEmpty) {
@@ -121,7 +166,7 @@ class _ProfileState extends State<Profile> {
                   height: 10,
                 ),
                 TextFormField(
-                  keyboardType: TextInputType.emailAddress,
+                  keyboardType: TextInputType.text,
                   cursorColor: Colors.amberAccent,
                   validator: (input) {
                     if (input!.isEmpty) {
@@ -129,7 +174,7 @@ class _ProfileState extends State<Profile> {
                     }
                     return null;
                   },
-                  controller: _nameOfSchool,
+                  controller: _nameOfSchoolController,
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
@@ -145,7 +190,7 @@ class _ProfileState extends State<Profile> {
                   height: 20,
                 ),
                 TextFormField(
-                  keyboardType: TextInputType.emailAddress,
+                  keyboardType: TextInputType.text,
                   cursorColor: Colors.amberAccent,
                   validator: (input) {
                     if (input!.isEmpty) {
@@ -153,7 +198,7 @@ class _ProfileState extends State<Profile> {
                     }
                     return null;
                   },
-                  controller: _programOfStudy,
+                  controller: _programOfStudyController,
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
@@ -176,10 +221,10 @@ class _ProfileState extends State<Profile> {
                     Container(
                       alignment: Alignment.centerRight,
                       child: DropdownButton(
-                          value: _dropDownValue,
+                          value: levelOfEducation,
                           onChanged: (int? level) {
                             setState(() {
-                              _dropDownValue = level!;
+                              levelOfEducation = level!;
                             });
                           },
                           items: User.getUserLevels
@@ -206,11 +251,15 @@ class _ProfileState extends State<Profile> {
                   alignment: Alignment.centerRight,
                   child: RawMaterialButton(
                     //TODO: implement push user info into database
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formkey.currentState!.validate()) {
-                        print("works now");
-                        print(_id);
-                        // user's id to create a field in the database
+                        var _username = _usernameController.value.text;
+                        var _program = _programOfStudyController.value.text;
+                        var _schoolName = _nameOfSchoolController.value.text;
+                        var _userMap = User().userProfileMap(_id, _username,
+                            _program, _schoolName, levelOfEducation);
+
+                        await _handleUserPost(_userMap, context);
                       }
                     },
                     child: Text(

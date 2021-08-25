@@ -54,17 +54,18 @@ class User {
   }
 
   Map<String, dynamic> _userProfileMap(String _id, String _username,
-      String _programName, String _universityName) {
+      String _programName, String _universityName , int _level) {
     return {
       "username": _username,
       "id": _id,
       "program_of_study": _programName,
-      "university_name": _universityName
+      "university_name": _universityName,
+      "level": _level
     };
   }
 
   Map<String, dynamic> userProfileMap(
-      String id, String username, String programName, String universityName) {
-    return _userProfileMap(id, username, programName, universityName);
+      String id, String username, String programName, String universityName, int level) {
+    return _userProfileMap(id, username, programName, universityName, level);
   }
 }

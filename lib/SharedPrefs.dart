@@ -24,7 +24,7 @@ class SharedPrefs {
   Future<bool> _getIsVerified() async {
     SharedPreferences _sharedPrefs = await SharedPreferences.getInstance();
     bool _prefsBool = _sharedPrefs.getBool(_prefKey) ?? false;
-    assert(_sharedPrefs.containsKey(_prefKey));
+    // assert(_sharedPrefs.containsKey(_prefKey));
     return _prefsBool;
   }
 
@@ -35,7 +35,7 @@ class SharedPrefs {
 
   Future<dynamic> _setUserID(dynamic _userId) async {
     SharedPreferences _sharedPrefs = await SharedPreferences.getInstance();
-    await _sharedPrefs.setString(_userIdPrefKey, _userId);
+    await _sharedPrefs.setInt(_userIdPrefKey, _userId);
   }
 
   Future<dynamic> _getUserID() async {
@@ -68,8 +68,6 @@ class SharedPrefs {
   }
 
   Future<bool> getIsloggedInDB() async {
-    SharedPreferences _sharedPrefs = await SharedPreferences.getInstance();
-    assert(_sharedPrefs.containsKey(_isLoggedInKey));
     return await _getIsLoggedIn();
   }
 }

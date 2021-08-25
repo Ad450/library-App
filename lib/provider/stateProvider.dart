@@ -7,20 +7,30 @@ class StateProvider with ChangeNotifier {
   bool _hasSignedUp = false;
   bool _isLoginLoading = false;
   bool _verificationLoading = false;
+  bool? _userFormPostSuccess = false;
   String? _authMessage;
   String? _loginMessage;
   String? _verificationMessage;
+  String? _userFormAuthMessage;
+  bool _showSnackBar = false;
+  bool? _userFormAuthLoading;
 
+  
   // StateProvider({isVerified : false, isLoggedIn : false , isAuthLoading}): _isVerified= isVerified;
 
-  Map<String, dynamic>? _userInfo;
+  Map<String, dynamic>? _userInfo = {};
 
   Map<String, dynamic>? get userInfo => _userInfo;
+
+  bool get showSnackBar => _showSnackBar;
+
+  bool? get userFormPostSuccessful => _userFormPostSuccess;
 
   String? get verificationMessage => _verificationMessage;
 
   String? get loginMessage => _loginMessage;
 
+  String? get userFormAuthMessage => _userFormAuthMessage;
   String? get getAuthMessage => _authMessage;
 
   bool get hasSignedUp => _hasSignedUp;
@@ -28,6 +38,8 @@ class StateProvider with ChangeNotifier {
   bool get isLoginLoading => _isLoginLoading;
 
   bool get verificationLoading => _verificationLoading;
+
+  bool? get userFormAuthLoading => _userFormAuthLoading;
 
   bool get isVerified {
     return _isVerified;
@@ -49,8 +61,28 @@ class StateProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void changeUserFormAuthLoading(bool state) {
+    _userFormAuthLoading = state;
+    notifyListeners();
+  }
+
+  void changeShowSnackBar(bool state) {
+    _showSnackBar = state;
+    notifyListeners();
+  }
+
+  void changeUserFormPostSuccess(bool? _state) {
+    _userFormPostSuccess = _state;
+    notifyListeners();
+  }
+
   void changeVerificationMessage(String? message) {
     _verificationMessage = message;
+    notifyListeners();
+  }
+
+  void changeUserFormAuthMessage(String message) {
+    _userFormAuthMessage = message;
     notifyListeners();
   }
 

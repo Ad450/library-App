@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:library_project/Widgets/Overview.dart';
 import 'package:library_project/Widgets/profile.dart';
+import 'package:library_project/provider/stateProvider.dart';
+import 'package:provider/provider.dart';
 
 class GiveDetailsScreen extends StatefulWidget {
   const GiveDetailsScreen({Key? key}) : super(key: key);
@@ -16,8 +18,7 @@ class GiveDetailsScreen extends StatefulWidget {
 class _GiveDetailsScreenState extends State<GiveDetailsScreen>
     with SingleTickerProviderStateMixin {
   TabController? _tabController;
-  bool _profileIsClicked = false;
-  bool _overviewIsClicked = false;
+  bool allowOverview = false;
   int _currentIndex = 0;
 
   @override
@@ -29,6 +30,7 @@ class _GiveDetailsScreenState extends State<GiveDetailsScreen>
 
   @override
   Widget build(BuildContext context) {
+    var _provider = Provider.of<StateProvider>(context);
     List<Tab> _tabs = [
       Tab(
         child: Text(
@@ -75,8 +77,20 @@ class _GiveDetailsScreenState extends State<GiveDetailsScreen>
             onTap: (index) {
               setState(() {
                 _currentIndex = index;
-                _tabController!.animateTo(_currentIndex);
+                // checking if _currentIndex is one
+                // check if userFormPostSuccess is true
+                //before pushing to the overview screen
+                print(_provider.userFormPostSuccessful);
+                if (_currentIndex == 1) {
+                  if (!_provider.userFormPostSuccessful!) {
+                    _currentIndex = 0;
+                    _tabController!.animateTo(_currentIndex);
+                  }else{
+                    _currentIndex = index;
+                  }
+                }
               });
+              print(_currentIndex);
             },
             controller: _tabController,
             tabs: _tabs,
@@ -86,7 +100,7 @@ class _GiveDetailsScreenState extends State<GiveDetailsScreen>
       ),
       body: TabBarView(
           controller: _tabController,
-          children: <Widget>[Profile(), OverView()]),
+          children: <Widget>[Profile(currentIndex: _currentIndex), OverView()]),
     );
   }
 }

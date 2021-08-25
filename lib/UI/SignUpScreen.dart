@@ -91,7 +91,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         : CustomForms(
             buttonTitle: "Register",
             title: "Sign Up",
-            paddingDecider: 7,
+            paddingDecider: 8,
             authHandler: _handleSignUp);
   }
 }
