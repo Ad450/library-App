@@ -85,8 +85,9 @@ class _GiveDetailsScreenState extends State<GiveDetailsScreen>
                   if (!_provider.userFormPostSuccessful!) {
                     _currentIndex = 0;
                     _tabController!.animateTo(_currentIndex);
-                  }else{
+                  } else {
                     _currentIndex = index;
+                    _tabController!.animateTo(_currentIndex);
                   }
                 }
               });
