@@ -92,7 +92,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    _showDialog("");
+    _closeDialog();
+    Provider.of<StateProvider>(context).changeLoginLoading(false);
     super.dispose();
   }
 
