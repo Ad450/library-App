@@ -171,7 +171,7 @@ class Auth {
   static Future<void> _handleProfile(
       Map<String, dynamic> _userMap, BuildContext _context) async {
     var url = Uri.parse(_loginEndpoint);
-    var _provider = Provider.of<StateProvider>(_context);
+    var _provider = Provider.of<StateProvider>(_context, listen: false);
     try {
       var _response = await http.post(url,
           body: json.encode(_userMap),
@@ -180,11 +180,18 @@ class Auth {
       if (_response.statusCode == 200) {
         _provider.changeUserFormPostSuccess(true);
         _provider.changeUserFormAuthLoading(false);
+        _provider.changeProfileAuthCompleted(true);
       }
     } on SocketException catch (e) {
       // display a snackbar if socket Exception occurs
+      _provider.changeUserFormAuthLoading(false);
       _provider.changeUserFormAuthMessage(
           "No internet connection, please try again");
+      _provider.changeProfileAuthCompleted(true);
+      print(e);
+    } on Exception catch (e) {
+      _provider.changeUserFormAuthLoading(false);
+      _provider.changeUserFormAuthMessage("please try again");
       print(e);
     }
   }

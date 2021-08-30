@@ -93,9 +93,10 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void dispose() {
     _closeDialog();
-    Provider.of<StateProvider>(context).changeLoginLoading(false);
+   Navigator.pop(context);
     super.dispose();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -103,15 +104,17 @@ class _LoginScreenState extends State<LoginScreen> {
     MediaQueryData _mediaQuery = MediaQuery.of(context);
     var height = _mediaQuery.size.height / 4.5;
     return Scaffold(
-        // key: _loginScaffoldKey,
-        body: _provider.isLoginLoading
-            ? LoadingScreen(
-                authTitle: "please wait while we log you in!",
-              )
-            : CustomForms(
-                buttonTitle: "Login",
-                title: "Login",
-                paddingDecider: 7,
-                authHandler: _handleLogin));
+      // key: _loginScaffoldKey,
+      body: _provider.isLoginLoading
+          ? LoadingScreen(
+              authTitle: "please wait while we log you in!",
+            )
+          : CustomForms(
+              buttonTitle: "Login",
+              title: "Login",
+              paddingDecider: 7,
+              authHandler: _handleLogin,
+            ),
+    );
   }
 }

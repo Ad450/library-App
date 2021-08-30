@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 
 class CustomForms extends StatefulWidget {
   final String? _title;
-
   final Function? _authHandler;
   final String? _buttonTitle;
   final double? _paddingDecider;
@@ -52,13 +51,10 @@ class _CustomFormsState extends State<CustomForms> {
     );
   }
 
-  // @override
-  // void dispose() {
-  //   _emailController.dispose();
-  //   _passwordController.dispose();
-
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -185,6 +181,7 @@ class _CustomFormsState extends State<CustomForms> {
                           if (_formKey.currentState!.validate()) {
                             // sign user
                             handleAuth(_provider);
+                            print(_CustomFormsState().mounted);
                           }
                         },
                       ),

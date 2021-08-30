@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:library_project/SharedPrefs.dart';
 import 'package:library_project/Widgets/Overview.dart';
 import 'package:library_project/Widgets/profile.dart';
 import 'package:library_project/provider/stateProvider.dart';
@@ -20,9 +21,15 @@ class _GiveDetailsScreenState extends State<GiveDetailsScreen>
   TabController? _tabController;
   bool allowOverview = false;
   int _currentIndex = 0;
+  dynamic _id;
+
+  _getId() async {
+    return await SharedPrefs().getUserIdDB();
+  }
 
   @override
   void initState() {
+    _id = _getId();
     _tabController =
         TabController(initialIndex: _currentIndex, vsync: this, length: 2);
     super.initState();
@@ -63,6 +70,7 @@ class _GiveDetailsScreenState extends State<GiveDetailsScreen>
           centerTitle: true,
           elevation: 0.0,
           bottom: TabBar(
+            isScrollable: true,
             //indicatorPadding: EdgeInsets.only(left: 20, right: 20),
             indicatorSize: TabBarIndicatorSize.tab,
             indicatorColor: Colors.black,
@@ -77,9 +85,6 @@ class _GiveDetailsScreenState extends State<GiveDetailsScreen>
             onTap: (index) {
               setState(() {
                 _currentIndex = index;
-                // checking if _currentIndex is one
-                // check if userFormPostSuccess is true
-                //before pushing to the overview screen
                 print(_provider.userFormPostSuccessful);
                 if (_currentIndex == 1) {
                   if (!_provider.userFormPostSuccessful!) {
@@ -101,7 +106,7 @@ class _GiveDetailsScreenState extends State<GiveDetailsScreen>
       ),
       body: TabBarView(
           controller: _tabController,
-          children: <Widget>[Profile(currentIndex: _currentIndex), OverView()]),
+          children: <Widget>[Profile(id: _id), OverView()]),
     );
   }
 }

@@ -17,4 +17,8 @@ class Constants {
   static String get verifyImage => _verifyImage;
   static String _waitingImage = "images/waiting.png";
   static String get waitingImage => _waitingImage;
+
+  static String _modalImage = "images/modal_sheet.png";
+
+  static String get modalImage => _modalImage;
 }

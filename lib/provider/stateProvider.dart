@@ -13,15 +13,14 @@ class StateProvider with ChangeNotifier {
   String? _verificationMessage;
   String? _userFormAuthMessage;
   bool _showSnackBar = false;
-  bool? _userFormAuthLoading;
-
-
-
-  // StateProvider({isVerified : false, isLoggedIn : false , isAuthLoading}): _isVerified= isVerified;
+  bool? _userFormAuthLoading = false;
+  bool _isAuthCompleted = false;
 
   Map<String, dynamic>? _userInfo = {};
 
   Map<String, dynamic>? get userInfo => _userInfo;
+
+  bool get isAuthCompleted => _isAuthCompleted;
 
   bool get showSnackBar => _showSnackBar;
 
@@ -51,6 +50,11 @@ class StateProvider with ChangeNotifier {
   }
 
   bool get isAuthLoading => _isAuthLoading;
+
+  void changeProfileAuthCompleted(bool state) {
+    _isAuthCompleted = state;
+    notifyListeners();
+  }
 
   void changeLoginMessage(String? message) {
     _loginMessage = message;

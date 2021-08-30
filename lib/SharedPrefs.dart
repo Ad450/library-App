@@ -6,6 +6,8 @@ class SharedPrefs {
   String _userIdPrefKey = "userID";
   bool? _prefIsVerifiedBool;
   String _isLoggedInKey = "loggedIn";
+  bool isUserFormFilled = true;
+  String userFormFilledKey = "userForm";
 
   String get prefKey => _prefKey;
   bool? get showHomeScreen => _showHomeScreen;
@@ -69,5 +71,25 @@ class SharedPrefs {
 
   Future<bool> getIsloggedInDB() async {
     return await _getIsLoggedIn();
+  }
+
+  Future<bool> _userFormFilled(bool isUserFormFilled) async {
+    SharedPreferences _sharedPrefs = await SharedPreferences.getInstance();
+    var formFilledState =
+        await _sharedPrefs.setBool(userFormFilledKey, isUserFormFilled);
+    return formFilledState;
+  }
+
+  Future<bool> userFormFilled(bool formFilledState) async {
+    return await _userFormFilled(formFilledState);
+  }
+
+  Future<bool> _getUserFormFilled() async {
+    SharedPreferences _sharedPrefs = await SharedPreferences.getInstance();
+    return _sharedPrefs.getBool(userFormFilledKey) ?? false;
+  }
+
+  Future<bool> getUserFormFilled() async {
+    return await _getUserFormFilled();
   }
 }

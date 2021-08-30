@@ -78,7 +78,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   void dispose() {
-    _showDialog(context, "");
+    _closeDialog();
+    Navigator.pop(context);
     super.dispose();
   }
 
