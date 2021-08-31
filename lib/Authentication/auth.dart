@@ -124,7 +124,7 @@ class Auth {
       print(_userMap);
       if (_response.statusCode == 200) {
         dynamic _result = json.decode(_response.body);
-        _stateProvider.changeIsVerifiedState(true);
+        _stateProvider.changeAuthOTPSucces(true);
         _stateProvider.changeVerificationLoadingState(false);
 
         _stateProvider.changeVerificationMessage(_result["message"]);
@@ -212,6 +212,11 @@ class Auth {
 // finishedProfile is put on GiveDetailsScreen
 // isLoginIn is put on the first welcome screen scaffold widget after the material widget
 
+//..........................................................
+
+// create a boolean to decide whether user profile should be shown or the home screen
+// get user id after login successful or verification successful  
+
 // continue with the user profile form .. post form by user id
-// intentionally interrupt signUp and the login process to check the respond of the widgets
+// intentionally interrupt signUp and the login process to check the response of the widgets
 // collect first screen pageView from litmus

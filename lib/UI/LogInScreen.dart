@@ -36,13 +36,15 @@ class _LoginScreenState extends State<LoginScreen> {
     var _userMap = User().userMap(_email, _password);
     assert(_userMap.isNotEmpty);
     _provider.changeLoginLoading(true);
-
-    await Auth.login(_userMap, context);
+    if (mounted) {
+      await Auth.login(_userMap, context);
+    } else {
+      _emailController.clear();
+      _passwordController.clear();
+    }
 
     print("login button working");
-    _emailController.clear();
-    _passwordController.clear();
-    print(_provider.isLoggedIn);
+
     if (_provider.isLoggedIn) {
       Navigator.push(
         context,
@@ -93,16 +95,26 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void dispose() {
     _closeDialog();
-   Navigator.pop(context);
+    print("login screen dispose method called");
+    Navigator.pop(context);
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
     var _provider = Provider.of<StateProvider>(context);
     MediaQueryData _mediaQuery = MediaQuery.of(context);
     var height = _mediaQuery.size.height / 4.5;
+      
+      if(!mounted){
+        return CustomForms(
+              buttonTitle: "Login",
+              title: "Login",
+              paddingDecider: 7,
+              authHandler: _handleLogin,
+            );
+      }
+
     return Scaffold(
       // key: _loginScaffoldKey,
       body: _provider.isLoginLoading

@@ -30,7 +30,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     final _mediaWidth = MediaQuery.of(context).size.width;
 
     // print(prefIsVerified);
-    return widget.isVerified || widget.isLoggedIn
+    return widget.isVerified 
+    //|| widget.isLoggedIn
         ? GiveDetailsScreen()
         : SafeArea(
             child: PageView(children: [

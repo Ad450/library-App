@@ -15,10 +15,12 @@ class StateProvider with ChangeNotifier {
   bool _showSnackBar = false;
   bool? _userFormAuthLoading = false;
   bool _isAuthCompleted = false;
+  bool _authOTPSucces = false;
 
   Map<String, dynamic>? _userInfo = {};
 
   Map<String, dynamic>? get userInfo => _userInfo;
+  bool get authOTPSucces => _authOTPSucces;
 
   bool get isAuthCompleted => _isAuthCompleted;
 
@@ -58,6 +60,11 @@ class StateProvider with ChangeNotifier {
 
   void changeLoginMessage(String? message) {
     _loginMessage = message;
+    notifyListeners();
+  }
+
+  void changeAuthOTPSucces(bool state) {
+    _authOTPSucces = state;
     notifyListeners();
   }
 
