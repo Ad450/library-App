@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:library_project/UI/LogInScreen.dart';
+import 'package:library_project/UI/welcomeScreen.dart';
 import 'package:library_project/constants/constants.dart';
 import 'package:library_project/provider/stateProvider.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +20,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void dispose() {
     print("loading screen dispose called");
-    Navigator.pop(context);
     super.dispose();
   }
 

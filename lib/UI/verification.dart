@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:library_project/Authentication/auth.dart';
 import 'package:library_project/Models/user.dart';
+import 'package:library_project/UI/EnterOTPScreen.dart';
 
 import 'package:library_project/UI/GiveDetailScreen.dart';
 import 'package:library_project/UI/LoadingScreen.dart';
@@ -68,8 +69,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
       print("is validated");
 
       if (_provider.isVerified) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => GiveDetailsScreen()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => EnterOTPScreen()));
       } else if (_provider.verificationMessage != null) {
         _showDialog(_provider.verificationMessage!);
       }

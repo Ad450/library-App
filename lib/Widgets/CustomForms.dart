@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:library_project/UI/EnterOTPScreen.dart';
 import 'package:library_project/UI/verification.dart';
 import 'package:library_project/Widgets/customButton.dart';
 import 'package:library_project/Widgets/logo.dart';
@@ -156,12 +157,13 @@ class _CustomFormsState extends State<CustomForms> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => VerificationScreen(),
+                                // Post to VerificationScreen()...just testing with OTPScreen()
+                                builder: (context) => EnterOTPScreen(),
                               ),
                             );
                           },
                           child: Text(
-                            "resend verification link",
+                            "resend verification code",
                             style: GoogleFonts.quicksand(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold),
