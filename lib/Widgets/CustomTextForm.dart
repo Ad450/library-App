@@ -4,6 +4,8 @@ import 'package:library_project/Widgets/customButton.dart';
 
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:library_project/constants/constants.dart';
+import 'package:library_project/provider/stateProvider.dart';
+import 'package:provider/provider.dart';
 
 class CustomTextForm extends StatefulWidget {
   const CustomTextForm({Key? key}) : super(key: key);
@@ -87,6 +89,12 @@ class _CustomTextFormState extends State<CustomTextForm> {
     }
 
     print(code);
+  }
+
+  @override
+  void initState() {
+    print(Provider.of<StateProvider>(context).userEmail);
+    super.initState();
   }
 
   @override

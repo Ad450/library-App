@@ -125,6 +125,7 @@ class Auth {
       if (_response.statusCode == 200) {
         dynamic _result = json.decode(_response.body);
         _stateProvider.changeAuthOTPSucces(true);
+        _stateProvider.changeIsVerifiedState(true);
         _stateProvider.changeVerificationLoadingState(false);
 
         _stateProvider.changeVerificationMessage(_result["message"]);
@@ -199,6 +200,22 @@ class Auth {
   static Future<void> handleProfile(
       Map<String, dynamic> _userMap, BuildContext context) async {
     await _handleProfile(_userMap, context);
+  }
+
+  Future<void> _otpVerification(String _email, String _otpCode) async {
+    final String _otpVerificationUrl =
+        " https://uenrlibrary.herokuapp.com/api/auth/email-verify/verification-code/$_email/$_otpCode";
+    Uri _url = Uri.parse(_otpVerificationUrl);
+    print(_email);
+    final _response = await http.get(_url);
+    if (_response.statusCode == 200) {
+      // change some state here
+      print("hey otp verified");
+    }
+  }
+
+  Future<void> otpVerification(String email, String otpCode) async {
+    _otpVerification(email, otpCode);
   }
 }
 

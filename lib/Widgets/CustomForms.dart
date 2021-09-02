@@ -158,7 +158,7 @@ class _CustomFormsState extends State<CustomForms> {
                               context,
                               MaterialPageRoute(
                                 // Post to VerificationScreen()...just testing with OTPScreen()
-                                builder: (context) => EnterOTPScreen(),
+                                builder: (context) => VerificationScreen(),
                               ),
                             );
                           },

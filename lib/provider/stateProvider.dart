@@ -16,8 +16,14 @@ class StateProvider with ChangeNotifier {
   bool? _userFormAuthLoading = false;
   bool _isAuthCompleted = false;
   bool _authOTPSucces = false;
+  bool _otpSuccessfull = false;
+  String _userEmail = "";
 
   Map<String, dynamic>? _userInfo = {};
+
+  String get userEmail => _userEmail;
+
+  bool get otpSuccesfull => _otpSuccessfull;
 
   Map<String, dynamic>? get userInfo => _userInfo;
   bool get authOTPSucces => _authOTPSucces;
@@ -58,8 +64,18 @@ class StateProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void changeOTPSuccesfull(bool state) {
+    _otpSuccessfull = state;
+    notifyListeners();
+  }
+
   void changeLoginMessage(String? message) {
     _loginMessage = message;
+    notifyListeners();
+  }
+
+  void changeUserEmail(String email) {
+    _userEmail = email;
     notifyListeners();
   }
 

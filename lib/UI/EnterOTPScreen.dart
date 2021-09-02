@@ -3,13 +3,22 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:library_project/Widgets/CustomTextForm.dart';
 
 class EnterOTPScreen extends StatefulWidget {
-  const EnterOTPScreen({Key? key}) : super(key: key);
+  final String? _email;
+  const EnterOTPScreen({Key? key, String? email})
+      : _email = email,
+        super(key: key);
 
   @override
   _EnterOTPScreenState createState() => _EnterOTPScreenState();
 }
 
 class _EnterOTPScreenState extends State<EnterOTPScreen> {
+  @override
+  void initState() {
+    print(widget._email);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var _height = MediaQuery.of(context).size.height;

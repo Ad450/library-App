@@ -59,6 +59,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
       setState(() {
         _email = _emailController.value.text;
       });
+      _provider.changeUserEmail(_email!);
       Map<String, dynamic> _userMap =
           User().getUserMapFromVerification(_email)!;
       _provider.changeVerificationLoadingState(true);
@@ -70,9 +71,14 @@ class _VerificationScreenState extends State<VerificationScreen> {
 
       if (_provider.isVerified) {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => EnterOTPScreen()));
+          context,
+          MaterialPageRoute(
+            builder: (context) => EnterOTPScreen(email: _email),
+          ),
+        );
       } else if (_provider.verificationMessage != null) {
         _showDialog(_provider.verificationMessage!);
+        Navigator.pop(context);
       }
     }
   }
