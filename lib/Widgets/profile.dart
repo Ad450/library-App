@@ -228,26 +228,27 @@ class _ProfileState extends State<Profile> {
                           Container(
                             alignment: Alignment.centerRight,
                             child: DropdownButton(
-                                value: levelOfEducation,
-                                onChanged: (int? level) {
-                                  setState(() {
-                                    levelOfEducation = level!;
-                                  });
-                                },
-                                items: User.getUserLevels
-                                    .map(
-                                      (level) => DropdownMenuItem(
-                                        value: level,
-                                        child: Text(
-                                          level.toString(),
-                                          style: GoogleFonts.quicksand(
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        ),
+                              value: levelOfEducation,
+                              onChanged: (int? level) {
+                                setState(() {
+                                  levelOfEducation = level!;
+                                });
+                              },
+                              items: User.getUserLevels
+                                  .map(
+                                    (level) => DropdownMenuItem(
+                                      value: level,
+                                      child: Text(
+                                        level.toString(),
+                                        style: GoogleFonts.quicksand(
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
                                       ),
-                                    )
-                                    .toList()),
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
                           ),
                         ],
                       ),

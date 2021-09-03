@@ -16,7 +16,7 @@ class CustomTextForm extends StatefulWidget {
 
 class _CustomTextFormState extends State<CustomTextForm> {
   String errorText = "please enter missing value(s)";
-  bool _showError = false;
+  //bool _showError = false;
 
   bool _otpPinIsNull = false;
   String otpCode = "";
@@ -91,11 +91,7 @@ class _CustomTextFormState extends State<CustomTextForm> {
     print(code);
   }
 
-  @override
-  void initState() {
-    print(Provider.of<StateProvider>(context).userEmail);
-    super.initState();
-  }
+ 
 
   @override
   Widget build(BuildContext context) {

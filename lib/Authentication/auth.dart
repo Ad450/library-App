@@ -13,15 +13,17 @@ class Auth {
   static String? _userId;
   static final String _loginEndpoint =
       "https://uenrlibrary.herokuapp.com/api/auth/login";
+
   static final String _signUpEndpoint =
       "https://uenrlibrary.herokuapp.com/api/auth/register";
+
   static String _verificationEndpoint =
       "https://uenrlibrary.herokuapp.com/api/auth/resend-verification-link";
 
   static String _retrieveUsersEndpoint =
       "https://uenrlibrary.herokuapp.com/api/auth/retrieve-all-users";
 
-  static Map<String, dynamic>? _userMap;
+  // static Map<String, dynamic>? _userMap;
 
   static SharedPrefs _sharedPrefs = SharedPrefs();
   // signing Up users
@@ -115,18 +117,20 @@ class Auth {
   static Future<void> _handleVerification(
       Map<String, dynamic> _userMap, BuildContext _context) async {
     var _stateProvider = _provider(_context);
+    assert(_userMap.isNotEmpty);
+
     var _response = await http.post(Uri.parse(_verificationEndpoint),
         body: json.encode(_userMap),
         headers: {"content-type": "application/json"});
 
-    assert(_userMap.isNotEmpty);
     try {
       print(_userMap);
       if (_response.statusCode == 200) {
         dynamic _result = json.decode(_response.body);
-        _stateProvider.changeAuthOTPSucces(true);
+
         _stateProvider.changeIsVerifiedState(true);
         _stateProvider.changeVerificationLoadingState(false);
+        _stateProvider.changeVerificationMessage(_result["message"]);
 
         _stateProvider.changeVerificationMessage(_result["message"]);
         _sharedPrefs.setIsVerifiedDB(true);

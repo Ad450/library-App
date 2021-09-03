@@ -40,7 +40,6 @@ class _EnterOTPScreenState extends State<EnterOTPScreen> {
                   height: 10,
                 ),
                 Container(
-                  alignment: Alignment.center,
                   child: CustomTextForm(),
                 )
               ],
