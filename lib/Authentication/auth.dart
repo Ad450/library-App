@@ -93,7 +93,7 @@ class Auth {
         _stateProvider.changeLogInState(true);
         _sharedPrefs.setLoggedInDB(true);
         _sharedPrefs.setUserIdDB(dataFromApi["user"]["id"]);
-        print(dataFromApi["id"]);
+
         _stateProvider.changeLoginLoading(false);
       } else {
         var dataFromApi = json.decode(_response.body);
@@ -226,7 +226,6 @@ class Auth {
         stateProvider.changeOTPSuccesfull(true);
         print(stateProvider.otpSuccesfull);
         stateProvider.changeOTPLoading(false);
-
         print("hey otp verified");
       } else {
         var body = jsonDecode(_response.body);

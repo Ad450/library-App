@@ -98,7 +98,7 @@ class _CustomTextFormState extends State<CustomTextForm> {
 
     assert(widget._email != null);
     await Auth.otpVerification(widget._email!, code, context);
-
+      
     if (_stateProvider.otpSuccesfull) {
       print("function got here");
       Navigator.popAndPushNamed(context, GiveDetailsScreen.detailsUrl);
