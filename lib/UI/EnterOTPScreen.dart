@@ -40,7 +40,7 @@ class _EnterOTPScreenState extends State<EnterOTPScreen> {
                   height: 10,
                 ),
                 Container(
-                  child: CustomTextForm(),
+                  child: CustomTextForm(email:widget._email),
                 )
               ],
             ),

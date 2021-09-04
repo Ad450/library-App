@@ -5,9 +5,7 @@ import 'package:library_project/Models/user.dart';
 import 'package:library_project/SharedPrefs.dart';
 import 'package:library_project/UI/BookScreen.dart';
 import 'package:library_project/UI/LoadingScreen.dart';
-import 'package:library_project/Widgets/Overview.dart';
-import 'package:library_project/Widgets/customButton.dart';
-import 'package:library_project/constants/constants.dart';
+
 import 'package:library_project/provider/stateProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +24,6 @@ class _ProfileState extends State<Profile> {
   TextEditingController _programOfStudyController = TextEditingController();
   TextEditingController _nameOfSchoolController = TextEditingController();
   GlobalKey<FormState> _formkey = GlobalKey<FormState>();
-  SharedPrefs _sharedPrefs = SharedPrefs();
 
   int levelOfEducation = 100;
 
@@ -266,6 +263,7 @@ class _ProfileState extends State<Profile> {
                                   _programOfStudyController.value.text;
                               var _schoolName =
                                   _nameOfSchoolController.value.text;
+
                               var _userMap = User().userProfileMap(_username,
                                   _program, _schoolName, levelOfEducation);
 

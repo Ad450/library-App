@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:library_project/Authentication/auth.dart';
 import 'package:library_project/Widgets/customButton.dart';
 
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:library_project/Widgets/profile.dart';
 import 'package:library_project/constants/constants.dart';
 import 'package:library_project/provider/stateProvider.dart';
 import 'package:provider/provider.dart';
 
 class CustomTextForm extends StatefulWidget {
-  const CustomTextForm({Key? key}) : super(key: key);
+  final String? _email;
+  const CustomTextForm({Key? key, String? email})
+      : _email = email,
+        super(key: key);
 
   @override
   _CustomTextFormState createState() => _CustomTextFormState();
@@ -76,7 +81,8 @@ class _CustomTextFormState extends State<CustomTextForm> {
   //   );
   // }
 
-  _verifyOTP(String code) {
+  Future<void> _verifyOTP(String code, BuildContext context) async {
+    var _stateProvider = Provider.of<StateProvider>(context, listen: false);
     if (code.length != 5) {
       setState(() {
         _otpPinIsNull = true;
@@ -87,14 +93,31 @@ class _CustomTextFormState extends State<CustomTextForm> {
         code = "";
       });
     }
+    _stateProvider.changeOTPLoading(true);
+    assert(widget._email != null);
+    await Auth.otpVerification(widget._email!, code, context);
+
+    if (_stateProvider.otpSuccesfull) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Profile()));
+    } else {
+      setState(() {
+        errorText = _stateProvider.otpMessage;
+      });
+    }
 
     print(code);
   }
 
- 
+  @override
+  void initState() {
+    print(widget._email);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    var _stateProvider = Provider.of<StateProvider>(context);
     var _mediaHeight = MediaQuery.of(context).size.height;
     return Column(
       children: [
@@ -129,8 +152,13 @@ class _CustomTextFormState extends State<CustomTextForm> {
           color: Colors.amberAccent,
           textColor: Colors.black,
           padding: 6,
-          onTap: () => _verifyOTP(otpCode),
+          onTap: () => _verifyOTP(otpCode, context),
         ),
+        _stateProvider.otpLoading
+            ? LinearProgressIndicator(
+                color: Colors.amberAccent,
+              )
+            : Container(),
         Container(
           margin: EdgeInsets.only(top: _mediaHeight / 8),
           child: Text(
@@ -146,3 +174,6 @@ class _CustomTextFormState extends State<CustomTextForm> {
     );
   }
 }
+
+
+// store a boolean in sharedPreferences named isProfile filled to show either the profile or the homePage

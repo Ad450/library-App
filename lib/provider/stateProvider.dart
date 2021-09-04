@@ -18,6 +18,8 @@ class StateProvider with ChangeNotifier {
   bool _authOTPSucces = false;
   bool _otpSuccessfull = false;
   String _userEmail = "";
+  bool _otpLoading = false;
+  String _otpMessage = "";
 
   Map<String, dynamic>? _userInfo = {};
 
@@ -31,6 +33,7 @@ class StateProvider with ChangeNotifier {
   bool get isAuthCompleted => _isAuthCompleted;
 
   bool get showSnackBar => _showSnackBar;
+  bool get otpLoading => _otpLoading;
 
   bool? get userFormPostSuccessful => _userFormPostSuccess;
 
@@ -57,10 +60,22 @@ class StateProvider with ChangeNotifier {
     return _isLoggedIn;
   }
 
+  String get otpMessage => _otpMessage;
+
   bool get isAuthLoading => _isAuthLoading;
 
   void changeProfileAuthCompleted(bool state) {
     _isAuthCompleted = state;
+    notifyListeners();
+  }
+
+  void changeOTPLoading(bool state) {
+    _otpLoading = state;
+    notifyListeners();
+  }
+
+  void changeOTPMessage(String message) {
+    _otpMessage = message;
     notifyListeners();
   }
 
@@ -146,7 +161,7 @@ class StateProvider with ChangeNotifier {
   }
 
   void changeVerificationLoadingState(bool state) {
-    _verificationLoading = true;
+    _verificationLoading = state;
     notifyListeners();
   }
 }

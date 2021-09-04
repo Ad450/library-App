@@ -92,7 +92,7 @@ class Auth {
         print(dataFromApi);
         _stateProvider.changeLogInState(true);
         _sharedPrefs.setLoggedInDB(true);
-        _sharedPrefs.setUserIdDB(dataFromApi["id"]);
+        _sharedPrefs.setUserIdDB(dataFromApi["user"]["id"]);
         print(dataFromApi["id"]);
         _stateProvider.changeLoginLoading(false);
       } else {
@@ -119,19 +119,16 @@ class Auth {
     var _stateProvider = _provider(_context);
     assert(_userMap.isNotEmpty);
 
-    var _response = await http.post(Uri.parse(_verificationEndpoint),
-        body: json.encode(_userMap),
-        headers: {"content-type": "application/json"});
-
     try {
       print(_userMap);
+
+      var _response = await http.post(Uri.parse(_verificationEndpoint),
+          body: json.encode(_userMap),
+          headers: {"content-type": "application/json"});
       if (_response.statusCode == 200) {
         dynamic _result = json.decode(_response.body);
 
-        _stateProvider.changeIsVerifiedState(true);
         _stateProvider.changeVerificationLoadingState(false);
-        _stateProvider.changeVerificationMessage(_result["message"]);
-
         _stateProvider.changeVerificationMessage(_result["message"]);
         _sharedPrefs.setIsVerifiedDB(true);
       } else {
@@ -206,20 +203,30 @@ class Auth {
     await _handleProfile(_userMap, context);
   }
 
-  Future<void> _otpVerification(String _email, String _otpCode) async {
+  static Future<void> _otpVerification(
+      String _email, String _otpCode, BuildContext _context) async {
     final String _otpVerificationUrl =
         " https://uenrlibrary.herokuapp.com/api/auth/email-verify/verification-code/$_email/$_otpCode";
     Uri _url = Uri.parse(_otpVerificationUrl);
     print(_email);
+    var stateProvider = _provider(_context);
     final _response = await http.get(_url);
     if (_response.statusCode == 200) {
       // change some state here
+
+      stateProvider.changeIsVerifiedState(true);
+      stateProvider.changeOTPSuccesfull(true);
+
       print("hey otp verified");
+    } else {
+      var body = jsonDecode(_response.body);
+      stateProvider.changeOTPMessage(body["message"]);
     }
   }
 
-  Future<void> otpVerification(String email, String otpCode) async {
-    _otpVerification(email, otpCode);
+  static Future<void> otpVerification(
+      String email, String otpCode, BuildContext context) async {
+    _otpVerification(email, otpCode, context);
   }
 }
 

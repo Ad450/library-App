@@ -4,7 +4,6 @@ import 'package:library_project/Authentication/auth.dart';
 import 'package:library_project/Models/user.dart';
 import 'package:library_project/UI/EnterOTPScreen.dart';
 
-import 'package:library_project/UI/GiveDetailScreen.dart';
 import 'package:library_project/UI/LoadingScreen.dart';
 import 'package:library_project/Widgets/customButton.dart';
 import 'package:library_project/constants/constants.dart';
@@ -78,7 +77,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
         );
       } else if (_provider.verificationMessage != null) {
         _showDialog(_provider.verificationMessage!);
-        Navigator.pop(context);
       }
     }
   }
