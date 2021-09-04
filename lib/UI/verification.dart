@@ -65,7 +65,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
 
       await Auth.getVerification(_userMap, context);
 
-      _emailController.clear();
+      //   _emailController.clear();
       print("is validated");
 
       if (_provider.isVerified) {

@@ -27,7 +27,7 @@ class _EnterOTPScreenState extends State<EnterOTPScreen> {
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Container(
-            margin: EdgeInsets.only(left: 30, right: 30, top: _height / 10),
+            margin: EdgeInsets.only(left: 10, right: 10, top: _height / 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -40,7 +40,7 @@ class _EnterOTPScreenState extends State<EnterOTPScreen> {
                   height: 10,
                 ),
                 Container(
-                  child: CustomTextForm(email:widget._email),
+                  child: CustomTextForm(email: widget._email),
                 )
               ],
             ),

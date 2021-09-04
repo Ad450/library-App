@@ -127,13 +127,15 @@ class Auth {
           headers: {"content-type": "application/json"});
       if (_response.statusCode == 200) {
         dynamic _result = json.decode(_response.body);
-
+        _stateProvider.changeIsVerifiedState(true);
         _stateProvider.changeVerificationLoadingState(false);
         _stateProvider.changeVerificationMessage(_result["message"]);
+
         _sharedPrefs.setIsVerifiedDB(true);
       } else {
         print(_response.statusCode);
         dynamic _result = json.decode(_response.body);
+        print(_response.statusCode);
         _stateProvider.changeVerificationLoadingState(false);
         _stateProvider.changeVerificationMessage(_result["message"]);
       }
@@ -205,22 +207,40 @@ class Auth {
 
   static Future<void> _otpVerification(
       String _email, String _otpCode, BuildContext _context) async {
+    print(_email);
+    print(_otpCode);
     final String _otpVerificationUrl =
-        " https://uenrlibrary.herokuapp.com/api/auth/email-verify/verification-code/$_email/$_otpCode";
+        "https://uenrlibrary.herokuapp.com/api/auth/email-verify/verification-code/$_email/$_otpCode";
+
+    print(_otpVerificationUrl);
     Uri _url = Uri.parse(_otpVerificationUrl);
     print(_email);
     var stateProvider = _provider(_context);
-    final _response = await http.get(_url);
-    if (_response.statusCode == 200) {
-      // change some state here
 
-      stateProvider.changeIsVerifiedState(true);
-      stateProvider.changeOTPSuccesfull(true);
+    try {
+      final _response = await http.get(_url);
+      if (_response.statusCode == 200) {
+        // change some state here
 
-      print("hey otp verified");
-    } else {
-      var body = jsonDecode(_response.body);
-      stateProvider.changeOTPMessage(body["message"]);
+        // stateProvider.changeIsVerifiedState(true);
+        stateProvider.changeOTPSuccesfull(true);
+        print(stateProvider.otpSuccesfull);
+        stateProvider.changeOTPLoading(false);
+
+        print("hey otp verified");
+      } else {
+        var body = jsonDecode(_response.body);
+        print(body["message"]);
+        stateProvider.changeOTPMessage(body["message"]);
+        stateProvider.changeOTPLoading(false);
+      }
+    } on SocketException catch (e) {
+      stateProvider.changeOTPMessage("Please check your internet connection");
+      stateProvider.changeOTPLoading(false);
+      print(e);
+    } on Exception catch (e) {
+      print(e);
+      stateProvider.changeOTPMessage("Please try again");
     }
   }
 
@@ -248,3 +268,6 @@ class Auth {
 // continue with the user profile form .. post form by user id
 // intentionally interrupt signUp and the login process to check the response of the widgets
 // collect first screen pageView from litmus
+
+
+// https://documenter.getpostman.com/view/15039965/TzkzrzDa

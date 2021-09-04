@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:library_project/Authentication/auth.dart';
+import 'package:library_project/UI/GiveDetailScreen.dart';
 import 'package:library_project/Widgets/customButton.dart';
 
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
-import 'package:library_project/Widgets/profile.dart';
+
 import 'package:library_project/constants/constants.dart';
 import 'package:library_project/provider/stateProvider.dart';
 import 'package:provider/provider.dart';
@@ -94,19 +95,20 @@ class _CustomTextFormState extends State<CustomTextForm> {
       });
     }
     _stateProvider.changeOTPLoading(true);
+
     assert(widget._email != null);
     await Auth.otpVerification(widget._email!, code, context);
 
     if (_stateProvider.otpSuccesfull) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Profile()));
+      print("function got here");
+      Navigator.popAndPushNamed(context, GiveDetailsScreen.detailsUrl);
     } else {
       setState(() {
         errorText = _stateProvider.otpMessage;
       });
     }
-
-    print(code);
+    // print(widget._email);
+    // print(code);
   }
 
   @override
@@ -130,9 +132,10 @@ class _CustomTextFormState extends State<CustomTextForm> {
             : Text(""),
         SizedBox(height: 10),
         OtpTextField(
+          keyboardType: TextInputType.text,
           decoration: InputDecoration(
               fillColor: Colors.amberAccent, focusColor: Colors.amberAccent),
-          numberOfFields: 5,
+          numberOfFields: 6,
           borderColor: Colors.amberAccent,
           cursorColor: Colors.amberAccent,
           enabledBorderColor: Colors.amberAccent,
@@ -141,6 +144,7 @@ class _CustomTextFormState extends State<CustomTextForm> {
           onSubmit: (String code) {
             setState(() {
               otpCode = code;
+              code = "";
             });
           },
         ),
@@ -154,13 +158,16 @@ class _CustomTextFormState extends State<CustomTextForm> {
           padding: 6,
           onTap: () => _verifyOTP(otpCode, context),
         ),
+        SizedBox(
+          height: 10,
+        ),
         _stateProvider.otpLoading
             ? LinearProgressIndicator(
                 color: Colors.amberAccent,
               )
             : Container(),
         Container(
-          margin: EdgeInsets.only(top: _mediaHeight / 8),
+          margin: EdgeInsets.only(top: _mediaHeight / 9),
           child: Text(
             "unilib",
             style: GoogleFonts.quicksand(
