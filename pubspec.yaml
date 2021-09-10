@@ -35,6 +35,8 @@ dependencies:
   google_fonts: ^2.1.0
   flutter_otp_text_field: ^1.0.0
   image_picker: ^0.8.4
+  bloc: ^7.1.0
+  flutter_bloc: ^7.1.0
 
 dev_dependencies:
   flutter_test:

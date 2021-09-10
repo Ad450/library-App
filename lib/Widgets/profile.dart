@@ -257,15 +257,22 @@ class _ProfileState extends State<Profile> {
                         child: RawMaterialButton(
                           //TODO: implement push user info into database
                           onPressed: () async {
+                            var id = Provider.of<StateProvider>(context,
+                                    listen: false)
+                                .userID;
                             if (_formkey.currentState!.validate()) {
                               var _username = _usernameController.value.text;
                               var _program =
                                   _programOfStudyController.value.text;
                               var _schoolName =
                                   _nameOfSchoolController.value.text;
-
-                              var _userMap = User().userProfileMap(_username,
-                                  _program, _schoolName, levelOfEducation);
+                              print(id);
+                              var _userMap = User().userProfileMap(
+                                  _username,
+                                  id ?? 0,
+                                  _program,
+                                  _schoolName,
+                                  levelOfEducation);
 
                               await _handleUserPost(_userMap, context);
                             }

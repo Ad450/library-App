@@ -20,8 +20,11 @@ class StateProvider with ChangeNotifier {
   String _userEmail = "";
   bool _otpLoading = false;
   String _otpMessage = "";
+  int? _userID;
 
   Map<String, dynamic>? _userInfo = {};
+
+  int? get userID => _userID;
 
   String get userEmail => _userEmail;
 
@@ -76,6 +79,11 @@ class StateProvider with ChangeNotifier {
 
   void changeOTPMessage(String message) {
     _otpMessage = message;
+    notifyListeners();
+  }
+
+  void changeUserID(int id) {
+    _userID = id;
     notifyListeners();
   }
 

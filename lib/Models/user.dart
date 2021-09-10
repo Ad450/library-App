@@ -53,19 +53,19 @@ class User {
     return _userMapForVerification(email);
   }
 
-  Map<String, dynamic> _userProfileMap(String _username, String _programName,
-      String _universityName, int _level) {
+  Map<String, dynamic> _userProfileMap(String _username, int _id,
+      String _programName, String _universityName, int _level) {
     return {
       "username": _username,
-      // "id": _id,
+      "id": _id,
       "program_of_study": _programName,
       "university_name": _universityName,
       "level": _level
     };
   }
 
-  Map<String, dynamic> userProfileMap(
-      String username, String programName, String universityName, int level) {
-    return _userProfileMap(username, programName, universityName, level);
+  Map<String, dynamic> userProfileMap(String username, int id,
+      String programName, String universityName, int level) {
+    return _userProfileMap(username, id, programName, universityName, level);
   }
 }

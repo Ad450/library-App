@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:library_project/SharedPrefs.dart';
-import 'package:library_project/UI/GiveDetailScreen.dart';
 import 'package:library_project/Widgets/logo.dart';
 import 'package:library_project/provider/stateProvider.dart';
 import 'package:provider/provider.dart';
@@ -30,31 +29,31 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     final _mediaWidth = MediaQuery.of(context).size.width;
 
     // print(prefIsVerified);
-    return 
-    // widget.isVerified 
-    //|| widget.isLoggedIn
+    return
+        // widget.isVerified
+        //|| widget.isLoggedIn
         // ? GiveDetailsScreen()
-        // : 
+        // :
         SafeArea(
-            child: PageView(children: [
-              Scaffold(
-                body: Stack(
-                  children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(color: Colors.amberAccent),
-                    ),
-                    Positioned(
-                      top: _mediaHeight * 0.4,
-                      left: _mediaWidth * 0.2,
-                      right: _mediaWidth * 0.2,
-                      bottom: _mediaHeight * 0.4,
-                      child: CustomLogo(),
-                    ),
-                  ],
-                ),
+      child: PageView(children: [
+        Scaffold(
+          body: Stack(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(color: Colors.amberAccent),
               ),
-              LandingScreen()
-            ]),
-          );
+              Positioned(
+                top: _mediaHeight * 0.4,
+                left: _mediaWidth * 0.2,
+                right: _mediaWidth * 0.2,
+                bottom: _mediaHeight * 0.4,
+                child: CustomLogo(),
+              ),
+            ],
+          ),
+        ),
+        LandingScreen()
+      ]),
+    );
   }
 }

@@ -38,7 +38,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void _closeDialog() {
-    Navigator.pop(context);
+   // Navigator.pop(context);
   }
 
   void _handleSignUp(
@@ -79,7 +79,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   void dispose() {
     _closeDialog();
-    Navigator.pop(context);
+   // Navigator.pop(context);
     super.dispose();
   }
 

@@ -181,9 +181,9 @@ class _CustomFormsState extends State<CustomForms> {
                             widget._paddingDecider!,
                         onTap: () async {
                           if (_formKey.currentState!.validate()) {
-                            // sign user
                             handleAuth(_provider);
-                            print(_CustomFormsState().mounted);
+                            print(
+                                "customformstate  ${_CustomFormsState().mounted}");
                           }
                         },
                       ),

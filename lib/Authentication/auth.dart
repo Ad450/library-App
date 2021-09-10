@@ -37,7 +37,7 @@ class Auth {
   static Future<void> _signUpUser(
       Map<String, dynamic>? _userMap, BuildContext _context) async {
     var _stateProvider = _provider(_context);
-    print("the function got here");
+    print("the function got here"); 
 
     print(json.encode(_userMap));
 
@@ -64,6 +64,10 @@ class Auth {
         _stateProvider
             .changeAuthMessage("please check your internet connection");
         print(e);
+      } on Exception catch (e) {
+        _stateProvider.changeSignUpLoading(false);
+        _stateProvider.changeAuthMessage("please try again");
+        print(e);
       }
     }
   }
@@ -78,12 +82,12 @@ class Auth {
     var _stateProvider = _provider(_context);
     assert(_userMap.isNotEmpty);
     try {
-      print(_userMap);
+      print("auth user map $_userMap");
 
       Uri _loginUrl = Uri.parse(_loginEndpoint);
       var _response = await http.post(_loginUrl,
           body: json.encode(_userMap),
-          headers: {"content-type": "application/json"});
+          headers: {"Content-Type": "application/json"});
       print("function got here");
       print(_response.statusCode);
 
@@ -92,8 +96,8 @@ class Auth {
         print(dataFromApi);
         _stateProvider.changeLogInState(true);
         _sharedPrefs.setLoggedInDB(true);
-        _sharedPrefs.setUserIdDB(dataFromApi["user"]["id"]);
-
+        _sharedPrefs.setUserIdDB(dataFromApi["id"]);
+        _stateProvider.changeUserID(dataFromApi["id"]);
         _stateProvider.changeLoginLoading(false);
       } else {
         var dataFromApi = json.decode(_response.body);
@@ -106,6 +110,19 @@ class Auth {
       _stateProvider
           .changeLoginMessage("Please check your internet connection");
       print(e);
+    } on Error catch (e) {
+      print(e);
+      _stateProvider.changeLoginLoading(false);
+      _stateProvider
+          .changeLoginMessage("Please check your internet connection");
+    } on Exception catch (e) {
+      _stateProvider.changeLoginLoading(false);
+      _stateProvider.changeLoginMessage("please try again");
+      print(e);
+    } catch (e) {
+      _stateProvider.changeLoginLoading(false);
+      _stateProvider
+          .changeLoginMessage("Please check your internet connection");
     }
   }
 
@@ -221,7 +238,6 @@ class Auth {
       final _response = await http.get(_url);
       if (_response.statusCode == 200) {
         // change some state here
-
         // stateProvider.changeIsVerifiedState(true);
         stateProvider.changeOTPSuccesfull(true);
         print(stateProvider.otpSuccesfull);

@@ -83,8 +83,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
 
   @override
   void dispose() {
-    disposeDialog();
-    Navigator.pop(context);
     super.dispose();
   }
 

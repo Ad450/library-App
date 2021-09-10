@@ -19,7 +19,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   void _closeDialog() {
-    Navigator.pop(context);
+    //Navigator.pop(context);
   }
 
   void _handleLogin(
@@ -34,9 +34,10 @@ class _LoginScreenState extends State<LoginScreen> {
       _password = _passwordController.value.text;
     });
     var _userMap = User().userMap(_email, _password);
-    assert(_userMap.isNotEmpty);
+    //assert(_userMap.isNotEmpty);
     _provider.changeLoginLoading(true);
     if (mounted) {
+      print("auth has started");
       await Auth.login(_userMap, context);
     } else {
       _emailController.clear();
@@ -96,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void dispose() {
     _closeDialog();
     print("login screen dispose method called");
-    Navigator.pop(context);
+    //  Navigator.pop(context);
     super.dispose();
   }
 
@@ -105,15 +106,15 @@ class _LoginScreenState extends State<LoginScreen> {
     var _provider = Provider.of<StateProvider>(context);
     MediaQueryData _mediaQuery = MediaQuery.of(context);
     var height = _mediaQuery.size.height / 4.5;
-      
-      if(!mounted){
-        return CustomForms(
-              buttonTitle: "Login",
-              title: "Login",
-              paddingDecider: 7,
-              authHandler: _handleLogin,
-            );
-      }
+
+    if (!mounted) {
+      return CustomForms(
+        buttonTitle: "Login",
+        title: "Login",
+        paddingDecider: 7,
+        authHandler: _handleLogin,
+      );
+    }
 
     return Scaffold(
       // key: _loginScaffoldKey,
