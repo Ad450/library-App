@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 
-class ButtonValue {
-  int initialState;
-  ButtonValue(this.initialState);
-}
+// class ButtonValue {
+//   int initialState;
+//   ButtonValue(this.initialState);
+// }
 
 class TrialButton extends Cubit<int> {
     TrialButton():super(0);

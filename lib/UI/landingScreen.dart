@@ -21,7 +21,7 @@ class LandingScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: BlocProvider<TrialButton>(
-          create: (BuildContext context) => TrialButton(),
+          create: (context) => TrialButton(),
           child: Container(
             margin: EdgeInsets.only(left: 30, right: 30),
             child: SingleChildScrollView(
@@ -66,8 +66,23 @@ class LandingScreen extends StatelessWidget {
                   //...............................
                   // ..............................
                   // BlocBuilder(builder: (context))
-                  Text(BlocProvider.of<TrialButton>(context).state.toString()),
-
+                  BlocConsumer(
+                    bloc: TrialButton(),
+                    listener: (context, state) => print("is listening"),
+                    builder: (context, stateObject) => Row(
+                      children: [
+                        Text(
+                          TrialButton().state.toString(),
+                        ),
+                        TextButton(
+                            child: Text("+"),
+                            onPressed: () => TrialButton().increment),
+                        TextButton(
+                            child: Text("-"),
+                            onPressed: () => TrialButton().decrement)
+                      ],
+                    ),
+                  ),
                   SizedBox(
                     height: 50,
                   ),
