@@ -1,43 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:library_project/SharedPrefs.dart';
-import 'package:library_project/UI/ForgotPassword.dart';
-import 'package:library_project/provider/stateProvider.dart';
-import 'package:provider/provider.dart';
-import 'UI/GiveDetailScreen.dart';
-import 'UI/LoginScreen.dart';
-import 'UI/verification.dart';
-import 'UI/welcomeScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  bool isVerified = await SharedPrefs().getIsVerifiedDB();
-  bool isLoggedIn = await SharedPrefs().getIsloggedInDB();
-  print("$isVerified " "  $isLoggedIn");
-  runApp(MyApp(isVerified, isLoggedIn));
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final _title = "Uenr library";
-  final bool isVerified;
-  final bool isLoggedIn;
-  MyApp(this.isVerified, this.isLoggedIn);
+  MyApp();
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => StateProvider(),
-      child: MaterialApp(
-        routes: {
-          LoginScreen.loginScreenUrl: (context) => LoginScreen(),
-          VerificationScreen.verificationScreenRoute: (context) =>
-              VerificationScreen(),
-          GiveDetailsScreen.detailsUrl: (context) => GiveDetailsScreen(),
-          ForgotPasswordScreen.forgotPasswordUrl: (context) =>
-              ForgotPasswordScreen(),
-        },
-        title: _title,
-        home: WelcomeScreen(isVerified, isLoggedIn),
-      ),
+    return MaterialApp(
+      routes: {},
     );
   }
 }
