@@ -1,8 +1,0 @@
-// get id after login 
-// post id with other user info and save as user profile
-// retrieve user profile to populate overview screen
-// 
-
-// get showProfile boolean from sharedPrefs 
-// if true show showProfile else show home screen
-// 
