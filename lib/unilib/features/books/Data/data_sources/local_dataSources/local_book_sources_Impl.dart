@@ -3,8 +3,10 @@ import 'package:library_project/unilib/features/books/Data/data_sources/local_da
 import 'package:library_project/unilib/features/books/Domain/entities/books.dart';
 
 class LocalBookSourceImpl implements LocalBookSource {
-  BookDatabase _bookDatabase = BookDatabase();
-  LocalBookSourceImpl._();
+  late BookDatabase _bookDatabase;
+  LocalBookSourceImpl._() {
+    _bookDatabase = BookDatabase();
+  }
 
   static final LocalBookSourceImpl _instance = LocalBookSourceImpl._();
 
