@@ -11,14 +11,14 @@ class BooksDatabaseImpl implements BookDatabase {
 
   Database? _database;
   BooksDatabaseImpl._() {
-    initDB();
+    _initDB();
   }
 
   static final BooksDatabaseImpl instance = BooksDatabaseImpl._();
 
   factory BooksDatabaseImpl() => instance;
 
-  Future<Database?> initDB() async {
+  Future<Database?> _initDB() async {
     if (_database == null) {
       _database =
           await openDatabase(join(await getDatabasesPath(), _databasePath),
