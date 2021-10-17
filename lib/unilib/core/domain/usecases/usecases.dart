@@ -1,5 +1,5 @@
 // interface for all usecases
 
-abstract class UseCase<ReturnType, ParamType> {
+abstract class UseCase <ReturnType, ParamType>{
   Future<ReturnType> call(ParamType type);
 }

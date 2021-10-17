@@ -1,3 +1,4 @@
+import 'package:library_project/unilib/features/Users/Data/DataSources/remote_dataSources/remote_user_source.dart';
 import 'package:library_project/unilib/features/Users/Domain/Entities/User.dart';
 import 'package:library_project/unilib/core/domain/entities/user/verifiedUser.dart';
 import 'package:library_project/unilib/core/domain/entities/user/user_set_profile.dart';
@@ -5,44 +6,41 @@ import 'package:library_project/unilib/core/domain/entities/user/user_code_sent.
 import 'package:library_project/unilib/features/Users/Domain/Repository/user_repository.dart';
 
 class UserRepositoryImpl implements UserRepository {
-  UserRepositoryImpl._();
+  late RemoteUserSource _remoteUserSource;
+  UserRepositoryImpl._() {
+    _remoteUserSource = RemoteUserSource();
+  }
   static final UserRepositoryImpl instance = UserRepositoryImpl._();
 
   factory UserRepositoryImpl() => instance;
 
   @override
-  Future<bool> getVerificationCode() {
-    // TODO: implement getVerificationCode
-    throw UnimplementedError();
+  Future<bool> getVerificationCode() async {
+    return await _remoteUserSource.getVerificationCode();
   }
 
   @override
-  Future<User> login(Map<String, dynamic> info) {
-    // TODO: implement login
-    throw UnimplementedError();
+  Future<User> login(Map<String, dynamic> info) async {
+    return await _remoteUserSource.login(info);
   }
 
   @override
-  Future<bool> logout(VerifiedUser user) {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<bool> logout(VerifiedUser user) async {
+    return await _remoteUserSource.logout(user);
   }
 
   @override
-  Future<UserWithProfile> setProfile(VerifiedUser user) {
-    // TODO: implement setProfile
-    throw UnimplementedError();
+  Future<UserWithProfile> setProfile(VerifiedUser user) async {
+    return await _remoteUserSource.setProfile(user);
   }
 
   @override
-  Future<User> signIn(Map<String, dynamic> info) {
-    // TODO: implement signIn
-    throw UnimplementedError();
+  Future<User> signIn(Map<String, dynamic> info) async {
+    return await _remoteUserSource.signIn(info);
   }
 
   @override
-  Future<VerifiedUser> verifyCode() {
-    // TODO: implement verifyCode
-    throw UnimplementedError();
+  Future<VerifiedUser> verifyUser(User user, dynamic code) async {
+    return await _remoteUserSource.verifyUser(user, code);
   }
 }

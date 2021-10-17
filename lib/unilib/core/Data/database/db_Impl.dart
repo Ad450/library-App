@@ -44,6 +44,7 @@ class BooksDatabaseImpl implements BookDatabase {
       "name": _book.name,
       "description": _book.description,
       "img": _book.img,
+      "id": _book.name
     };
     _database!.insert("books", value);
   }
