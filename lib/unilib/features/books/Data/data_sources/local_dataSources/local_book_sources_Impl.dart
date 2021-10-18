@@ -3,14 +3,8 @@ import 'package:library_project/unilib/features/books/Data/data_sources/local_da
 import 'package:library_project/unilib/features/books/Domain/entities/books.dart';
 
 class LocalBookSourceImpl implements LocalBookSource {
-  late BookDatabase _bookDatabase;
-  LocalBookSourceImpl._() {
-    _bookDatabase = BookDatabase();
-  }
-
-  static final LocalBookSourceImpl _instance = LocalBookSourceImpl._();
-
-  factory LocalBookSourceImpl() => _instance;
+  BookDatabase _bookDatabase;
+  LocalBookSourceImpl(this._bookDatabase);
 
   @override
   Future<List<Book>> retrieveBooks() async {

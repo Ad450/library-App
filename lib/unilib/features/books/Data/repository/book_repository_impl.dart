@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:library_project/unilib/core/Data/platforms/connectivity/connectivity.dart';
 import 'package:library_project/unilib/features/books/Data/data_sources/local_dataSources/local_book_source.dart';
 import 'package:library_project/unilib/features/books/Data/data_sources/remote_dataSources/remote_book_source.dart';
@@ -7,11 +5,17 @@ import 'package:library_project/unilib/features/books/Domain/entities/books.dart
 import 'package:library_project/unilib/features/books/Domain/repository/books_repositroy.dart';
 
 class BooksRepositoryImpl implements BooksRepository {
-  BooksRepositoryImpl._();
+  // BooksRepositoryImpl._();
 
-  static final BooksRepositoryImpl _instance = BooksRepositoryImpl._();
+  // static final BooksRepositoryImpl _instance = BooksRepositoryImpl._();
 
-  factory BooksRepositoryImpl() => _instance;
+  // factory BooksRepositoryImpl() => _instance;
+
+  RemoteBookSource remoteBookSource;
+  LocalBookSource localBookSource;
+
+  BooksRepositoryImpl(
+      {required this.remoteBookSource, required this.localBookSource});
 
   @override
   Future<bool> downloadBook(Book book) async {
@@ -28,10 +32,10 @@ class BooksRepositoryImpl implements BooksRepository {
   Future<List<Book>> retrieveAllBooks() async {
     NetworkStatus status = await NetWorkConnectivity().call();
     if (status == NetworkStatus.mobile || status == NetworkStatus.Wifi) {
-      List<Book> books = await RemoteBookSource().call();
+      List<Book> books = await remoteBookSource.call();
       return books;
     } else {
-      return await LocalBookSource().retrieveBooks();
+      return await localBookSource.retrieveBooks();
     }
   }
 }

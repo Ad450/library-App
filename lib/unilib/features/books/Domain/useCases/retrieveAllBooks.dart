@@ -4,11 +4,9 @@ import 'package:library_project/unilib/features/books/Domain/entities/books.dart
 import 'package:library_project/unilib/features/books/Domain/repository/books_repositroy.dart';
 
 class GetAllBooks implements UseCase<List, NoParam> {
-  late BooksRepository _booksRepository;
+   BooksRepository _booksRepository;
 
-  GetAllBooks() {
-    _booksRepository = BooksRepository();
-  }
+  GetAllBooks(this._booksRepository); 
   @override
   Future<List<Book>> call(NoParam type) async {
     return _booksRepository.retrieveAllBooks();

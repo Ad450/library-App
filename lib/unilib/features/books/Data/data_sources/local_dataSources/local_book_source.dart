@@ -3,6 +3,6 @@ import 'package:library_project/unilib/features/books/Data/data_sources/local_da
 import 'package:library_project/unilib/features/books/Domain/entities/books.dart';
 
 abstract class LocalBookSource {
-  factory LocalBookSource() => LocalBookSourceImpl();
+  
   Future<List<Book>> retrieveBooks();
 }

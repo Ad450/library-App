@@ -2,6 +2,5 @@ import 'package:library_project/unilib/features/books/Data/data_sources/remote_d
 import 'package:library_project/unilib/features/books/Domain/entities/books.dart';
 
 abstract class RemoteBookSource {
-  factory RemoteBookSource() => RemoteBookSourceImpl();
   Future<List<Book>> call();
 }

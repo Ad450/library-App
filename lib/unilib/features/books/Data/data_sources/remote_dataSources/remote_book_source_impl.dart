@@ -6,11 +6,11 @@ import 'package:http/http.dart' as http;
 import 'package:library_project/unilib/features/books/Domain/entities/books.dart';
 
 class RemoteBookSourceImpl implements RemoteBookSource {
-  RemoteBookSourceImpl._();
+  // RemoteBookSourceImpl._();
 
-  static final RemoteBookSourceImpl _instance = RemoteBookSourceImpl._();
+  // static final RemoteBookSourceImpl _instance = RemoteBookSourceImpl._();
 
-  factory RemoteBookSourceImpl() => _instance;
+  // factory RemoteBookSourceImpl() => _instance;
 
   @override
   Future<List<Book>> call() async {
