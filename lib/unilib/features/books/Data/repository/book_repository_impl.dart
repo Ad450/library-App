@@ -5,22 +5,12 @@ import 'package:library_project/unilib/features/books/Domain/entities/books.dart
 import 'package:library_project/unilib/features/books/Domain/repository/books_repositroy.dart';
 
 class BooksRepositoryImpl implements BooksRepository {
-  // BooksRepositoryImpl._();
-
-  // static final BooksRepositoryImpl _instance = BooksRepositoryImpl._();
-
-  // factory BooksRepositoryImpl() => _instance;
-
+  
   RemoteBookSource remoteBookSource;
   LocalBookSource localBookSource;
 
   BooksRepositoryImpl(
       {required this.remoteBookSource, required this.localBookSource});
-
-  @override
-  Future<bool> downloadBook(Book book) async {
-    throw UnimplementedError();
-  }
 
   @override
   Future<bool> postBook(Book book) {
@@ -32,8 +22,7 @@ class BooksRepositoryImpl implements BooksRepository {
   Future<List<Book>> retrieveAllBooks() async {
     NetworkStatus status = await NetWorkConnectivity().call();
     if (status == NetworkStatus.mobile || status == NetworkStatus.Wifi) {
-      List<Book> books = await remoteBookSource.call();
-      return books;
+      return await remoteBookSource.call();
     } else {
       return await localBookSource.retrieveBooks();
     }
