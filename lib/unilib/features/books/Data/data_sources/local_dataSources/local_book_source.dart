@@ -1,8 +1,5 @@
-
-import 'package:library_project/unilib/features/books/Data/data_sources/local_dataSources/local_book_sources_impl.dart';
-import 'package:library_project/unilib/features/books/Domain/entities/books.dart';
+import 'package:library_project/unilib/features/books/Data/Models/book_model.dart';
 
 abstract class LocalBookSource {
-  
-  Future<List<Book>> retrieveBooks();
+  Future<List<BookModels>> retrieveBooks();
 }

@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:library_project/unilib/features/books/Data/Models/book_model.dart';
 import 'package:library_project/unilib/features/books/Data/data_sources/remote_dataSources/remote_book_source.dart';
 import 'package:http/http.dart' as http;
-import 'package:library_project/unilib/features/books/Domain/entities/books.dart';
 
 class RemoteBookSourceImpl implements RemoteBookSource {
   // RemoteBookSourceImpl._();
@@ -13,7 +12,7 @@ class RemoteBookSourceImpl implements RemoteBookSource {
   // factory RemoteBookSourceImpl() => _instance;
 
   @override
-  Future<List<Book>> call() async {
+  Future<List<BookModels>> call() async {
     String endpoint =
         "https://uenrlibrary.herokuapp.com/api/library/retrieve-all-books";
 

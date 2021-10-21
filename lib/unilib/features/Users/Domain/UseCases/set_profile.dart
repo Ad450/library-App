@@ -5,7 +5,8 @@ import 'package:library_project/unilib/features/Users/Data/repository/user_repos
 import 'package:library_project/unilib/features/Users/Domain/Repository/user_repository.dart';
 
 class SetProfile implements UseCase<UserWithProfile, VerifiedUser> {
-  UserRepository _userRepository = UserRepository();
+  UserRepository _userRepository;
+  SetProfile(this._userRepository);
 
   //SetProfile(this._userRepository);
 

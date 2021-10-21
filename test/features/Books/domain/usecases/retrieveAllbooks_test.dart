@@ -15,7 +15,6 @@ import 'package:mockito/mockito.dart';
 
 import 'retrieveAllbooks_test.mocks.dart';
 
-//class MockBookRepository extends Mock implements BooksRepository {}
 
 @GenerateMocks([BooksRepository])
 void main() {

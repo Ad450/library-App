@@ -1,6 +1,5 @@
 import 'package:library_project/unilib/core/Data/database/db.dart';
 import 'package:library_project/unilib/features/books/Data/Models/book_model.dart';
-import 'package:library_project/unilib/features/books/Domain/entities/books.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -32,9 +31,10 @@ class BooksDatabaseImpl implements BookDatabase {
   }
 
   @override
-  Future<List<Book>> retrieveCurrentItem() async {
+  Future<List<BookModels>> retrieveCurrentItem() async {
     List<Map<String, dynamic>> items = await _database!.query("books");
-    List<Book> _books = items.map((item) => BookModels.fromJson(item)).toList();
+    List<BookModels> _books =
+        items.map((item) => BookModels.fromJson(item)).toList();
     return _books;
   }
 

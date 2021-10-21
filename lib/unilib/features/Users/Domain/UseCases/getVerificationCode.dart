@@ -5,7 +5,8 @@ import 'package:library_project/unilib/core/domain/entities/user/user_code_sent.
 import 'package:library_project/unilib/features/Users/Domain/Repository/user_repository.dart';
 
 class GetVerificationCode implements UseCase<bool, NoParam> {
-  UserRepository _userRepository = UserRepository();
+  UserRepository _userRepository;
+  GetVerificationCode(this._userRepository);
 
   @override
   Future<bool> call(NoParam noparam) async {

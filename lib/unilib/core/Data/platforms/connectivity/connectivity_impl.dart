@@ -1,8 +1,9 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:library_project/unilib/core/Data/platforms/connectivity/connectivity_contract.dart';
 
-enum NetworkStatus { mobile, Wifi, off }
 
-class NetWorkConnectivity {
+
+class NetWorkConnectivity implements NetworkInfo {
   Future<NetworkStatus> call() async {
     ConnectivityResult result = await Connectivity().checkConnectivity();
     if (result == ConnectivityResult.mobile) {

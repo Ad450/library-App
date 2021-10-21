@@ -3,7 +3,8 @@ import 'package:library_project/unilib/core/domain/usecases/usecases.dart';
 import 'package:library_project/unilib/features/Users/Domain/Repository/user_repository.dart';
 
 class Logout implements UseCase<bool, VerifiedUser> {
-   UserRepository _userRepository = UserRepository();
+  UserRepository _userRepository;
+  Logout(this._userRepository);
 
   @override
   Future<bool> call(VerifiedUser user) async {

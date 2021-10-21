@@ -2,17 +2,14 @@ import 'package:library_project/unilib/features/Users/Data/DataSources/remote_da
 import 'package:library_project/unilib/features/Users/Domain/Entities/User.dart';
 import 'package:library_project/unilib/core/domain/entities/user/verifiedUser.dart';
 import 'package:library_project/unilib/core/domain/entities/user/user_set_profile.dart';
-import 'package:library_project/unilib/core/domain/entities/user/user_code_sent.dart';
 import 'package:library_project/unilib/features/Users/Domain/Repository/user_repository.dart';
 
 class UserRepositoryImpl implements UserRepository {
-  late RemoteUserSource _remoteUserSource;
-  UserRepositoryImpl._() {
-    _remoteUserSource = RemoteUserSource();
-  }
-  static final UserRepositoryImpl instance = UserRepositoryImpl._();
+  RemoteUserSource _remoteUserSource;
+  UserRepositoryImpl(this._remoteUserSource);
+  // static final UserRepositoryImpl instance = UserRepositoryImpl._();
 
-  factory UserRepositoryImpl() => instance;
+  // factory UserRepositoryImpl() => instance;
 
   @override
   Future<bool> getVerificationCode() async {
