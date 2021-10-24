@@ -17,7 +17,7 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<User> login(Map<String, dynamic> info) async {
+  Future<User?> login(Map<String, dynamic> info) async {
     return await _remoteUserSource.login(info);
   }
 
@@ -32,7 +32,7 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<User> signIn(Map<String, dynamic> info) async {
+  Future<User?> signIn(Map<String, dynamic> info) async {
     return await _remoteUserSource.signIn(info);
   }
 

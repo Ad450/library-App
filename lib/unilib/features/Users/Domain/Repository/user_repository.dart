@@ -5,8 +5,8 @@ import 'package:library_project/unilib/features/Users/Data/repository/user_repos
 import 'package:library_project/unilib/features/Users/Domain/Entities/User.dart';
 
 abstract class UserRepository {
-  Future<User> signIn(Map<String, dynamic> info);
-  Future<User> login(Map<String, dynamic> info);
+  Future<User?> signIn(Map<String, dynamic> info);
+  Future<User?> login(Map<String, dynamic> info);
   Future<bool> logout(VerifiedUser user);
   Future<bool> getVerificationCode();
   Future<VerifiedUser> verifyUser(User user, dynamic code);

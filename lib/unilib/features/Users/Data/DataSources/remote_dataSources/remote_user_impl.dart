@@ -19,13 +19,34 @@ class RemoteUserSourceImpl implements RemoteUserSource {
   Future<bool> getVerificationCode() async {
     String getVerificationCodeEndpoint =
         "https://uenrlibrary.herokuapp.com/api/auth/resend-verification-link";
-    throw UnimplementedError();
+    bool isCodeSent = false;
+    Uri _uri = Uri.parse(getVerificationCodeEndpoint);
+    var _response = await http.get(_uri);
+    if (_response.statusCode == 200) {
+      isCodeSent = true;
+      return isCodeSent;
+    }
+    return isCodeSent;
   }
 
   @override
-  Future<UserModel> login(Map<String, dynamic> info) async {
+  Future<UserModel?> login(Map<String, dynamic> info) async {
     String loginEndpoint = "https://uenrlibrary.herokuapp.com/api/auth/login";
-    throw UnimplementedError();
+    UserModel _userModel;
+    Uri _uri = Uri.parse(loginEndpoint);
+    var _response = await http.post(_uri,
+        headers: {"content-type": "application/json"}, body: jsonEncode(info));
+    if (_response.statusCode == 200) {
+      var body = jsonDecode(_response.body);
+      _userModel = UserModel(
+        email: body["email"],
+        name: body["name"],
+        id: body["id"],
+      );
+      return _userModel;
+    }
+    // ids should start from 1..zero for failed login
+    return null;
   }
 
   @override
@@ -41,20 +62,31 @@ class RemoteUserSourceImpl implements RemoteUserSource {
   }
 
   @override
-  Future<UserModel> signIn(Map<String, dynamic> info) async {
+  Future<UserModel?> signIn(Map<String, dynamic> info) async {
     String signUpEndpoint =
         "https://uenrlibrary.herokuapp.com/api/auth/register";
+    UserModel _userModel;
     Uri _uri = Uri.parse(signUpEndpoint);
     var response = await http.post(_uri,
         body: jsonEncode(info), headers: {"content-type": "application/json"});
-    if (response.statusCode == 200) {}
-    throw UnimplementedError(); 
+    if (response.statusCode == 200) {
+      var body = jsonDecode(response.body);
+      _userModel = UserModel(
+        email: body["email"],
+        name: body["name"],
+        id: body["id"],
+      );
+      return _userModel;
+    }
+    return null;
   }
 
   @override
   Future<VerifiedUserModel> verifyUser(User user, dynamic code) async {
     String verifyUser =
         "https://uenrlibrary.herokuapp.com/api/auth/email-verify/verification-code/${user.email}/$code";
+        Uri _uri = Uri.parse(verifyUser);
+        var _response = await http.post(_uri);
     throw UnimplementedError();
   }
 }
