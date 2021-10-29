@@ -7,15 +7,31 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  final String _title = "Unilib";
   MyApp();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {},
+      title: _title,
+      home: UnilibSplashScreen(),
     );
   }
 }
+
+class UnilibSplashScreen extends StatelessWidget {
+  const UnilibSplashScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold();
+  }
+}
+
+
+//  _ongenerateRoutes (RouteSettings _settings){
+   
+//  }
 
 
 // class SharedPrefs {
