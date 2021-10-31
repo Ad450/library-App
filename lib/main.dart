@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:library_project/unilib/core/platform/app_Images.dart';
+import 'package:library_project/unilib/core/presentation/unilib_getting_started.dart';
+import 'package:library_project/unilib/core/widgets/unilib_base_text.dart';
+import 'package:library_project/unilib/core/widgets/unilib_page_wrapper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,25 +19,63 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: _title,
-      home: UnilibSplashScreen(),
+      home: UnilibHome(),
+    );
+  }
+}
+
+class UnilibHome extends StatelessWidget {
+  const UnilibHome({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          child: PageView(
+            children: <Widget>[
+              UnilibSplashScreen(),
+              UnilibGettingStartedScreen()
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
 
 class UnilibSplashScreen extends StatelessWidget {
-  const UnilibSplashScreen({Key? key}) : super(key: key);
+  const UnilibSplashScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Container(
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              
+              child: Image.asset(
+                AppAssets.logo,
+                height: 170,
+                width: 150,
+                color: Color.alphaBlend(Colors.teal, Colors.deepOrangeAccent),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
 
 //  _ongenerateRoutes (RouteSettings _settings){
-   
-//  }
 
+//  }
 
 // class SharedPrefs {
 //   bool? _showHomeScreen;
