@@ -1,5 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:library_project/UI/LoadingScreen.dart';
+import 'package:library_project/UI/all_books.dart';
+import 'package:library_project/Widgets/book_card.dart';
+import 'package:library_project/Widgets/bottom_sheet.dart';
 import 'package:library_project/Widgets/header.dart';
 
 class BookScreen extends StatefulWidget {
@@ -39,13 +44,105 @@ class _BookContent extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-            padding: EdgeInsets.only(left: 10, right: 20),
+            padding: EdgeInsets.only(left: 10, right: 25, top: 15),
             child: Header(
-              headerText: "Books",
+              headerText: "Library",
+              trailingText: "see all",
               leadingIcon: Icon(Icons.menu),
-              child: Container(),
+              trailingIcon: Icon(Icons.search),
+              trailingTextTapped: () {},
+              trailingWidget: Container(
+                child: CircleAvatar(
+                  child: Icon(Icons.person, color: Colors.black54),
+                  radius: 15,
+                  backgroundColor: Colors.amberAccent,
+                ),
+              ),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(13),
+                    child: BooksOnScroll(),
+                  ),
+                ],
+              ),
             )),
       ),
     );
   }
 }
+
+
+// have to use a stream builder to keep state running
+// Future builder runs once 
+
+class BooksOnScroll extends StatelessWidget {
+  const BooksOnScroll({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: FutureBuilder(
+        future: Future.delayed(Duration(seconds: 2), () => Future.error("")),
+        builder: (context, AsyncSnapshot<dynamic> snapshot) {
+          if (snapshot.hasError)
+            return Column(
+              children: [
+                Center(child: Text("please try again")),
+              ],
+            );
+          if (!snapshot.hasData)
+            return Center(
+                child: CircularProgressIndicator(
+              color: Colors.amberAccent,
+            ));
+
+          return BooksScrollView();
+        },
+      ),
+    );
+  }
+}
+
+class BooksScrollView extends StatelessWidget {
+  const BooksScrollView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        child: SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          ..._trialBooks.map((bookCard) => Row(
+                children: [
+                  bookCard,
+                  SizedBox(
+                    width: 20,
+                  )
+                ],
+              ))
+        ],
+      ),
+    ));
+  }
+}
+
+List<BookCard> _trialBooks = <BookCard>[
+  BookCard(
+    child: Container(),
+    color: Colors.red,
+  ),
+  BookCard(
+    child: Container(),
+    color: Colors.yellow,
+  ),
+  BookCard(
+    child: Container(),
+    color: Colors.green,
+  )
+];
+
+

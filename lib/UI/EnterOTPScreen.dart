@@ -43,6 +43,7 @@ class _EnterOTPScreenState extends State<EnterOTPScreen> {
                 Container(
                   child: CustomPinForm(
                     onTap: () {
+                      Navigator.pop(context);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
