@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:library_project/unilib/core/domain/entities/user/userWithProfile_model.dart';
 import 'package:library_project/unilib/core/domain/entities/user/verifiedUser.dart';
 import 'package:library_project/unilib/core/domain/entities/user/verified_user_model.dart';
-import 'package:library_project/unilib/features/Users/Data/DataSources/remote_dataSources/remote_user_source.dart';
-import 'package:library_project/unilib/features/Users/Data/Models/user_model.dart';
-import 'package:library_project/unilib/features/Users/Domain/Entities/User.dart';
+import 'package:library_project/unilib/features/Authentication/Data/DataSources/remote_dataSources/remote_user_source.dart';
+import 'package:library_project/unilib/features/Authentication/Data/Models/user_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:library_project/unilib/features/Authentication/Domain/Entities/User.dart';
 
 class RemoteUserSourceImpl implements RemoteUserSource {
   RemoteUserSourceImpl._();
@@ -82,16 +82,24 @@ class RemoteUserSourceImpl implements RemoteUserSource {
   }
 
   @override
-  Future<VerifiedUserModel> verifyUser(User user, dynamic code) async {
-    String verifyUser =
-        "https://uenrlibrary.herokuapp.com/api/auth/email-verify/verification-code/${user.email}/$code";
-    Uri _uri = Uri.parse(verifyUser);
-    var _response = await http.post(_uri);
-    if (_response.statusCode == 200) {
-      var _body = jsonDecode(_response.body);
-      return VerifiedUserModel(
-          name: _body["name"], email: _body["email"], id: _body["id"]);
-    }
+  Future<VerifiedUserModel> verifyUser(user, code) {
+    // TODO: implement verifyUser
     throw UnimplementedError();
   }
+
+  // @override
+  // Future<VerifiedUserModel> verifyUser(User user, dynamic code) async {
+  //   String verifyUser =
+  //       "https://uenrlibrary.herokuapp.com/api/auth/email-verify/verification-code/${user.email}/$code";
+  //   Uri _uri = Uri.parse(verifyUser);
+  //   var _response = await http.post(_uri);
+  //   if (_response.statusCode == 200) {
+  //     var _body = jsonDecode(_response.body);
+  //     return VerifiedUserModel(
+  //         name: _body["name"], email: _body["email"], id: _body["id"]);
+  //   }
+  //   throw UnimplementedError();
+  // }
+
+
 }

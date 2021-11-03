@@ -1,8 +1,9 @@
-import 'package:library_project/unilib/features/Users/Data/DataSources/remote_dataSources/remote_user_source.dart';
-import 'package:library_project/unilib/features/Users/Domain/Entities/User.dart';
+import 'package:library_project/unilib/features/Authentication/Data/DataSources/remote_dataSources/remote_user_source.dart';
+import 'package:library_project/unilib/features/Authentication/Domain/Entities/User.dart';
 import 'package:library_project/unilib/core/domain/entities/user/verifiedUser.dart';
 import 'package:library_project/unilib/core/domain/entities/user/user_set_profile.dart';
-import 'package:library_project/unilib/features/Users/Domain/Repository/user_repository.dart';
+import 'package:library_project/unilib/features/Authentication/Domain/Repository/user_repository.dart';
+
 
 class UserRepositoryImpl implements UserRepository {
   RemoteUserSource _remoteUserSource;
@@ -37,7 +38,15 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<VerifiedUser> verifyUser(User user, dynamic code) async {
-    return await _remoteUserSource.verifyUser(user, code);
+  Future<VerifiedUser> verifyUser(user, code) {
+    // TODO: implement verifyUser
+    throw UnimplementedError();
   }
+
+  // @override
+  // Future<VerifiedUser> verifyUser(User user, dynamic code) async {
+  //   return await _remoteUserSource.verifyUser(user, code);
+  // }
+
+  
 }

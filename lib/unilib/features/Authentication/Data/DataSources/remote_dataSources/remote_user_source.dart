@@ -1,9 +1,9 @@
 import 'package:library_project/unilib/core/domain/entities/user/userWithProfile_model.dart';
 import 'package:library_project/unilib/core/domain/entities/user/verifiedUser.dart';
 import 'package:library_project/unilib/core/domain/entities/user/verified_user_model.dart';
+import 'package:library_project/unilib/features/Authentication/Data/Models/user_model.dart';
+import 'package:library_project/unilib/features/Authentication/Domain/Entities/User.dart';
 
-import 'package:library_project/unilib/features/Users/Data/Models/user_model.dart';
-import 'package:library_project/unilib/features/Users/Domain/Entities/User.dart';
 
 abstract class RemoteUserSource {
   Future<UserModel?> signIn(Map<String, dynamic> info);

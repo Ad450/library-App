@@ -13,7 +13,7 @@ class UnilibBaseText extends StatelessWidget {
       textAlign: TextAlign.center,
       style: GoogleFonts.quicksand(
         fontSize: 24,
-        color: Colors.teal,
+        color: Colors.blue.shade900,
       ),
     ));
   }

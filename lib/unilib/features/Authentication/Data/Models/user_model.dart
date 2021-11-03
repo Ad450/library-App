@@ -1,4 +1,6 @@
-import 'package:library_project/unilib/features/Users/Domain/Entities/User.dart';
+
+
+import 'package:library_project/unilib/features/Authentication/Domain/Entities/User.dart';
 
 class UserModel extends User {
   UserModel(

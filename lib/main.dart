@@ -52,17 +52,18 @@ class UnilibSplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: MediaQuery.of(context).size.height,
+      decoration: BoxDecoration(color: Colors.blue.shade900),
       child: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              
               child: Image.asset(
                 AppAssets.logo,
                 height: 170,
                 width: 150,
-                color: Color.alphaBlend(Colors.teal, Colors.deepOrangeAccent),
+                color: Color.alphaBlend(Colors.white, Colors.blue.shade900),
               ),
             ),
           ],
