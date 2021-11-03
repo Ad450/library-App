@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:library_project/unilib/core/platform/app_Images.dart';
 
-class LoadingScreen extends StatefulWidget {
+class LoadingScreen extends StatelessWidget {
   final String? _authTitle;
   const LoadingScreen({Key? key, String? authTitle})
       : _authTitle = authTitle,
         super(key: key);
-
-  @override
-  _LoadingScreenState createState() => _LoadingScreenState();
-}
-
-class _LoadingScreenState extends State<LoadingScreen> {
-  
 
   @override
   Widget build(BuildContext context) {
@@ -40,14 +34,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
             ),
             Container(
               child: Text(
-                widget._authTitle ?? "please wait while we make final touches",
+                _authTitle ?? "please wait while we make final touches",
                 style: GoogleFonts.quicksand(color: Colors.black, fontSize: 15),
               ),
             ),
             SizedBox(
               height: 20,
             ),
-           
+            Image.asset(AppAssets.waiting),
             SizedBox(
               height: 50,
             ),

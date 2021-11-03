@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:library_project/UI/welcomeScreen.dart';
 import 'package:library_project/unilib/core/platform/app_Images.dart';
 import 'package:library_project/unilib/core/presentation/unilib_getting_started.dart';
 import 'package:library_project/unilib/core/widgets/unilib_base_text.dart';
@@ -33,10 +34,7 @@ class UnilibHome extends StatelessWidget {
       body: SafeArea(
         child: Container(
           child: PageView(
-            children: <Widget>[
-              UnilibSplashScreen(),
-              UnilibGettingStartedScreen()
-            ],
+            children: <Widget>[WelcomeScreen()],
           ),
         ),
       ),
@@ -44,34 +42,34 @@ class UnilibHome extends StatelessWidget {
   }
 }
 
-class UnilibSplashScreen extends StatelessWidget {
-  const UnilibSplashScreen({
-    Key? key,
-  }) : super(key: key);
+// class UnilibSplashScreen extends StatelessWidget {
+//   const UnilibSplashScreen({
+//     Key? key,
+//   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(color: Colors.blue.shade900),
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              child: Image.asset(
-                AppAssets.logo,
-                height: 170,
-                width: 150,
-                color: Color.alphaBlend(Colors.white, Colors.blue.shade900),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       height: MediaQuery.of(context).size.height,
+//       decoration: BoxDecoration(color: Colors.blue.shade900),
+//       child: Container(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             Container(
+//               child: Image.asset(
+//                 AppAssets.logo,
+//                 height: 170,
+//                 width: 150,
+//                 color: Color.alphaBlend(Colors.white, Colors.blue.shade900),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 
 //  _ongenerateRoutes (RouteSettings _settings){

@@ -9,17 +9,18 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
 import 'package:provider/provider.dart';
 
-class CustomTextForm extends StatefulWidget {
-  final String? _email;
-  const CustomTextForm({Key? key, String? email})
-      : _email = email,
+class CustomPinForm extends StatefulWidget {
+  final Function onTap;
+  
+  const CustomPinForm({Key? key, required this.onTap})
+      : 
         super(key: key);
 
   @override
-  _CustomTextFormState createState() => _CustomTextFormState();
+  _CustomPinFormState createState() => _CustomPinFormState();
 }
 
-class _CustomTextFormState extends State<CustomTextForm> {
+class _CustomPinFormState extends State<CustomPinForm> {
   String errorText = "please enter missing value(s)";
   //bool _showError = false;
 
@@ -68,7 +69,9 @@ class _CustomTextFormState extends State<CustomTextForm> {
           color: Colors.amberAccent,
           textColor: Colors.black,
           padding: 6,
-          onTap: () {},
+          onTap: () {
+            widget.onTap();
+          },
         ),
         SizedBox(
           height: 10,

@@ -1,87 +1,106 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:flutter/cupertino.dart';
+// import 'package:flutter/material.dart';
+// import 'package:google_fonts/google_fonts.dart';
 
 
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 
-class GiveDetailsScreen extends StatefulWidget {
-  const GiveDetailsScreen({Key? key}) : super(key: key);
+// class GiveDetailsScreen extends StatefulWidget {
+//   const GiveDetailsScreen({Key? key}) : super(key: key);
 
-  static final detailsUrl = "/booksPage";
+//   static final detailsUrl = "/booksPage";
 
-  @override
-  _GiveDetailsScreenState createState() => _GiveDetailsScreenState();
-}
+//   @override
+//   _GiveDetailsScreenState createState() => _GiveDetailsScreenState();
+// }
 
-class _GiveDetailsScreenState extends State<GiveDetailsScreen>
-    with SingleTickerProviderStateMixin {
-  TabController? _tabController;
-  bool allowOverview = false;
-  int _currentIndex = 0;
-  dynamic _id;
+// class _GiveDetailsScreenState extends State<GiveDetailsScreen>
+//     with SingleTickerProviderStateMixin {
+//   TabController? _tabController;
+//   bool allowOverview = false;
+//   int _currentIndex = 0;
 
+//   @override
+//   void initState() {
+//     _tabController =
+//         TabController(initialIndex: _currentIndex, vsync: this, length: 2);
+//     super.initState();
+//   }
 
-
-  @override
-  Widget build(BuildContext context) {
+//   @override
+//   Widget build(BuildContext context) {
   
-    List<Tab> _tabs = [
-      Tab(
-        child: Text(
-          "profile",
-          style: GoogleFonts.quicksand(fontSize: 25),
-        ),
-      ),
-      Tab(
-        child: Text(
-          "overview",
-          style: GoogleFonts.quicksand(
-            fontSize: 25,
-          ),
-        ),
-      ),
-    ];
-    return Scaffold(
-      appBar: PreferredSize(
-        child: AppBar(
-          leading: IconButton(
-              color: Colors.white,
-              onPressed: () {},
-              icon: Icon(Icons.keyboard_arrow_left_outlined)),
-          backgroundColor: Colors.white,
-          title: Text(
-            "Profile",
-            style: GoogleFonts.quicksand(
-                fontWeight: FontWeight.bold, fontSize: 25, color: Colors.black),
-          ),
-          centerTitle: true,
-          elevation: 0.0,
-          bottom: TabBar(
-            isScrollable: true,
-            //indicatorPadding: EdgeInsets.only(left: 20, right: 20),
-            indicatorSize: TabBarIndicatorSize.tab,
-            indicatorColor: Colors.black,
-            labelColor: Colors.black,
-            labelStyle: GoogleFonts.quicksand(fontWeight: FontWeight.bold),
-            unselectedLabelColor: Colors.grey,
-            indicator: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              shape: BoxShape.rectangle,
-              color: Colors.white,
-            ),
-            onTap: (index) {
-          
-            },
-            controller: _tabController,
-            tabs: _tabs,
-          ),
-        ),
-        preferredSize: Size.fromHeight(150),
-      ),
-      body: TabBarView(
-          controller: _tabController,
-          children: <Widget>[]),
-    );
-  }
-}
+//     List<Tab> _tabs = [
+//       Tab(
+//         child: Text(
+//           "profile",
+//           style: GoogleFonts.quicksand(fontSize: 25),
+//         ),
+//       ),
+//       Tab(
+//         child: Text(
+//           "overview",
+//           style: GoogleFonts.quicksand(
+//             fontSize: 25,
+//           ),
+//         ),
+//       ),
+//     ];
+//     return Scaffold(
+//       appBar: PreferredSize(
+//         child: AppBar(
+//           leading: IconButton(
+//               color: Colors.white,
+//               onPressed: () {},
+//               icon: Icon(Icons.keyboard_arrow_left_outlined)),
+//           backgroundColor: Colors.white,
+//           title: Text(
+//             "Profile",
+//             style: GoogleFonts.quicksand(
+//                 fontWeight: FontWeight.bold, fontSize: 25, color: Colors.black),
+//           ),
+//           centerTitle: true,
+//           elevation: 0.0,
+//           bottom: TabBar(
+//             //indicatorPadding: EdgeInsets.only(left: 20, right: 20),
+//             indicatorSize: TabBarIndicatorSize.tab,
+//             indicatorColor: Colors.black,
+//             labelColor: Colors.black,
+//             labelStyle: GoogleFonts.quicksand(fontWeight: FontWeight.bold),
+//             unselectedLabelColor: Colors.grey,
+//             indicator: BoxDecoration(
+//               borderRadius: BorderRadius.circular(10),
+//               shape: BoxShape.rectangle,
+//               color: Colors.white,
+//             ),
+//             onTap: (index) {
+//               setState(() {
+//                 _currentIndex = index;
+//                 // checking if _currentIndex is one
+//                 // check if userFormPostSuccess is true
+//                 //before pushing to the overview screen
+//                 print(_provider.userFormPostSuccessful);
+//                 if (_currentIndex == 1) {
+//                   if (!_provider.userFormPostSuccessful!) {
+//                     _currentIndex = 0;
+//                     _tabController!.animateTo(_currentIndex);
+//                   } else {
+//                     _currentIndex = index;
+//                     _tabController!.animateTo(_currentIndex);
+//                   }
+//                 }
+//               });
+//               print(_currentIndex);
+//             },
+//             controller: _tabController,
+//             tabs: _tabs,
+//           ),
+//         ),
+//         preferredSize: Size.fromHeight(150),
+//       ),
+//       body: TabBarView(
+//           controller: _tabController,
+//           children: <Widget>[Profile(currentIndex: _currentIndex), OverView()]),
+//     );
+//   }
+// }

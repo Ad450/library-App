@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:library_project/UI/EnterOTPScreen.dart';
+
 import 'package:library_project/UI/verification.dart';
 import 'package:library_project/Widgets/customButton.dart';
 import 'package:library_project/Widgets/logo.dart';
@@ -9,20 +9,18 @@ import 'package:library_project/Widgets/logo.dart';
 import 'package:provider/provider.dart';
 
 class CustomForms extends StatefulWidget {
-  final String? _title;
-  final Function? _authHandler;
-  final String? _buttonTitle;
-  final double? _paddingDecider;
+  final String title;
+  final String buttonTitle;
+  final double paddingDecider;
+  final Function onTap;
   const CustomForms(
       {Key? key,
-      @required String? buttonTitle,
-      @required String? title,
-      @required double? paddingDecider,
-      @required Function? authHandler})
-      : _buttonTitle = buttonTitle,
-        _paddingDecider = paddingDecider,
-        _authHandler = authHandler,
-        _title = title,
+      required this.buttonTitle,
+      required this.title,
+       required this.paddingDecider,
+       required this.onTap
+      })
+      : 
         super(key: key);
 
   @override
@@ -32,8 +30,6 @@ class CustomForms extends StatefulWidget {
 class _CustomFormsState extends State<CustomForms> {
   final _formKey = GlobalKey<FormState>();
 
-  String? _email;
-  String? _password;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscureText = true;
@@ -41,6 +37,8 @@ class _CustomFormsState extends State<CustomForms> {
 
   @override
   void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
@@ -67,7 +65,7 @@ class _CustomFormsState extends State<CustomForms> {
                 SizedBox(height: 40),
                 Container(
                   child: Text(
-                    widget._title!,
+                    widget.title,
                     style: GoogleFonts.quicksand(
                         color: Colors.black, fontSize: 30),
                   ),
@@ -161,13 +159,13 @@ class _CustomFormsState extends State<CustomForms> {
                         height: 40,
                       ),
                       CustomButton(
-                        title: widget._buttonTitle,
+                        title: widget.buttonTitle,
                         color: Colors.amberAccent,
                         textColor: Colors.black,
                         padding: _mediaQuery.size.longestSide /
-                            widget._paddingDecider!,
+                            widget.paddingDecider ,
                         onTap: () async {
-                        
+                          widget.onTap();
                         },
                       ),
                       Container(

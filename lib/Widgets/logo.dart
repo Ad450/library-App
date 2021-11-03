@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:library_project/unilib/core/platform/app_Images.dart';
 
 class CustomLogo extends StatelessWidget {
   final Color? _containerColor;
@@ -13,11 +13,11 @@ class CustomLogo extends StatelessWidget {
       alignment: Alignment.center,
       padding: EdgeInsets.all(5),
       decoration: BoxDecoration(shape: BoxShape.circle, color: _containerColor),
-      // child: Image.asset(
-      //   Constants.logo,
-      //   height: 60,
-      //   width: 60,
-      // ),
+      child: Image.asset(
+        AppAssets.logo,
+        height: 60,
+        width: 60,
+      ),
     );
   }
 }

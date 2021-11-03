@@ -1,28 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:library_project/unilib/core/platform/app_Images.dart';
-import 'package:provider/provider.dart';
 
 import 'landingScreen.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  final bool isVerified;
-  final bool isLoggedIn;
-  const WelcomeScreen(this.isVerified, this.isLoggedIn);
+  const WelcomeScreen();
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
- 
   @override
   Widget build(BuildContext context) {
-   
     final _mediaHeight = MediaQuery.of(context).size.height;
     final _mediaWidth = MediaQuery.of(context).size.width;
 
-    return
-        
-        SafeArea(
+    return SafeArea(
       child: PageView(children: [
         Scaffold(
           body: Stack(
@@ -47,14 +40,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 }
 
 class CustomLogo extends StatelessWidget {
-  const CustomLogo({ Key? key }) : super(key: key);
+  const CustomLogo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child : CircleAvatar(
+      child: CircleAvatar(
+        backgroundColor: Colors.white,
         child: Image.asset(AppAssets.logo),
-      ) ,
+      ),
     );
   }
 }

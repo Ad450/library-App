@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:library_project/UI/BookScreen.dart';
+import 'package:library_project/Widgets/customPinfield.dart';
+import 'package:library_project/unilib/core/platform/app_Images.dart';
 
 class EnterOTPScreen extends StatefulWidget {
+  const EnterOTPScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _EnterOTPScreenState createState() => _EnterOTPScreenState();
@@ -10,7 +15,10 @@ class EnterOTPScreen extends StatefulWidget {
 
 class _EnterOTPScreenState extends State<EnterOTPScreen> {
   @override
-  
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var _height = MediaQuery.of(context).size.height;
@@ -19,7 +27,7 @@ class _EnterOTPScreenState extends State<EnterOTPScreen> {
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Container(
-            margin: EdgeInsets.only(left: 10, right: 10, top: _height / 10),
+            margin: EdgeInsets.only(left: 15, right: 15, top: _height / 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -28,12 +36,22 @@ class _EnterOTPScreenState extends State<EnterOTPScreen> {
                   style:
                       GoogleFonts.quicksand(fontSize: 20, color: Colors.black),
                 ),
+                Image.asset(AppAssets.otp),
                 SizedBox(
-                  height: 10,
+                  height: 30,
                 ),
-                // Container(
-                //   child: CustomTextForm(email: widget._email),
-                // )
+                Container(
+                  child: CustomPinForm(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BookScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                )
               ],
             ),
           ),
