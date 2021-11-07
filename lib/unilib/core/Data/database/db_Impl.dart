@@ -6,16 +6,23 @@ import 'package:sqflite/sqflite.dart';
 /// have to inject BooksDatabaseImpl as dependency
 
 class BooksDatabaseImpl implements BookDatabase {
-  String _databasePath = "books.db";
 
+  // path of database
+  String _databasePath = "books.db";
+  // creates or opens a database 
   Database? _database;
   BooksDatabaseImpl._() {
     _initDB();
   }
 
+
+  // singleton 
+
   static final BooksDatabaseImpl instance = BooksDatabaseImpl._();
 
   factory BooksDatabaseImpl() => instance;
+
+  // creates database if one is not created yet
 
   Future<Database?> _initDB() async {
     if (_database == null) {
@@ -30,14 +37,18 @@ class BooksDatabaseImpl implements BookDatabase {
     }
   }
 
+  // retrieve the last item from the list of books in the database
+
   @override
-  Future<List<BookModels>> retrieveCurrentItem() async {
+  Future<BookModels> retrieveCurrentItem() async {
     List<Map<String, dynamic>> items = await _database!.query("books");
-    List<BookModels> _books =
-        items.map((item) => BookModels.fromJson(item)).toList();
-    return _books;
+
+    List<BookModels> booksFromDB =  items.map((item) => BookModels.fromJson(item)).toList();
+    return booksFromDB.last;
   }
 
+
+// store book in database
   @override
   void store(BookModels _book) async {
     Map<String, dynamic> value = {
@@ -46,6 +57,15 @@ class BooksDatabaseImpl implements BookDatabase {
       "img": _book.img,
       "id": _book.name
     };
-    _database!.insert("books", value);
+    if (_database != null)
+      _database!.insert("books", value);
+  }
+
+
+  // delete book with matching id from database
+
+  Future<void> delete(BookModels _book, dynamic id, String table) async {
+    if (_database != null && _database is Database)
+      _database!.delete(table, where: 'columnId = ${_book.id}');
   }
 }

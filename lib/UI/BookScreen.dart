@@ -1,10 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:library_project/UI/LoadingScreen.dart';
-import 'package:library_project/UI/all_books.dart';
+
 import 'package:library_project/Widgets/book_card.dart';
-import 'package:library_project/Widgets/bottom_sheet.dart';
+
 import 'package:library_project/Widgets/header.dart';
 
 class BookScreen extends StatefulWidget {
@@ -72,9 +70,8 @@ class _BookContent extends StatelessWidget {
   }
 }
 
-
 // have to use a stream builder to keep state running
-// Future builder runs once 
+// Future builder runs once
 
 class BooksOnScroll extends StatelessWidget {
   const BooksOnScroll({
@@ -85,7 +82,7 @@ class BooksOnScroll extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: FutureBuilder(
-        future: Future.delayed(Duration(seconds: 2), () => Future.error("")),
+        future: Future.delayed(Duration(seconds: 2), () => 45),
         builder: (context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasError)
             return Column(
@@ -144,5 +141,3 @@ List<BookCard> _trialBooks = <BookCard>[
     color: Colors.green,
   )
 ];
-
-
