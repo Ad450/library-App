@@ -40,7 +40,7 @@ class BooksDatabaseImpl implements BookDatabase {
   // retrieve the last item from the list of books in the database
 
   @override
-  Future<BookModels> retrieveCurrentItem() async {
+  Future<BookModels> retrieveCurrentItem(dynamic collection ) async {
     List<Map<String, dynamic>> items = await _database!.query("books");
 
     List<BookModels> booksFromDB =  items.map((item) => BookModels.fromJson(item)).toList();
