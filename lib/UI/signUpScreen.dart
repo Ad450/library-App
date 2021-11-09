@@ -3,6 +3,7 @@ import 'package:library_project/UI/LoadingScreen.dart';
 import 'package:library_project/UI/verification.dart';
 import 'package:library_project/Widgets/CustomForms.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_bloc.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_event.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_state.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -22,6 +23,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   @override
+  void dispose() {
+    _signUpBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CustomForms(
       buttonTitle: "Register",
@@ -31,7 +38,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => WaitingScreen(signUpBloc: _signUpBloc),
+            builder: (context) {
+              _signUpBloc.signUpEventSink.add(SignUpEvents());
+              return WaitingScreen(signUpBloc: _signUpBloc);
+            },
           ),
         );
       },

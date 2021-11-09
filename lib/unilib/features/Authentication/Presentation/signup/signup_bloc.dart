@@ -9,17 +9,18 @@ import 'package:library_project/unilib/features/Authentication/Presentation/sign
 class SignUpBloc {
   SignIn _signIn = SignIn(UserRepositoryImpl(RemoteUserSourceImpl()));
 
-  final StreamController<SignUpState> _signUpStateController = StreamController();
+  final StreamController<SignUpState> _signUpStateController =
+      StreamController();
 
-  StreamSink get signUpStateSink => _signUpStateController.sink;
+  StreamSink get _signUpStateSink => _signUpStateController.sink;
 
   Stream<SignUpState> get signUpStateStream => _signUpStateController.stream;
 
   final _signUpEventController = StreamController();
 
-  StreamSink get _signUpEventSink => _signUpEventController.sink;
+  StreamSink get signUpEventSink => _signUpEventController.sink;
 
-  Stream get signUpEventStream => _signUpEventController.stream;
+  Stream get _signUpEventStream => _signUpEventController.stream;
 
   // StreamController _userInfoController  = StreamController();
 
@@ -28,12 +29,13 @@ class SignUpBloc {
   // StreamSink get inputUserInfoSink => _userInfoController.sink;
 
   SignUpBloc() {
-    signUpEventStream.listen(_mapEventToState);
+    _signUpEventStream.listen(_mapEventToState);
   }
 
   void _mapEventToState(event) async {
     if (event is SignUpEvents) {
-      _signUpEventSink.add(SignUpState.LOADING);
+      _signUpStateSink.add(SignUpState.LOADING);
+      print("event sent");
     }
   }
 
