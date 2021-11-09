@@ -14,7 +14,7 @@ class RemoteBookSourceImpl implements RemoteBookSource {
   // factory RemoteBookSourceImpl() => _instance;
 
   @override
-  Future<Either<Failure, List<BookModels>>> call() async {
+  Future<List<BookModels>> call() async {
     String endpoint =
         "https://uenrlibrary.herokuapp.com/api/library/retrieve-all-books";
 
@@ -27,14 +27,14 @@ class RemoteBookSourceImpl implements RemoteBookSource {
       if (_response.statusCode.toString().startsWith("2")) {
         //  BookModels.fromJson(jsonDecode(_response.body));
         List _listfromJson = jsonDecode(_response.body);
-        return Right(_listfromJson.map((element) {
+        return _listfromJson.map((element) {
           return BookModels.fromJson(element);
-        }).toList());
+        }).toList();
       }
     } on Error catch (e) {
       throw (e);
     }
 
-    return Left(Failure("error occured"));
+    return [];
   }
 }

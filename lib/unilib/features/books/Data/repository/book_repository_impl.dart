@@ -25,7 +25,7 @@ class BooksRepositoryImpl implements BooksRepository {
   }
 
   @override
- Future<Either<Failure, List<BookModels>>>  retrieveAllBooks() async {
+ Future<List<BookModels>>  retrieveAllBooks() async {
     NetworkStatus status = await networkInfo.call();
     if (status == NetworkStatus.mobile || status == NetworkStatus.Wifi) {
       return await remoteBookSource.call();
