@@ -6,7 +6,7 @@ import 'package:library_project/unilib/core/domain/entities/user/verified_user_m
 import 'package:library_project/unilib/features/Authentication/Data/DataSources/remote_dataSources/remote_user_source.dart';
 import 'package:library_project/unilib/features/Authentication/Data/Models/user_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:library_project/unilib/features/Authentication/Domain/Entities/User.dart';
+
 
 class RemoteUserSourceImpl implements RemoteUserSource {
   RemoteUserSourceImpl._();

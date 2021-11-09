@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:library_project/UI/LoadingScreen.dart';
 import 'package:library_project/UI/verification.dart';
 import 'package:library_project/Widgets/CustomForms.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_bloc.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_state.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -11,6 +13,14 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  late SignUpBloc _signUpBloc;
+
+  @override
+  void initState() {
+    _signUpBloc = SignUpBloc();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomForms(
@@ -21,7 +31,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => WaitingScreen(),
+            builder: (context) => WaitingScreen(signUpBloc: _signUpBloc),
           ),
         );
       },
@@ -32,22 +42,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
 // when ontapped, navigate to a new. Wrap the new screen with future builder, show appropriate widget based on the future
 
 class WaitingScreen extends StatelessWidget {
-  const WaitingScreen({Key? key}) : super(key: key);
+  SignUpBloc _signUpBloc;
+  WaitingScreen({Key? key, required SignUpBloc signUpBloc})
+      : _signUpBloc = signUpBloc,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: FutureBuilder(
-      future: Future.delayed(Duration(seconds: 2), () => 45),
-      builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+        child: StreamBuilder<SignUpState>(
+      stream: _signUpBloc.signUpStateStream,
+      builder: (BuildContext context, AsyncSnapshot<SignUpState> snapshot) {
         if (snapshot.hasError)
           return Center(
             child: Text("error occured"),
           );
 
-        if (!snapshot.hasData) return LoadingScreen();
+        if (!snapshot.hasData)
+          return Center(
+            child: Text("error occured"),
+          );
 
-        return VerificationScreen();
+        if (snapshot.data == SignUpState.LOADING) return VerificationScreen();
+
+        return Text("sorry");
       },
     ));
   }
