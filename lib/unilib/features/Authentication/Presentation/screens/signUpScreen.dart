@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:library_project/UI/LoadingScreen.dart';
-import 'package:library_project/UI/verification.dart';
-import 'package:library_project/Widgets/CustomForms.dart';
+import 'package:library_project/unilib/core/presentation/widgets/CustomForms.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/screens/LoadingScreen.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/screens/verification.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_bloc.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_event.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_state.dart';
-import 'package:mockito/mockito.dart';
-import 'package:provider/provider.dart';
+
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);

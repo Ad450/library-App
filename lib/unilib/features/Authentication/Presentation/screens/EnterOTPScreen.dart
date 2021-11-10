@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:library_project/UI/BookScreen.dart';
-import 'package:library_project/Widgets/customPinfield.dart';
-import 'package:library_project/unilib/core/platform/app_Images.dart';
+import 'package:library_project/unilib/core/Data/platforms/assets/app_Images.dart';
+import 'package:library_project/unilib/core/presentation/widgets/customPinfield.dart';
+import 'package:library_project/unilib/features/books/presentation/screens/BookScreen.dart';
+
+
+
 
 class EnterOTPScreen extends StatefulWidget {
   const EnterOTPScreen({

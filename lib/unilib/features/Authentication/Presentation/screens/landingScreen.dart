@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-import 'package:library_project/UI/LogInScreen.dart';
-import 'package:library_project/UI/signUpScreen.dart';
-import 'package:library_project/Widgets/customButton.dart';
-import 'package:library_project/Widgets/logo.dart';
+import 'package:library_project/unilib/core/presentation/widgets/customButton.dart';
+import 'package:library_project/unilib/core/presentation/widgets/logo.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/screens/LogInScreen.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/screens/signUpScreen.dart';
+
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({Key? key}) : super(key: key);

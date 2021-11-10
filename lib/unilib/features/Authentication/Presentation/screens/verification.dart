@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:library_project/UI/EnterOTPScreen.dart';
-import 'package:library_project/UI/LoadingScreen.dart';
-import 'package:library_project/Widgets/customButton.dart';
-import 'package:library_project/unilib/core/platform/app_Images.dart';
+import 'package:library_project/unilib/core/Data/platforms/assets/app_Images.dart';
+import 'package:library_project/unilib/core/presentation/widgets/customButton.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/screens/EnterOTPScreen.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/screens/LoadingScreen.dart';
 
 class VerificationScreen extends StatefulWidget {
   const VerificationScreen({Key? key}) : super(key: key);

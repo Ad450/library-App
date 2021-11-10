@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:library_project/UI/welcomeScreen.dart';
-import 'package:library_project/unilib/core/platform/app_Images.dart';
-import 'package:library_project/unilib/core/presentation/unilib_getting_started.dart';
-import 'package:library_project/unilib/core/widgets/unilib_base_text.dart';
-import 'package:library_project/unilib/core/widgets/unilib_page_wrapper.dart';
+
+
+
+import 'package:library_project/unilib/features/Authentication/Presentation/screens/welcomeScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:library_project/UI/LoadingScreen.dart';
+import 'package:library_project/unilib/core/presentation/widgets/book_card.dart';
+import 'package:library_project/unilib/core/presentation/widgets/header.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/screens/LoadingScreen.dart';
 
-import 'package:library_project/Widgets/book_card.dart';
-
-import 'package:library_project/Widgets/header.dart';
 
 class BookScreen extends StatefulWidget {
   const BookScreen({Key? key}) : super(key: key);

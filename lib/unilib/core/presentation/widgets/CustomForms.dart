@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:library_project/unilib/core/presentation/widgets/customButton.dart';
+import 'package:library_project/unilib/core/presentation/widgets/logo.dart';
 
-import 'package:library_project/UI/verification.dart';
-import 'package:library_project/Widgets/customButton.dart';
-import 'package:library_project/Widgets/logo.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/screens/verification.dart';
 
 class CustomForms extends StatefulWidget {
   final String title;
