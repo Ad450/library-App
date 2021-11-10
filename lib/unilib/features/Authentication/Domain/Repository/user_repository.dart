@@ -5,7 +5,7 @@ import 'package:library_project/unilib/features/Authentication/Domain/Entities/U
 
 
 abstract class UserRepository {
-  Future<User?> signIn(Map<String, dynamic> info);
+  Future<bool> signIn(Map<String, dynamic> info);
   Future<User?> login(Map<String, dynamic> info);
   Future<bool> logout(VerifiedUser user);
   Future<bool> getVerificationCode();

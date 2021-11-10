@@ -6,6 +6,7 @@ import 'package:library_project/unilib/features/Authentication/Presentation/sign
 import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_event.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_state.dart';
 import 'package:mockito/mockito.dart';
+import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -35,13 +36,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
       buttonTitle: "Register",
       title: "Sign Up",
       paddingDecider: double.infinity,
-      onTap: () {
+      onTap: ({required String email, required String password}) {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) {
-              _signUpBloc.signUpEventSink.add(SignUpEvents.containUserInfo(
-                  email: "adjeimanue@gmail.com", name: "emmanuel"));
+              _signUpBloc.signUpEventSink.add(
+                  SignUpEvents.containUserInfo(email: email, name: password));
               return WaitingScreen(signUpBloc: _signUpBloc);
             },
           ),
@@ -77,6 +78,13 @@ class WaitingScreen extends StatelessWidget {
 
         if (snapshot.data == SignUpState.LOADING)
           return Center(child: LoadingScreen());
+
+        if (snapshot.data == SignUpState.ERROR)
+          return Scaffold(
+            body: Center(
+              child: Text("error occured"),
+            ),
+          );
 
         if (snapshot.data == SignUpState.LOADED) return VerificationScreen();
 

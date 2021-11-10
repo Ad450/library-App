@@ -41,7 +41,7 @@ class RemoteUserSourceImpl implements RemoteUserSource {
       var body = jsonDecode(_response.body);
       _userModel = UserModel(
         email: body["email"],
-        name: body["name"],
+        password: "",
         id: body["id"],
       );
       return _userModel;
@@ -63,34 +63,37 @@ class RemoteUserSourceImpl implements RemoteUserSource {
   }
 
   @override
-  Future<UserModel?> signIn(Map<String, dynamic> info) async {
+  Future<bool> signIn(Map<String, dynamic> info) async {
+    bool isSuccessful = false;
     String signUpEndpoint =
         "https://uenrlibrary.herokuapp.com/api/auth/register";
-    UserModel _userModel;
+
     Uri _uri = Uri.parse(signUpEndpoint);
     var response;
-    if (await NetWorkConnectivity().call() != NetworkStatus.off) {
-      print("network isnot off");
-      response = await http.post(_uri,
-          body: jsonEncode(info),
-          headers: {"content-type": "application/json"});
-    } else {
-      return null;
+
+    try {
+      if (await NetWorkConnectivity().call() != NetworkStatus.off) {
+        print("network isnot off");
+        print(info);
+        response = await http.post(_uri,
+            body: jsonEncode(info),
+            headers: {"content-type": "application/json"});
+
+        if (response.statusCode.toString().startsWith("2")) {
+          isSuccessful = true;
+          print("function execution got here");
+          //var body = jsonDecode(response.body);
+
+          return isSuccessful;
+        }
+      } 
+    } catch (e) {
+      print(e);
     }
 
     print("before signing user");
 
-    if (response.statusCode == 200) {
-      print("function execution got here");
-      var body = jsonDecode(response.body);
-      _userModel = UserModel(
-        email: body["email"],
-        name: body["name"],
-        id: body["id"],
-      );
-      return _userModel;
-    }
-    return null;
+    return isSuccessful;
   }
 
   @override

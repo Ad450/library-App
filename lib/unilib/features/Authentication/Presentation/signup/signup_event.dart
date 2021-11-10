@@ -2,12 +2,12 @@ abstract class Events {}
 
 class SignUpEvents extends Events {
   String email;
-  String name;
+  String password;
 
-  SignUpEvents({required this.email, required this.name});
+  SignUpEvents({required this.email, required this.password});
 
  factory SignUpEvents.containUserInfo({required String email, required String name}){
-    return SignUpEvents(email:email, name : name);
+    return SignUpEvents(email:email, password : name);
   }
 }
 

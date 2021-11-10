@@ -6,7 +6,7 @@ import 'package:library_project/unilib/features/Authentication/Domain/Entities/U
 
 
 abstract class RemoteUserSource {
-  Future<UserModel?> signIn(Map<String, dynamic> info);
+  Future<bool> signIn(Map<String, dynamic> info);
   Future<UserModel?> login(Map<String, dynamic> info);
   Future<bool> logout(VerifiedUser user);
   Future<bool> getVerificationCode();

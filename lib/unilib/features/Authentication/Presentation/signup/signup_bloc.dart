@@ -23,11 +23,7 @@ class SignUpBloc {
 
   Stream get _signUpEventStream => _signUpEventController.stream;
 
-  // StreamController _userInfoController  = StreamController();
 
-  // Stream get _getUserInfoStream => _userInfoController.stream;
-
-  // StreamSink get inputUserInfoSink => _userInfoController.sink;
 
   SignUpBloc() {
     _signUpEventStream.listen(_mapEventToState);
@@ -38,11 +34,15 @@ class SignUpBloc {
       _signUpStateSink.add(SignUpState.LOADING);
       print("state is loading");
 
-      Map<String, dynamic> userInfo = {"name" :event.name , "email" : event.email};
+      Map<String, dynamic> userInfo = {"name" :event.password , "email" : event.email};
 
       var result = await _signIn.call(userInfo);
-      if(result is User)
-       _signUpStateSink.add(SignUpState.LOADED);
+      if(result) {
+        _signUpStateSink.add(SignUpState.LOADED);
+      }else{
+        _signUpStateSink.add(SignUpState.ERROR);
+      }
+       
     }
   }
 

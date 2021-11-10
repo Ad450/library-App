@@ -5,9 +5,6 @@ import 'package:library_project/UI/verification.dart';
 import 'package:library_project/Widgets/customButton.dart';
 import 'package:library_project/Widgets/logo.dart';
 
-
-import 'package:provider/provider.dart';
-
 class CustomForms extends StatefulWidget {
   final String title;
   final String buttonTitle;
@@ -17,11 +14,9 @@ class CustomForms extends StatefulWidget {
       {Key? key,
       required this.buttonTitle,
       required this.title,
-       required this.paddingDecider,
-       required this.onTap
-      })
-      : 
-        super(key: key);
+      required this.paddingDecider,
+      required this.onTap})
+      : super(key: key);
 
   @override
   _CustomFormsState createState() => _CustomFormsState();
@@ -44,8 +39,6 @@ class _CustomFormsState extends State<CustomForms> {
 
   @override
   Widget build(BuildContext context) {
-   
-
     MediaQueryData _mediaQuery = MediaQuery.of(context);
     var height = _mediaQuery.size.height / 4.5;
     return Scaffold(
@@ -163,9 +156,11 @@ class _CustomFormsState extends State<CustomForms> {
                         color: Colors.amberAccent,
                         textColor: Colors.black,
                         padding: _mediaQuery.size.longestSide /
-                            widget.paddingDecider ,
+                            widget.paddingDecider,
                         onTap: () async {
-                          widget.onTap();
+                          widget.onTap(
+                              password: _passwordController.value.text,
+                              email: _emailController.value.text);
                         },
                       ),
                       Container(

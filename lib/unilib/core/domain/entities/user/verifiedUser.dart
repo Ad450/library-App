@@ -3,9 +3,9 @@ import 'package:library_project/unilib/features/Authentication/Domain/Entities/U
 class VerifiedUser extends User {
   bool isVerified = true;
   VerifiedUser(
-      {required String name,
+      {required String password,
       required String email,
       required int id,
       dynamic code})
-      : super(email: email, name: name, id: id, code: code);
+      : super(email: email, password: password, id: id, code: code);
 }

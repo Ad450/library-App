@@ -32,8 +32,9 @@ class UserRepositoryImpl implements UserRepository {
     return await _remoteUserSource.setProfile(user);
   }
 
+
   @override
-  Future<User?> signIn(Map<String, dynamic> info) async {
+  Future<bool> signIn(Map<String, dynamic> info) async {
     return await _remoteUserSource.signIn(info);
   }
 

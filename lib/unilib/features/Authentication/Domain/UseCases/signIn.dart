@@ -3,11 +3,11 @@ import 'package:library_project/unilib/features/Authentication/Domain/Entities/U
 import 'package:library_project/unilib/features/Authentication/Domain/Repository/user_repository.dart';
 
 
-class SignIn implements UseCase<User, Map<String, dynamic>> {
+class SignIn implements UseCase<bool, Map<String, dynamic>> {
   UserRepository _userRepository;
   SignIn(this._userRepository);
 
-  Future<User?> call(Map<String, dynamic> info) async {
+  Future<bool> call(Map<String, dynamic> info) async {
     return await _userRepository.signIn(info);
   }
 }
