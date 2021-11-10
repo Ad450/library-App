@@ -10,7 +10,7 @@ class SetProfile implements UseCase<UserWithProfile, VerifiedUser> {
 
   //SetProfile(this._userRepository);
 
-  Future<UserWithProfile> call(VerifiedUser verifiedUser) async {
-    return await _userRepository.setProfile(verifiedUser);
+  Future<UserWithProfile> call(VerifiedUser? verifiedUser) async {
+    return await _userRepository.setProfile(verifiedUser!);
   }
 }

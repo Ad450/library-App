@@ -7,7 +7,7 @@ class SignIn implements UseCase<bool, Map<String, dynamic>> {
   UserRepository _userRepository;
   SignIn(this._userRepository);
 
-  Future<bool> call(Map<String, dynamic> info) async {
-    return await _userRepository.signIn(info);
+  Future<bool> call(Map<String, dynamic>? info) async {
+    return await _userRepository.signIn(info!);
   }
 }

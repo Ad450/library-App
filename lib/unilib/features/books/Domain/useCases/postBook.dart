@@ -7,7 +7,7 @@ class PostBook implements UseCase<bool, Book> {
   PostBook(this._booksRepository);
 
   @override
-  Future<bool> call(Book book) async {
-    return await _booksRepository.postBook(book);
+  Future<bool> call(Book? book) async {
+    return await _booksRepository.postBook(book!);
   }
 }

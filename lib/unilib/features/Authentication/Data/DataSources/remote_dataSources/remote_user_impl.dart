@@ -18,15 +18,25 @@ class RemoteUserSourceImpl implements RemoteUserSource {
 
   @override
   Future<bool> getVerificationCode() async {
+    var _response;
     String getVerificationCodeEndpoint =
         "https://uenrlibrary.herokuapp.com/api/auth/resend-verification-link";
     bool isCodeSent = false;
     Uri _uri = Uri.parse(getVerificationCodeEndpoint);
-    var _response = await http.get(_uri);
-    if (_response.statusCode == 200) {
-      isCodeSent = true;
-      return isCodeSent;
+    try {
+      _response = await http.get(_uri);
+      print("function verification got here");
+      if (_response.statusCode.toString().startsWith("2")) {
+        print("code sent");
+        isCodeSent = true;
+        return isCodeSent;
+      }
+
+      print(_response.statusCode);
+    } catch (e) {
+      print(e);
     }
+
     return isCodeSent;
   }
 

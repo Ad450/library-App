@@ -8,7 +8,7 @@ class Login implements UseCase<User, Map<String, dynamic>> {
   UserRepository _userRepository;
   Login(this._userRepository);
 
-  Future<User?> call(Map<String, dynamic> info) async {
-    return await _userRepository.login(info);
+  Future<User?> call(Map<String, dynamic>? info) async {
+    return await _userRepository.login(info!);
   }
 }

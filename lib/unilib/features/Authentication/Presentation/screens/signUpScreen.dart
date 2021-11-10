@@ -67,21 +67,23 @@ class WaitingScreen extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<SignUpState> snapshot) {
         if (snapshot.hasError)
           return Center(
-            child: Text("error occured"),
+            child: Text("sign up error occured"),
           );
 
         if (!snapshot.hasData)
           return Center(
-            child: Text("error occured"),
+            child: Text("no data sign up error occured"),
           );
 
         if (snapshot.data == SignUpState.LOADING)
           return Center(child: LoadingScreen());
 
-        if (snapshot.data == SignUpState.ERROR)
-          return Retry();
+        if (snapshot.data == SignUpState.ERROR) return Retry();
 
-        if (snapshot.data == SignUpState.LOADED) return VerificationScreen();
+        if (snapshot.data == SignUpState.LOADED){
+          _signUpBloc.close();
+          return VerificationScreen();
+        } 
 
         return Text("sorry");
       },

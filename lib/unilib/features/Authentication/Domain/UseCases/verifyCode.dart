@@ -7,7 +7,7 @@ class VerifyCode implements UseCase<VerifiedUser, User> {
   UserRepository _userRepository;
   VerifyCode(this._userRepository);
 
-  Future<VerifiedUser> call(User user) async {
-    return await _userRepository.verifyUser(user, user.code);
+  Future<VerifiedUser> call(User? user) async {
+    return await _userRepository.verifyUser(user!, user.code);
   }
 }

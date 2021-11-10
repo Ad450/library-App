@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:library_project/unilib/core/Data/platforms/assets/app_Images.dart';
 import 'package:library_project/unilib/core/presentation/widgets/customButton.dart';
+import 'package:library_project/unilib/core/presentation/widgets/retry.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/EnterOTPScreen.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/LoadingScreen.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/verification/verfication_state.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/verification/verification_bloc.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/verification/verification_event.dart';
 
 class VerificationScreen extends StatefulWidget {
   const VerificationScreen({Key? key}) : super(key: key);
@@ -17,6 +21,12 @@ class VerificationScreen extends StatefulWidget {
 class _VerificationScreenState extends State<VerificationScreen> {
   TextEditingController _emailController = TextEditingController();
   final _key = GlobalKey<FormState>();
+  late VerificationBloc _verificationBloc;
+  @override
+  void initState() {
+    _verificationBloc = VerificationBloc();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,10 +90,16 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       textColor: Colors.black,
                       padding: 7,
                       onTap: () {
+                        if (_key.currentState!.validate())
+                          _verificationBloc.verificationEventSink.add(
+                              VerificationEvent.withEmail(
+                                  email: _emailController.value.text));
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => WaitingVerification(),
+                            builder: (context) => WaitingVerification(
+                              verificationBloc: _verificationBloc,
+                            ),
                           ),
                         );
                       },
@@ -112,22 +128,37 @@ class _VerificationScreenState extends State<VerificationScreen> {
 }
 
 class WaitingVerification extends StatelessWidget {
-  const WaitingVerification({Key? key}) : super(key: key);
+  final VerificationBloc _verificationBloc;
+  const WaitingVerification(
+      {Key? key, required VerificationBloc verificationBloc})
+      : _verificationBloc = verificationBloc,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: FutureBuilder(
-            future: Future.delayed(Duration(seconds: 2), () => 45),
-            builder: (context, AsyncSnapshot<int> snapshot) {
+        child: StreamBuilder<VerificationState>(
+            stream: _verificationBloc.verificationStateStream,
+            builder: (context, AsyncSnapshot<VerificationState> snapshot) {
               if (snapshot.hasError)
                 return Center(
                   child: Text("error occured"),
                 );
 
-              if (!snapshot.hasData) return LoadingScreen();
+              if (!snapshot.hasData)
+                return Center(
+                  child: Text("error occured"),
+                );
 
-              return EnterOTPScreen();
+              if (snapshot.data == VerificationState.LOADING)
+                return LoadingScreen();
+
+              if (snapshot.data == VerificationState.LOADED)
+                return EnterOTPScreen();
+
+              if (snapshot.data == VerificationState.ERROR) return Retry();
+
+              return Text("couldnot verify");
             }));
   }
 }

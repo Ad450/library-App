@@ -8,7 +8,7 @@ class GetAllBooks implements UseCase<List, NoParam> {
 
   GetAllBooks(this._booksRepository);
   @override
-  Future<List<Book>> call(NoParam type) async {
+  Future<List<Book>> call(NoParam? type) async {
     return await _booksRepository.retrieveAllBooks();
   }
 }

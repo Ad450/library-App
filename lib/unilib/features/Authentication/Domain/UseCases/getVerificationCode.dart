@@ -8,7 +8,7 @@ class GetVerificationCode implements UseCase<bool, NoParam> {
   GetVerificationCode(this._userRepository);
 
   @override
-  Future<bool> call(NoParam noparam) async {
+  Future<bool> call(NoParam? noParam) async {
     return await _userRepository.getVerificationCode();
   }
 }
