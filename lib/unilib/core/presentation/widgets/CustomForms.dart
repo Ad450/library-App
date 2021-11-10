@@ -158,9 +158,10 @@ class _CustomFormsState extends State<CustomForms> {
                         padding: _mediaQuery.size.longestSide /
                             widget.paddingDecider,
                         onTap: () async {
-                          widget.onTap(
-                              password: _passwordController.value.text,
-                              email: _emailController.value.text);
+                          if (_formKey.currentState!.validate())
+                            widget.onTap(
+                                password: _passwordController.value.text,
+                                email: _emailController.value.text);
                         },
                       ),
                       Container(

@@ -46,7 +46,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 50,
+                      height: 30,
                     ),
                     Image.asset(AppAssets.verify),
                     SizedBox(

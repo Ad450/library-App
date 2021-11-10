@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:library_project/unilib/core/presentation/widgets/CustomForms.dart';
+import 'package:library_project/unilib/core/presentation/widgets/retry.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/LoadingScreen.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/verification.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_bloc.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_event.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_state.dart';
-
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -79,11 +79,7 @@ class WaitingScreen extends StatelessWidget {
           return Center(child: LoadingScreen());
 
         if (snapshot.data == SignUpState.ERROR)
-          return Scaffold(
-            body: Center(
-              child: Text("error occured"),
-            ),
-          );
+          return Retry();
 
         if (snapshot.data == SignUpState.LOADED) return VerificationScreen();
 

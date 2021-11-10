@@ -7,4 +7,5 @@ class AppAssets {
   static const String waiting = "images/waiting.png";
   static const String verify = "images/waiting.png";
   static const String modalSheet = "images/modal_sheet.png";
+  static const String retry = "images/retry_1_.png";
 }
