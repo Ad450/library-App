@@ -1,12 +1,13 @@
 import 'dart:convert';
 
+import 'package:library_project/unilib/core/Data/platforms/connectivity/connectivity_contract.dart';
+import 'package:library_project/unilib/core/Data/platforms/connectivity/connectivity_impl.dart';
 import 'package:library_project/unilib/core/domain/entities/user/userWithProfile_model.dart';
 import 'package:library_project/unilib/core/domain/entities/user/verifiedUser.dart';
 import 'package:library_project/unilib/core/domain/entities/user/verified_user_model.dart';
 import 'package:library_project/unilib/features/Authentication/Data/DataSources/remote_dataSources/remote_user_source.dart';
 import 'package:library_project/unilib/features/Authentication/Data/Models/user_model.dart';
 import 'package:http/http.dart' as http;
-
 
 class RemoteUserSourceImpl implements RemoteUserSource {
   RemoteUserSourceImpl._();
@@ -67,9 +68,20 @@ class RemoteUserSourceImpl implements RemoteUserSource {
         "https://uenrlibrary.herokuapp.com/api/auth/register";
     UserModel _userModel;
     Uri _uri = Uri.parse(signUpEndpoint);
-    var response = await http.post(_uri,
-        body: jsonEncode(info), headers: {"content-type": "application/json"});
+    var response;
+    if (await NetWorkConnectivity().call() != NetworkStatus.off) {
+      print("network isnot off");
+      response = await http.post(_uri,
+          body: jsonEncode(info),
+          headers: {"content-type": "application/json"});
+    } else {
+      return null;
+    }
+
+    print("before signing user");
+
     if (response.statusCode == 200) {
+      print("function execution got here");
       var body = jsonDecode(response.body);
       _userModel = UserModel(
         email: body["email"],
@@ -100,6 +112,5 @@ class RemoteUserSourceImpl implements RemoteUserSource {
   //   }
   //   throw UnimplementedError();
   // }
-
 
 }

@@ -5,6 +5,7 @@ import 'package:library_project/Widgets/CustomForms.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_bloc.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_event.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_state.dart';
+import 'package:mockito/mockito.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -39,7 +40,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
           context,
           MaterialPageRoute(
             builder: (context) {
-              _signUpBloc.signUpEventSink.add(SignUpEvents());
+              _signUpBloc.signUpEventSink.add(SignUpEvents.containUserInfo(
+                  email: "adjeimanue@gmail.com", name: "emmanuel"));
               return WaitingScreen(signUpBloc: _signUpBloc);
             },
           ),
@@ -73,7 +75,10 @@ class WaitingScreen extends StatelessWidget {
             child: Text("error occured"),
           );
 
-        if (snapshot.data == SignUpState.LOADING) return VerificationScreen();
+        if (snapshot.data == SignUpState.LOADING)
+          return Center(child: LoadingScreen());
+
+        if (snapshot.data == SignUpState.LOADED) return VerificationScreen();
 
         return Text("sorry");
       },
