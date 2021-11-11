@@ -32,7 +32,7 @@ class VerificationBloc {
 
   _mapEventToState(event) async {
     print("function is in verification map");
-    if (event is VerificationState) {
+    if (event is VerificationEvent) {
       print("function is in verification bloc");
 
       _verificationStateSink.add(VerificationState.LOADING);
