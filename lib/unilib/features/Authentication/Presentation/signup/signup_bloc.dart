@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:library_project/unilib/features/Authentication/Data/DataSources/remote_dataSources/remote_user_impl.dart';
 import 'package:library_project/unilib/features/Authentication/Data/repository/user_repositoryImpl.dart';
-import 'package:library_project/unilib/features/Authentication/Domain/Entities/User.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/signIn.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_event.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_state.dart';
@@ -17,13 +15,12 @@ class SignUpBloc {
 
   Stream<SignUpState> get signUpStateStream => _signUpStateController.stream;
 
-  final _signUpEventController = StreamController();
+  final StreamController<SignUpEvents> _signUpEventController =
+      StreamController<SignUpEvents>();
 
-  StreamSink get signUpEventSink => _signUpEventController.sink;
+  StreamSink<SignUpEvents> get signUpEventSink => _signUpEventController.sink;
 
-  Stream get _signUpEventStream => _signUpEventController.stream;
-
-
+  Stream<SignUpEvents> get _signUpEventStream => _signUpEventController.stream;
 
   SignUpBloc() {
     _signUpEventStream.listen(_mapEventToState);
@@ -33,16 +30,18 @@ class SignUpBloc {
     if (event is SignUpEvents) {
       _signUpStateSink.add(SignUpState.LOADING);
       print("state is loading");
-      
-      Map<String, dynamic> userInfo = {"password" :event.password , "email" : event.email};
+
+      Map<String, dynamic> userInfo = {
+        "password": event.password,
+        "email": event.email
+      };
 
       var result = await _signIn.call(userInfo);
-      if(result) {
+      if (result) {
         _signUpStateSink.add(SignUpState.LOADED);
-      }else{
+      } else {
         _signUpStateSink.add(SignUpState.ERROR);
       }
-       
     }
   }
 

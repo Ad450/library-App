@@ -7,7 +7,6 @@ import 'dart:async';
 
 import 'package:library_project/unilib/features/Authentication/Presentation/verification/verification_event.dart';
 
-
 class VerificationBloc {
   GetVerificationCode _getVerificationCode =
       GetVerificationCode(UserRepositoryImpl(RemoteUserSourceImpl()));
@@ -28,12 +27,14 @@ class VerificationBloc {
 
   VerificationBloc() {
     _verificationEventStream.listen(_mapEventToState);
+    print("bloc is initialised");
   }
 
   _mapEventToState(event) async {
+    print("function is in verification map");
     if (event is VerificationState) {
       print("function is in verification bloc");
-      
+
       _verificationStateSink.add(VerificationState.LOADING);
 
       var result = await _getVerificationCode.call(null);

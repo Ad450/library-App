@@ -6,6 +6,7 @@ import 'package:library_project/unilib/features/Authentication/Presentation/scre
 import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_bloc.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_event.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_state.dart';
+import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -53,19 +54,33 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
 // when ontapped, navigate to a new. Wrap the new screen with future builder, show appropriate widget based on the future
 
-class WaitingScreen extends StatelessWidget {
-  SignUpBloc _signUpBloc;
+class WaitingScreen extends StatefulWidget {
+ final SignUpBloc _signUpBloc;
   WaitingScreen({Key? key, required SignUpBloc signUpBloc})
       : _signUpBloc = signUpBloc,
         super(key: key);
 
   @override
+  _WaitingScreenState createState() => _WaitingScreenState();
+}
+
+class _WaitingScreenState extends State<WaitingScreen> {
+  @override
+  void dispose() {
+    widget._signUpBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
         child: StreamBuilder<SignUpState>(
-      stream: _signUpBloc.signUpStateStream,
+      stream: widget._signUpBloc.signUpStateStream,
       builder: (BuildContext context, AsyncSnapshot<SignUpState> snapshot) {
-        if (snapshot.hasError)
+        if (snapshot.connectionState == ConnectionState.active) 
+
+        if (snapshot
+            .hasError)
           return Center(
             child: Text("sign up error occured"),
           );
