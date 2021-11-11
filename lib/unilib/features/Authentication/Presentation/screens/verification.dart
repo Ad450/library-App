@@ -91,17 +91,20 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       padding: 7,
                       onTap: () {
                         if (_key.currentState!.validate())
-                          _verificationBloc.verificationEventSink.add(
-                              VerificationEvent.withEmail(
-                                  email: _emailController.value.text));
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => WaitingVerification(
-                              verificationBloc: _verificationBloc,
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                _verificationBloc.verificationEventSink.add(
+                                  VerificationEvent.withEmail(
+                                      email: _emailController.value.text),
+                                );
+                                return WaitingVerification(
+                                  verificationBloc: _verificationBloc,
+                                );
+                              },
                             ),
-                          ),
-                        );
+                          );
                       },
                     ),
                     SizedBox(
@@ -137,28 +140,30 @@ class WaitingVerification extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: StreamBuilder<VerificationState>(
-            stream: _verificationBloc.verificationStateStream,
-            builder: (context, AsyncSnapshot<VerificationState> snapshot) {
-              if (snapshot.hasError)
-                return Center(
-                  child: Text("error occured"),
-                );
+      child: StreamBuilder<VerificationState>(
+        stream: _verificationBloc.verificationStateStream,
+        builder: (context, AsyncSnapshot<VerificationState> snapshot) {
+          if (snapshot.hasError)
+            return Center(
+              child: Text(" verification error occured"),
+            );
 
-              if (!snapshot.hasData)
-                return Center(
-                  child: Text("error occured"),
-                );
+          if (!snapshot.hasData)
+            return Center(
+              child: Text("verification no data error occured"),
+            );
 
-              if (snapshot.data == VerificationState.LOADING)
-                return LoadingScreen();
+          if (snapshot.data == VerificationState.LOADING)
+            return LoadingScreen();
 
-              if (snapshot.data == VerificationState.LOADED)
-                return EnterOTPScreen();
+          if (snapshot.data == VerificationState.LOADED)
+            return EnterOTPScreen();
 
-              if (snapshot.data == VerificationState.ERROR) return Retry();
+          if (snapshot.data == VerificationState.ERROR) return Retry();
 
-              return Text("couldnot verify");
-            }));
+          return Text("couldnot verify");
+        },
+      ),
+    );
   }
 }

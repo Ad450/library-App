@@ -6,7 +6,7 @@ import 'package:library_project/unilib/features/Authentication/Presentation/veri
 import 'dart:async';
 
 import 'package:library_project/unilib/features/Authentication/Presentation/verification/verification_event.dart';
-import 'package:library_project/unilib/features/books/Data/data_sources/remote_dataSources/remote_book_source_impl.dart';
+
 
 class VerificationBloc {
   GetVerificationCode _getVerificationCode =
@@ -31,8 +31,9 @@ class VerificationBloc {
   }
 
   _mapEventToState(event) async {
-    print("function is in verification bloc");
     if (event is VerificationState) {
+      print("function is in verification bloc");
+      
       _verificationStateSink.add(VerificationState.LOADING);
 
       var result = await _getVerificationCode.call(null);
@@ -50,5 +51,3 @@ class VerificationBloc {
     _verificationEventController.close();
   }
 }
-
-class TypeParam extends NoParam {}

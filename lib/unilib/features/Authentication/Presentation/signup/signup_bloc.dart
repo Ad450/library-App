@@ -33,7 +33,7 @@ class SignUpBloc {
     if (event is SignUpEvents) {
       _signUpStateSink.add(SignUpState.LOADING);
       print("state is loading");
-
+      
       Map<String, dynamic> userInfo = {"password" :event.password , "email" : event.email};
 
       var result = await _signIn.call(userInfo);

@@ -80,10 +80,9 @@ class WaitingScreen extends StatelessWidget {
 
         if (snapshot.data == SignUpState.ERROR) return Retry();
 
-        if (snapshot.data == SignUpState.LOADED){
-          _signUpBloc.close();
+        if (snapshot.data == SignUpState.LOADED) {
           return VerificationScreen();
-        } 
+        }
 
         return Text("sorry");
       },
