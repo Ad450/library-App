@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+import 'package:library_project/unilib/core/domain/entities/exceptions/logging_in_user_exception.dart';
 import 'package:library_project/unilib/features/Authentication/Data/DataSources/remote_dataSources/remote_user_source.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/Entities/User.dart';
 import 'package:library_project/unilib/core/domain/entities/user/verifiedUser.dart';
@@ -13,33 +15,33 @@ class UserRepositoryImpl implements UserRepository {
   // factory UserRepositoryImpl() => instance;
 
   @override
-  Future<bool> getVerificationCode() async {
+  Future<Either<Failure, bool>> getVerificationCode() async {
     return await _remoteUserSource.getVerificationCode();
   }
 
   @override
-  Future<User?> login(Map<String, dynamic> info) async {
+  Future<Either<Failure, User?>> login(Map<String, dynamic> info) async {
     return await _remoteUserSource.login(info);
   }
 
   @override
-  Future<bool> logout(VerifiedUser user) async {
+  Future<Either<Failure, bool>> logout(VerifiedUser user) async {
     return await _remoteUserSource.logout(user);
   }
 
   @override
-  Future<UserWithProfile> setProfile(VerifiedUser user) async {
+  Future<Either<Failure, UserWithProfile>> setProfile(VerifiedUser user) async {
     return await _remoteUserSource.setProfile(user);
   }
 
 
   @override
-  Future<bool> signIn(Map<String, dynamic> info) async {
+  Future<Either<Failure, bool>> signIn(Map<String, dynamic> info) async {
     return await _remoteUserSource.signIn(info);
   }
 
   @override
-  Future<VerifiedUser> verifyUser(user, code) {
+  Future<Either<Failure, VerifiedUser>> verifyUser(user, code) {
     // TODO: implement verifyUser
     throw UnimplementedError();
   }

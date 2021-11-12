@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:library_project/unilib/core/Data/network/network_result.dart';
+import 'package:library_project/unilib/core/Data/network/network_service.dart';
 import 'package:library_project/unilib/features/Authentication/Data/DataSources/remote_dataSources/remote_user_impl.dart';
 import 'package:library_project/unilib/features/Authentication/Data/repository/user_repositoryImpl.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/signIn.dart';
@@ -6,7 +8,8 @@ import 'package:library_project/unilib/features/Authentication/Presentation/sign
 import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_state.dart';
 
 class SignUpBloc {
-  SignIn _signIn = SignIn(UserRepositoryImpl(RemoteUserSourceImpl()));
+  SignIn _signIn =
+      SignIn(UserRepositoryImpl(RemoteUserSourceImpl(NetworkServiceImpl())));
 
   final StreamController<SignUpState> _signUpStateController =
       StreamController();
@@ -28,7 +31,7 @@ class SignUpBloc {
 
   void _mapEventToState(event) async {
     if (event is SignUpEvents) {
-      _signUpStateSink.add(SignUpState.LOADING);
+      _signUpStateSink.add(SignUpState.loading());
       print("state is loading");
 
       Map<String, dynamic> userInfo = {
@@ -37,11 +40,9 @@ class SignUpBloc {
       };
 
       var result = await _signIn.call(userInfo);
-      if (result) {
-        _signUpStateSink.add(SignUpState.LOADED);
-      } else {
-        _signUpStateSink.add(SignUpState.ERROR);
-      }
+
+      result.fold((l) => _signUpStateSink.add(SignUpState.withError(errorMessage: l.toString())),
+          (r) => _signUpStateSink.add(SignUpState.loaded()));
     }
   }
 

@@ -88,12 +88,13 @@ class _WaitingScreenState extends State<WaitingScreen> {
             child: Text("no data sign up error occured"),
           );
 
-        if (snapshot.data == SignUpState.LOADING)
+        if (snapshot.data == SignUpState.loading())
           return Center(child: LoadingScreen());
 
-        if (snapshot.data == SignUpState.ERROR) return Retry();
+        if (snapshot.data == SignUpState.withError())
+          return Retry(message: snapshot.data!.errorMessage);
 
-        if (snapshot.data == SignUpState.LOADED) {
+        if (snapshot.data == SignUpState.loaded()) {
           return VerificationScreen();
         }
 

@@ -5,7 +5,9 @@ import 'package:library_project/unilib/core/presentation/widgets/customButton.da
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/signUpScreen.dart';
 
 class Retry extends StatelessWidget {
-  const Retry({
+  final String? message;
+  Retry({
+    required this.message,
     Key? key,
   }) : super(key: key);
 
@@ -26,7 +28,7 @@ class Retry extends StatelessWidget {
               ),
               Container(
                 child: Text(
-                  "Something went wrong",
+                  message ?? "Something went wrong",
                   style:
                       GoogleFonts.quicksand(color: Colors.black, fontSize: 30),
                 ),

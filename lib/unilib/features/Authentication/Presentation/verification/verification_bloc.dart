@@ -1,3 +1,4 @@
+import 'package:library_project/unilib/core/Data/network/network_service.dart';
 import 'package:library_project/unilib/core/domain/usecases/no_param.dart';
 import 'package:library_project/unilib/features/Authentication/Data/DataSources/remote_dataSources/remote_user_impl.dart';
 import 'package:library_project/unilib/features/Authentication/Data/repository/user_repositoryImpl.dart';
@@ -9,7 +10,7 @@ import 'package:library_project/unilib/features/Authentication/Presentation/veri
 
 class VerificationBloc {
   GetVerificationCode _getVerificationCode =
-      GetVerificationCode(UserRepositoryImpl(RemoteUserSourceImpl()));
+      GetVerificationCode(UserRepositoryImpl(RemoteUserSourceImpl(NetworkServiceImpl())));
 
   StreamController<VerificationState> _verificationStateController =
       StreamController<VerificationState>();
@@ -39,11 +40,11 @@ class VerificationBloc {
 
       var result = await _getVerificationCode.call(null);
 
-      if (result) {
-        _verificationStateSink.add(VerificationState.LOADED);
-      } else {
-        _verificationStateSink.add(VerificationState.ERROR);
-      }
+      // if (result) {
+      //   _verificationStateSink.add(VerificationState.LOADED);
+      // } else {
+      //   _verificationStateSink.add(VerificationState.ERROR);
+      // }
     }
   }
 

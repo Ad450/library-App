@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+import 'package:library_project/unilib/core/domain/entities/exceptions/logging_in_user_exception.dart';
 import 'package:library_project/unilib/core/domain/entities/user/user_set_profile.dart';
 import 'package:library_project/unilib/core/domain/entities/user/verifiedUser.dart';
 import 'package:library_project/unilib/core/domain/usecases/usecases.dart';
@@ -10,7 +12,7 @@ class SetProfile implements UseCase<UserWithProfile, VerifiedUser> {
 
   //SetProfile(this._userRepository);
 
-  Future<UserWithProfile> call(VerifiedUser? verifiedUser) async {
+  Future<Either<Failure, UserWithProfile>> call(VerifiedUser? verifiedUser) async {
     return await _userRepository.setProfile(verifiedUser!);
   }
 }

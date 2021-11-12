@@ -159,7 +159,7 @@ class WaitingVerification extends StatelessWidget {
           if (snapshot.data == VerificationState.LOADED)
             return EnterOTPScreen();
 
-          if (snapshot.data == VerificationState.ERROR) return Retry();
+          if (snapshot.data == VerificationState.ERROR) return Retry(message: null,);
 
           return Text("couldnot verify");
         },
