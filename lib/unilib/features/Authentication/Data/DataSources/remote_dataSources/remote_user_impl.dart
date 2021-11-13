@@ -86,17 +86,15 @@ class RemoteUserSourceImpl implements RemoteUserSource {
     String signUpEndpoint =
         "https://uenrlibrary.herokuapp.com/api/auth/register";
     var result = await _networkService.post(url: signUpEndpoint, body: info);
-    if(result.result == NetworkResult.SUCESS)
-      return Right(true);
+    if (result.result == NetworkResult.SUCESS) return Right(true);
 
-    if(result.result == NetworkResult.ERROR)
-      return Left(Failure(" please try again"));
+    if (result.result == NetworkResult.ERROR)
+      return Left(Failure("please try again"));
 
-      if (result.result == NetworkResult.UNAUTHORISED)
-      return Left(Failure(" please try again"));
+    if (result.result == NetworkResult.UNAUTHORISED)
+      return Left(Failure("not authorised, please try again"));
 
-  
-      return Left(result.failure);
+    return Left(result.failure);
   }
 
   @override

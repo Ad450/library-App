@@ -66,10 +66,10 @@ class WaitingScreen extends StatefulWidget {
 
 class _WaitingScreenState extends State<WaitingScreen> {
   @override
-  void dispose() {
-    widget._signUpBloc.close();
-    super.dispose();
-  }
+  // void dispose() {
+  //   widget._signUpBloc.close();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -88,13 +88,13 @@ class _WaitingScreenState extends State<WaitingScreen> {
             child: Text("no data sign up error occured"),
           );
 
-        if (snapshot.data == SignUpState.loading())
+        if (snapshot.data is SignUpLoadingState)
           return Center(child: LoadingScreen());
 
-        if (snapshot.data == SignUpState.withError())
+        if (snapshot.data is SignUpErrorState)
           return Retry(message: snapshot.data!.errorMessage);
 
-        if (snapshot.data == SignUpState.loaded()) {
+        if (snapshot.data is SignUpLoadingState) {
           return VerificationScreen();
         }
 

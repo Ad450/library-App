@@ -1,26 +1,21 @@
 //enum SignUpState { LOADING, LOADED, ERROR }
 
 
-abstract class AuthState{}
-
-class SignUpState extends AuthState{
+abstract class SignUpState {
   String? errorMessage;
-  SignUpState({this.errorMessage});
+  dynamic data;
 
-  factory SignUpState.withError({String? errorMessage}){
-    return SignUpState(errorMessage: errorMessage);
-  }
-
-  factory SignUpState.loading({String? errorMessage}) {
-    return SignUpState(errorMessage: errorMessage);
-  }
-
-  
-  factory SignUpState.loaded({String? errorMessage}) {
-    return SignUpState(errorMessage: errorMessage);
-  }
-
-  
-
+  SignUpState({this.data, this.errorMessage});
 }
 
+class SignUpLoadingState extends SignUpState {}
+
+class SignUpErrorState extends SignUpState {
+ 
+  SignUpErrorState({required String error}) :super(errorMessage: error);
+
+  
+}
+
+
+class SignUpLoadedState extends SignUpState{}

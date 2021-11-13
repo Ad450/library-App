@@ -31,7 +31,7 @@ class SignUpBloc {
 
   void _mapEventToState(event) async {
     if (event is SignUpEvents) {
-      _signUpStateSink.add(SignUpState.loading());
+      _signUpStateSink.add(SignUpLoadingState());
       print("state is loading");
 
       Map<String, dynamic> userInfo = {
@@ -41,8 +41,8 @@ class SignUpBloc {
 
       var result = await _signIn.call(userInfo);
 
-      result.fold((l) => _signUpStateSink.add(SignUpState.withError(errorMessage: l.toString())),
-          (r) => _signUpStateSink.add(SignUpState.loaded()));
+      result.fold((l) => _signUpStateSink.add(SignUpErrorState (error: l.toString())),
+          (r) => _signUpStateSink.add(SignUpLoadedState()));
     }
   }
 
