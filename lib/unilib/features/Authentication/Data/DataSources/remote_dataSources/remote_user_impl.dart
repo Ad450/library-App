@@ -1,19 +1,13 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:dartz/dartz.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:library_project/unilib/core/Data/network/network_result.dart';
 import 'package:library_project/unilib/core/Data/network/network_service.dart';
-import 'package:library_project/unilib/core/Data/platforms/connectivity/connectivity_contract.dart';
-import 'package:library_project/unilib/core/Data/platforms/connectivity/connectivity_impl.dart';
 import 'package:library_project/unilib/core/domain/entities/exceptions/logging_in_user_exception.dart';
 import 'package:library_project/unilib/core/domain/entities/user/userWithProfile_model.dart';
 import 'package:library_project/unilib/core/domain/entities/user/verifiedUser.dart';
 import 'package:library_project/unilib/core/domain/entities/user/verified_user_model.dart';
 import 'package:library_project/unilib/features/Authentication/Data/DataSources/remote_dataSources/remote_user_source.dart';
 import 'package:library_project/unilib/features/Authentication/Data/Models/user_model.dart';
-import 'package:http/http.dart' as http;
 
 class RemoteUserSourceImpl implements RemoteUserSource {
   NetworkService _networkService;
@@ -82,7 +76,6 @@ class RemoteUserSourceImpl implements RemoteUserSource {
 
   @override
   Future<Either<Failure, bool>> signIn(Map<String, dynamic> info) async {
-    bool isSuccessful = false;
     String signUpEndpoint =
         "https://uenrlibrary.herokuapp.com/api/auth/register";
     var result = await _networkService.post(url: signUpEndpoint, body: info);
