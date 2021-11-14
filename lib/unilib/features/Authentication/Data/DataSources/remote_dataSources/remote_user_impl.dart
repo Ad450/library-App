@@ -14,32 +14,26 @@ class RemoteUserSourceImpl implements RemoteUserSource {
 
   RemoteUserSourceImpl(this._networkService);
 
-  // @override
-  // Future<Either<Failure, bool>> getVerificationCode() async {
-  //   var _response;
-  //   String getVerificationCodeEndpoint =
-  //       "https://uenrlibrary.herokuapp.com/api/auth/resend-verification-link";
-  //   bool isCodeSent = false;
-  //   Uri _uri = Uri.parse(getVerificationCodeEndpoint);
-  //   try {
-  //     _response = await http.get(_uri);
-  //     print("function verification got here");
-  //     if (_response.statusCode.toString().startsWith("2")) {
-  //       print("code sent");
-  //       isCodeSent = true;
-  //       return Right(isCodeSent);
-  //     }
+  @override
+  Future<Either<Failure, bool>> getVerificationCode(Map<String, dynamic> info) async {
+    var _result;
+    String getVerificationCodeEndpoint =
+        "https://uenrlibrary.herokuapp.com/api/auth/resend-verification-link";
+    
+   _result = await _networkService.post(url: getVerificationCodeEndpoint, body: info);
+    if (_result.result == NetworkResult.SUCESS) return Right(true);
 
-  //     print(_response.statusCode);
-  //   } on HttpException catch (e) {
-  //     throw e;
-  //   } on SocketException catch (e) {
-  //     throw e;
-  //   } on FormatException catch (e) {
-  //     throw e;
-  //   }
-  //   return isCodeSent;
-  // }
+    if (_result.result == NetworkResult.ERROR)
+      return Left(Failure("please try again"));
+
+    if (_result.result == NetworkResult.UNAUTHORISED) {
+      print("function unauthorised");
+      return Left(Failure("not authorised, please try again"));
+    }
+
+   return Left(_result.failure);
+
+  }
 
   // @override
   // Future<Either<Failure, UserModel?>> login(Map<String, dynamic> info) async {
@@ -100,11 +94,6 @@ class RemoteUserSourceImpl implements RemoteUserSource {
     throw UnimplementedError();
   }
 
-  @override
-  Future<Either<Failure, bool>> getVerificationCode() {
-    // TODO: implement getVerificationCode
-    throw UnimplementedError();
-  }
 
   @override
   Future<Either<Failure, UserModel?>> login(Map<String, dynamic> info) {

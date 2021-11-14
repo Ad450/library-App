@@ -9,8 +9,8 @@ import 'dart:async';
 import 'package:library_project/unilib/features/Authentication/Presentation/verification/verification_event.dart';
 
 class VerificationBloc {
-  GetVerificationCode _getVerificationCode =
-      GetVerificationCode(UserRepositoryImpl(RemoteUserSourceImpl(NetworkServiceImpl())));
+  GetVerificationCode _getVerificationCode = GetVerificationCode(
+      UserRepositoryImpl(RemoteUserSourceImpl(NetworkServiceImpl())));
 
   StreamController<VerificationState> _verificationStateController =
       StreamController<VerificationState>();
@@ -36,15 +36,18 @@ class VerificationBloc {
     if (event is VerificationEvent) {
       print("function is in verification bloc");
 
-      _verificationStateSink.add(VerificationState.LOADING);
+      _verificationStateSink.add(VerificationLoading());
 
-      var result = await _getVerificationCode.call(null);
+      print(event.email);
+      Map<String, dynamic> userInfo = {"email": event.email};
 
-      // if (result) {
-      //   _verificationStateSink.add(VerificationState.LOADED);
-      // } else {
-      //   _verificationStateSink.add(VerificationState.ERROR);
-      // }
+      print(userInfo);
+      var result = await _getVerificationCode.call(userInfo);
+
+      result.fold(
+        (l) => _verificationStateSink.add(VerificationError(l.message)),
+        (r) => _verificationStateSink.add(VerificationLoaded()),
+      );
     }
   }
 

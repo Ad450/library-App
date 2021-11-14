@@ -8,11 +8,10 @@ import 'package:library_project/unilib/features/Authentication/Presentation/scre
 import 'package:library_project/unilib/features/Authentication/Presentation/verification/verfication_state.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/verification/verification_bloc.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/verification/verification_event.dart';
+import 'package:provider/provider.dart';
 
 class VerificationScreen extends StatefulWidget {
   const VerificationScreen({Key? key}) : super(key: key);
-
-  //static final verificationScreenRoute = "/verificationUrl";
 
   @override
   _VerificationScreenState createState() => _VerificationScreenState();
@@ -21,17 +20,65 @@ class VerificationScreen extends StatefulWidget {
 class _VerificationScreenState extends State<VerificationScreen> {
   TextEditingController _emailController = TextEditingController();
   final _key = GlobalKey<FormState>();
-  late VerificationBloc _verificationBloc;
-  @override
-  void initState() {
-    _verificationBloc = VerificationBloc();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     MediaQueryData _mediaQuery = MediaQuery.of(context);
     var height = _mediaQuery.size.height / 6;
+    return Consumer<VerificationBloc>(
+        builder: (_, verificationBloc, __) => StreamBuilder<VerificationState>(
+            stream: verificationBloc.verificationStateStream,
+            initialData: VerificationInitial(
+                formkey: _key,
+                emailController: _emailController,
+                height: height),
+            builder: (_, snapshot) {
+              if (snapshot.connectionState == ConnectionState.active) {
+                if (snapshot.hasError)
+                  return Center(
+                    child: Text(" verification error occured"),
+                  );
+
+                if (!snapshot.hasData)
+                  return Center(
+                    child: Text("verification no data error occured"),
+                  );
+
+                if (snapshot.data is VerificationLoading)
+                  return LoadingScreen();
+
+                if (snapshot.data is VerificationLoaded)
+                  return EnterOTPScreen();
+
+                if (snapshot.data is VerificationError)
+                  return Retry(
+                    message: "snapshot.data.error",
+                  );
+              }
+
+              return VerificationInitial(
+                  formkey: _key,
+                  emailController: _emailController,
+                  height: height);
+            }));
+  }
+}
+
+class VerificationInitial extends StatelessWidget implements VerificationState {
+  GlobalKey<FormState> formkey;
+  TextEditingController emailController;
+
+  double height;
+
+  VerificationInitial({
+    Key? key,
+    required this.formkey,
+    required this.emailController,
+    required this.height,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -40,7 +87,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
             child: Container(
               margin: EdgeInsets.only(left: 30, right: 30, top: 30),
               child: Form(
-                key: _key,
+                key: formkey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -71,7 +118,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                         }
                         return null;
                       },
-                      controller: _emailController,
+                      controller: emailController,
                       decoration: InputDecoration(
                         labelText: "Email",
                         labelStyle: GoogleFonts.quicksand(color: Colors.black),
@@ -90,21 +137,13 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       textColor: Colors.black,
                       padding: 7,
                       onTap: () {
-                        if (_key.currentState!.validate())
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                _verificationBloc.verificationEventSink.add(
-                                  VerificationEvent.withEmail(
-                                      email: _emailController.value.text),
-                                );
-                                return WaitingVerification(
-                                  verificationBloc: _verificationBloc,
-                                );
-                              },
-                            ),
-                          );
+                        if (formkey.currentState!.validate())
+                          Provider.of<VerificationBloc>(context, listen: false)
+                              .verificationEventSink
+                              .add(
+                                VerificationEvent.withEmail(
+                                    email: emailController.value.text),
+                              );
                       },
                     ),
                     SizedBox(
@@ -125,44 +164,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class WaitingVerification extends StatelessWidget {
-  final VerificationBloc _verificationBloc;
-  const WaitingVerification(
-      {Key? key, required VerificationBloc verificationBloc})
-      : _verificationBloc = verificationBloc,
-        super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: StreamBuilder<VerificationState>(
-        stream: _verificationBloc.verificationStateStream,
-        builder: (context, AsyncSnapshot<VerificationState> snapshot) {
-          if (snapshot.hasError)
-            return Center(
-              child: Text(" verification error occured"),
-            );
-
-          if (!snapshot.hasData)
-            return Center(
-              child: Text("verification no data error occured"),
-            );
-
-          if (snapshot.data == VerificationState.LOADING)
-            return LoadingScreen();
-
-          if (snapshot.data == VerificationState.LOADED)
-            return EnterOTPScreen();
-
-          if (snapshot.data == VerificationState.ERROR) return Retry(message: null,);
-
-          return Text("couldnot verify");
-        },
       ),
     );
   }

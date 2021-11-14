@@ -73,7 +73,7 @@ class NetworkServiceImpl implements NetworkService {
     var _response;
 
     try {
-      _response = await http.get(Uri.parse(url));
+      _response = await http.get(Uri.parse(url), headers: {"content-type":"application/json"});
 
       if (_response.statusCode.toString().startsWith('2')) {
         return NetworkResponse(

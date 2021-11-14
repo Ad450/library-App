@@ -15,8 +15,8 @@ class UserRepositoryImpl implements UserRepository {
   // factory UserRepositoryImpl() => instance;
 
   @override
-  Future<Either<Failure, bool>> getVerificationCode() async {
-    return await _remoteUserSource.getVerificationCode();
+  Future<Either<Failure, bool>> getVerificationCode(Map<String , dynamic> info) async {
+    return await _remoteUserSource.getVerificationCode(info);
   }
 
   @override

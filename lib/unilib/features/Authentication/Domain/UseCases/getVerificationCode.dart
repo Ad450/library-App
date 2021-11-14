@@ -5,12 +5,12 @@ import 'package:library_project/unilib/core/domain/usecases/usecases.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/Repository/user_repository.dart';
 
 
-class GetVerificationCode implements UseCase<bool, NoParam> {
+class GetVerificationCode implements UseCase<bool, Map<String, dynamic>> {
   UserRepository _userRepository;
   GetVerificationCode(this._userRepository);
 
   @override
-  Future<Either<Failure, bool>> call(NoParam? noParam) async {
-    return await _userRepository.getVerificationCode();
+  Future<Either<Failure, bool>> call(Map<String ,dynamic>? info) async {
+    return await _userRepository.getVerificationCode(info!);
   }
 }
