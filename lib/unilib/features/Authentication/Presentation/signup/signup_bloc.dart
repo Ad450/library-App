@@ -6,13 +6,14 @@ import 'package:library_project/unilib/features/Authentication/Data/repository/u
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/signIn.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_event.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_state.dart';
+import 'package:rxdart/rxdart.dart';
 
 class SignUpBloc {
   SignIn _signIn =
       SignIn(UserRepositoryImpl(RemoteUserSourceImpl(NetworkServiceImpl())));
 
   final StreamController<SignUpState> _signUpStateController =
-      StreamController();
+      BehaviorSubject();
 
   StreamSink get _signUpStateSink => _signUpStateController.sink;
 

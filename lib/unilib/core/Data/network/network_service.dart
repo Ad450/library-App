@@ -23,6 +23,7 @@ class NetworkServiceImpl implements NetworkService {
       required Map<String, dynamic> body}) async {
     var _response;
     try {
+      print("function execution in network service implementation");
       _response = await http.post(Uri.parse(url),
           headers: headers, body: jsonEncode(body));
 

@@ -3,22 +3,35 @@ import 'package:flutter/material.dart';
 
 
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/welcomeScreen.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_bloc.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/verification/verification_bloc.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  runApp(MyApp());
+  SignUpBloc _signUpBloc = SignUpBloc();
+  VerificationBloc _verificationBloc = VerificationBloc();
+  runApp(MyApp(signUpBloc :_signUpBloc, verificationBloc :_verificationBloc));
 }
 
 class MyApp extends StatelessWidget {
+  final SignUpBloc signUpBloc;
+  final VerificationBloc verificationBloc;
   final String _title = "Unilib";
-  MyApp();
+  MyApp({required this.signUpBloc, required this.verificationBloc});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: UnilibHome(),
+    return MultiProvider(
+        providers: [
+        
+         Provider.value(value: signUpBloc),
+         Provider.value(value: verificationBloc)
+        ],
+      child: MaterialApp(
+        title: _title,
+        home: UnilibHome(),
+      ),
     );
   }
 }

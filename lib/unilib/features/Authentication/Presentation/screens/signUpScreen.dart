@@ -16,20 +16,6 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  late SignUpBloc _signUpBloc;
-
-  @override
-  void initState() {
-    _signUpBloc = SignUpBloc();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _signUpBloc.close();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return CustomForms(
@@ -37,13 +23,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
       title: "Sign Up",
       paddingDecider: double.infinity,
       onTap: ({required String email, required String password}) {
+        Navigator.pop(context);
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) {
-              _signUpBloc.signUpEventSink.add(
-                  SignUpEvents.containUserInfo(email: email, name: password));
-              return WaitingScreen(signUpBloc: _signUpBloc);
+              Provider.of<SignUpBloc>(context, listen: false)
+                  .signUpEventSink
+                  .add(SignUpEvents.containUserInfo(
+                      email: email, name: password));
+              return WaitingScreen();
             },
           ),
         );
@@ -55,10 +44,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 // when ontapped, navigate to a new. Wrap the new screen with future builder, show appropriate widget based on the future
 
 class WaitingScreen extends StatefulWidget {
-  final SignUpBloc _signUpBloc;
-  WaitingScreen({Key? key, required SignUpBloc signUpBloc})
-      : _signUpBloc = signUpBloc,
-        super(key: key);
+  WaitingScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _WaitingScreenState createState() => _WaitingScreenState();
@@ -66,40 +54,38 @@ class WaitingScreen extends StatefulWidget {
 
 class _WaitingScreenState extends State<WaitingScreen> {
   @override
-  // void dispose() {
-  //   widget._signUpBloc.close();
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: StreamBuilder<SignUpState>(
-      stream: widget._signUpBloc.signUpStateStream,
-      builder: (BuildContext context, AsyncSnapshot<SignUpState> snapshot) {
-        if (snapshot.connectionState == ConnectionState.active) if (snapshot
-            .hasError)
-          return Center(
-            child: Text("sign up error occured"),
-          );
+        child: Consumer<SignUpBloc>(
+      builder: (_, _signUpBloc, __) => StreamBuilder<SignUpState>(
+        stream: _signUpBloc.signUpStateStream,
+        builder: (BuildContext context, AsyncSnapshot<SignUpState> snapshot) {
+          if (snapshot.connectionState == ConnectionState.active) if (snapshot
+              .hasError)
+            return Center(
+              child: Text("sign up error occured"),
+            );
 
-        if (!snapshot.hasData)
-          return Center(
-            child: Text("no data sign up error occured"),
-          );
+          if (!snapshot.hasData)
+            return Center(
+              child: Text("no data sign up error occured"),
+            );
 
-        if (snapshot.data is SignUpLoadingState)
-          return Center(child: LoadingScreen());
+          if (snapshot.data is SignUpLoadingState)
+            return Center(child: LoadingScreen());
 
-        if (snapshot.data is SignUpErrorState)
-          return Retry(message: snapshot.data!.errorMessage);
+          if (snapshot.data is SignUpErrorState)
+            return Retry(message: snapshot.data!.errorMessage);
 
-        if (snapshot.data is SignUpLoadingState) {
-          return VerificationScreen();
-        }
+          if (snapshot.data is SignUpLoadingState) {
+            return VerificationScreen();
+          }
 
-        return Text("sorry");
-      },
+          return Text("sorry");
+        },
+      ),
     ));
   }
 }
