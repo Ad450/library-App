@@ -17,10 +17,6 @@ class EnterOTPScreen extends StatefulWidget {
 }
 
 class _EnterOTPScreenState extends State<EnterOTPScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +41,8 @@ class _EnterOTPScreenState extends State<EnterOTPScreen> {
                 ),
                 Container(
                   child: CustomPinForm(
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => BookScreen(),
-                        ),
-                      );
+                    onTap: ({required dynamic otpCode}) {
+                      
                     },
                   ),
                 )

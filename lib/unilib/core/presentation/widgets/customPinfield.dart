@@ -68,7 +68,16 @@ class _CustomPinFormState extends State<CustomPinForm> {
           textColor: Colors.black,
           padding: 6,
           onTap: () {
-            widget.onTap();
+            
+            bool isPinValid =  _isOTPvalidated(otpCode, _otpPinIsNull);
+              if(isPinValid){
+                 widget.onTap(otpCode: otpCode);
+              }
+
+              setState(() {
+                _otpPinIsNull = true;
+              });
+           
           },
         ),
         SizedBox(
@@ -92,4 +101,15 @@ class _CustomPinFormState extends State<CustomPinForm> {
 }
 
 
-// store a boolean in sharedPreferences named isProfile filled to show either the profile or the homePage
+// otp validation logic
+// will change to it to a more complex one
+
+bool _isOTPvalidated(String code, bool pinIsNull){
+  if(code.length >= 6){
+    pinIsNull = false;
+    return true;
+  }else{
+    pinIsNull = true;
+    return false;
+  }
+}
