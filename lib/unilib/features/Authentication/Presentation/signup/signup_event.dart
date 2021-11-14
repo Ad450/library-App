@@ -10,11 +10,3 @@ class SignUpEvents extends Events {
     return SignUpEvents(email:email, password : name);
   }
 }
-
-// enum SignUpEvents{
-//   LOADING,
-//   LOADED,
-//   ERROR
-// }
-
-

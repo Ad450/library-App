@@ -78,14 +78,18 @@ class RemoteUserSourceImpl implements RemoteUserSource {
   Future<Either<Failure, bool>> signIn(Map<String, dynamic> info) async {
     String signUpEndpoint =
         "https://uenrlibrary.herokuapp.com/api/auth/register";
+    print(info);
+    print("function in remote user impl");
     var result = await _networkService.post(url: signUpEndpoint, body: info);
     if (result.result == NetworkResult.SUCESS) return Right(true);
 
     if (result.result == NetworkResult.ERROR)
       return Left(Failure("please try again"));
 
-    if (result.result == NetworkResult.UNAUTHORISED)
+    if (result.result == NetworkResult.UNAUTHORISED) {
+      print("function unauthorised");
       return Left(Failure("not authorised, please try again"));
+    }
 
     return Left(result.failure);
   }

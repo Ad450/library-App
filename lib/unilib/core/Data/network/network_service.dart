@@ -25,7 +25,8 @@ class NetworkServiceImpl implements NetworkService {
     try {
       print("function execution in network service implementation");
       _response = await http.post(Uri.parse(url),
-          headers: headers, body: jsonEncode(body));
+          headers: headers ?? {"content-type": "application/json"},
+          body: jsonEncode(body));
 
       if (_response.statusCode.toString().startsWith('2')) {
         return NetworkResponse(
@@ -58,7 +59,7 @@ class NetworkServiceImpl implements NetworkService {
           data: null,
           result: NetworkResult.FAILURE,
           failure:
-              Failure("network error occured, please internet connectivity"));
+              Failure("please check your internet connectivity"));
     }
 
     return NetworkResponse(

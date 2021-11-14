@@ -42,7 +42,8 @@ class SignUpBloc {
 
       var result = await _signIn.call(userInfo);
 
-      result.fold((l) => _signUpStateSink.add(SignUpErrorState (error: l.toString())),
+      result.fold(
+          (l) => _signUpStateSink.add(SignUpErrorState(error: l.toString())),
           (r) => _signUpStateSink.add(SignUpLoadedState()));
     }
   }

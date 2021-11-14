@@ -1,6 +1,5 @@
 //enum SignUpState { LOADING, LOADED, ERROR }
 
-
 abstract class SignUpState {
   String? errorMessage;
   dynamic data;
@@ -11,11 +10,8 @@ abstract class SignUpState {
 class SignUpLoadingState extends SignUpState {}
 
 class SignUpErrorState extends SignUpState {
- 
-  SignUpErrorState({required String error}) :super(errorMessage: error);
-
-  
+  String error;
+  SignUpErrorState({required this.error}) : super(errorMessage: error);
 }
 
-
-class SignUpLoadedState extends SignUpState{}
+class SignUpLoadedState extends SignUpState {}
