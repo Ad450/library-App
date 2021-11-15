@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:library_project/unilib/core/Data/platforms/assets/app_Images.dart';
 import 'package:library_project/unilib/core/presentation/widgets/customPinfield.dart';
+import 'package:library_project/unilib/core/presentation/widgets/retry.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/otp/otp_bloc.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/otp/otp_state.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/screens/LoadingScreen.dart';
 import 'package:library_project/unilib/features/books/presentation/screens/BookScreen.dart';
-
-
-
+import 'package:provider/provider.dart';
 
 class EnterOTPScreen extends StatefulWidget {
   const EnterOTPScreen({
@@ -17,10 +19,58 @@ class EnterOTPScreen extends StatefulWidget {
 }
 
 class _EnterOTPScreenState extends State<EnterOTPScreen> {
-
   @override
   Widget build(BuildContext context) {
     var _height = MediaQuery.of(context).size.height;
+    return Consumer<OTPBloc>(
+      builder: (_, otpBloc, __) => StreamBuilder<OTPState>(
+        initialData: OTPInitial(
+          height: _height,
+        ),
+        stream: otpBloc.otpStateStream,
+        builder: (_, snapshot) {
+          if (snapshot.connectionState == ConnectionState.active) {
+            if (snapshot.hasError)
+              return Center(
+                child: Text(" otp cation error occured"),
+              );
+
+            if (!snapshot.hasData)
+              return Center(
+                child: Text("otp no data error occured"),
+              );
+
+            if (snapshot.data is OTPLoading) return LoadingScreen();
+
+            if (snapshot.data is OTPLoaded) return BookScreen();
+
+            if (snapshot.data is OTPError)
+              return Retry(
+                message: "please try again",
+              );
+          }
+
+          return OTPInitial(
+            height: _height,
+          );
+        },
+      ),
+    );
+  }
+}
+//   OTPInitial(height: _height,),
+
+class OTPInitial extends StatelessWidget implements OTPState {
+  const OTPInitial({
+    Key? key,
+    required double height,
+  })  : _height = height,
+        super(key: key);
+
+  final double _height;
+
+  @override
+  Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -41,9 +91,7 @@ class _EnterOTPScreenState extends State<EnterOTPScreen> {
                 ),
                 Container(
                   child: CustomPinForm(
-                    onTap: ({required dynamic otpCode}) {
-                      
-                    },
+                    onTap: ({required dynamic otpCode}) {},
                   ),
                 )
               ],

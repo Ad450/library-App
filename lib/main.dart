@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/otp/otp_bloc.dart';
 
 
 
@@ -11,14 +12,16 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SignUpBloc _signUpBloc = SignUpBloc();
   VerificationBloc _verificationBloc = VerificationBloc();
-  runApp(MyApp(signUpBloc :_signUpBloc, verificationBloc :_verificationBloc));
+  OTPBloc otpBloc = OTPBloc();
+  runApp(MyApp(signUpBloc :_signUpBloc, verificationBloc :_verificationBloc, otpBloc: otpBloc,));
 }
 
 class MyApp extends StatelessWidget {
   final SignUpBloc signUpBloc;
   final VerificationBloc verificationBloc;
+  final OTPBloc otpBloc;
   final String _title = "Unilib";
-  MyApp({required this.signUpBloc, required this.verificationBloc});
+  MyApp({required this.signUpBloc, required this.verificationBloc, required this.otpBloc});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,8 @@ class MyApp extends StatelessWidget {
         providers: [
         
          Provider.value(value: signUpBloc),
-         Provider.value(value: verificationBloc)
+         Provider.value(value: verificationBloc),
+         Provider.value(value: otpBloc)
         ],
       child: MaterialApp(
         title: _title,

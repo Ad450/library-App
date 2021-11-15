@@ -19,7 +19,11 @@ class OTPBloc {
   StreamSink<OTPState> get _otpStateSink => _otpStateController.sink;
   Stream<OTPState> get otpStateStream => _otpStateController.stream;
 
-  mapEventToState(event){}
+  mapEventToState(event){
+    if(event is OTPEvents){
+      _otpStateSink.add(OTPLoading());
+    }
+  }
 
 
   close(){
