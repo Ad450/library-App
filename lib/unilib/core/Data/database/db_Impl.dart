@@ -1,4 +1,4 @@
-import 'package:library_project/unilib/core/Data/database/db.dart';
+import 'package:library_project/unilib/core/Data/database/books_db.dart';
 import 'package:library_project/unilib/features/books/Data/Models/book_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -51,7 +51,7 @@ class BooksDatabaseImpl implements BookDatabase {
 
 // store book in database
   @override
-  void store(BookModels _book) async {
+  Future<void> store(BookModels _book) async {
     Map<String, dynamic> value = {
       "name": _book.name,
       "description": _book.description,

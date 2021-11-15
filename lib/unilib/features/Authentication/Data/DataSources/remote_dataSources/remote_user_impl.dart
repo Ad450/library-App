@@ -101,18 +101,12 @@ class RemoteUserSourceImpl implements RemoteUserSource {
     throw UnimplementedError();
   }
 
-  // @override
-  // Future<VerifiedUserModel> verifyUser(User user, dynamic code) async {
-  //   String verifyUser =
-  //       "https://uenrlibrary.herokuapp.com/api/auth/email-verify/verification-code/${user.email}/$code";
-  //   Uri _uri = Uri.parse(verifyUser);
-  //   var _response = await http.post(_uri);
-  //   if (_response.statusCode == 200) {
-  //     var _body = jsonDecode(_response.body);
-  //     return VerifiedUserModel(
-  //         name: _body["name"], email: _body["email"], id: _body["id"]);
-  //   }
-  //   throw UnimplementedError();
-  // }
+  @override
+  Future<VerifiedUserModel> verifyUser(String email, dynamic code) async {
+    String verifyUser =
+        "https://uenrlibrary.herokuapp.com/api/auth/email-verify/verification-code/${user.email}/$code";
+   
+    throw UnimplementedError();
+  }
 
 }

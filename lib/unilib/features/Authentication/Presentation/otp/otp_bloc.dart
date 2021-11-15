@@ -22,6 +22,9 @@ class OTPBloc {
   mapEventToState(event){
     if(event is OTPEvents){
       _otpStateSink.add(OTPLoading());
+
+      
+
     }
   }
 
