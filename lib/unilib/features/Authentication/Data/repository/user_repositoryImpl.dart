@@ -41,9 +41,8 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<Either<Failure, VerifiedUser>> verifyUser(user, code) {
-    // TODO: implement verifyUser
-    throw UnimplementedError();
+  Future<Either<Failure, bool>> verifyUser(String email, String code) {
+    return _remoteUserSource.verifyUser(email, code);
   }
 
   // @override

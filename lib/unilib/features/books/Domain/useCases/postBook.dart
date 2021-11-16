@@ -9,7 +9,7 @@ class PostBook implements UseCase<bool, Book> {
   PostBook(this._booksRepository);
 
   @override
-  Future<Either<Failure, bool?>> call(Book? type) {
+  Future<Either<Failure, bool?>> call(Book? type, {String? email}) {
     // TODO: implement call
     throw UnimplementedError();
   }

@@ -9,7 +9,7 @@ class SignIn implements UseCase<bool, Map<String, dynamic>> {
   UserRepository _userRepository;
   SignIn(this._userRepository);
 
-  Future<Either<Failure, bool>> call(Map<String, dynamic>? info) async {
+  Future<Either<Failure, bool>> call(Map<String, dynamic>? info, {String? email}) async {
     return await _userRepository.signIn(info!);
   }
 }

@@ -11,7 +11,7 @@ class GetAllBooks implements UseCase<List, NoParam> {
   GetAllBooks(this._booksRepository);
 
   @override
-  Future<Either<Failure, List?>> call(NoParam? type) {
+  Future<Either<Failure, List?>> call(NoParam? type, {String? email}) {
     // TODO: implement call
     throw UnimplementedError();
   }

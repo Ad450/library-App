@@ -10,7 +10,8 @@ class GetVerificationCode implements UseCase<bool, Map<String, dynamic>> {
   GetVerificationCode(this._userRepository);
 
   @override
-  Future<Either<Failure, bool>> call(Map<String ,dynamic>? info) async {
+  Future<Either<Failure, bool>> call(Map<String ,dynamic>? info,
+      {String? email }) async {
     return await _userRepository.getVerificationCode(info!);
   }
 }

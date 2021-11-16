@@ -12,6 +12,6 @@ abstract class RemoteUserSource {
   Future<Either<Failure, UserModel?>> login(Map<String, dynamic> info);
   Future<Either<Failure, bool>> logout(VerifiedUser user);
   Future<Either<Failure, bool>> getVerificationCode(Map<String ,dynamic> info);
-  Future<Either<Failure, VerifiedUserModel>> verifyUser(String email, dynamic code);
+  Future<Either<Failure, bool>> verifyUser(String email, String code);
   Future<Either<Failure, UserWithProfileModel>> setProfile(VerifiedUser user);
 }

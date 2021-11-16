@@ -15,12 +15,14 @@ class RemoteUserSourceImpl implements RemoteUserSource {
   RemoteUserSourceImpl(this._networkService);
 
   @override
-  Future<Either<Failure, bool>> getVerificationCode(Map<String, dynamic> info) async {
+  Future<Either<Failure, bool>> getVerificationCode(
+      Map<String, dynamic> info) async {
     var _result;
     String getVerificationCodeEndpoint =
         "https://uenrlibrary.herokuapp.com/api/auth/resend-verification-link";
-    
-   _result = await _networkService.post(url: getVerificationCodeEndpoint, body: info);
+
+    _result = await _networkService.post(
+        url: getVerificationCodeEndpoint, body: info);
     if (_result.result == NetworkResult.SUCESS) return Right(true);
 
     if (_result.result == NetworkResult.ERROR)
@@ -31,8 +33,7 @@ class RemoteUserSourceImpl implements RemoteUserSource {
       return Left(Failure("not authorised, please try again"));
     }
 
-   return Left(_result.failure);
-
+    return Left(_result.failure);
   }
 
   // @override
@@ -89,24 +90,27 @@ class RemoteUserSourceImpl implements RemoteUserSource {
   }
 
   @override
-  Future<Either<Failure, VerifiedUserModel>> verifyUser(user, code) {
-    // TODO: implement verifyUser
-    throw UnimplementedError();
-  }
-
-
-  @override
   Future<Either<Failure, UserModel?>> login(Map<String, dynamic> info) {
     // TODO: implement login
     throw UnimplementedError();
   }
 
   @override
-  Future<VerifiedUserModel> verifyUser(String email, dynamic code) async {
+  Future<Either<Failure, bool>> verifyUser(String email, String code) async {
     String verifyUser =
-        "https://uenrlibrary.herokuapp.com/api/auth/email-verify/verification-code/${user.email}/$code";
-   
-    throw UnimplementedError();
-  }
+        "https://uenrlibrary.herokuapp.com/api/auth/email-verify/verification-code/$email/$code";
+    var _result;
+    _result = await _networkService.get(url: verifyUser);
+    if (_result.result == NetworkResult.SUCESS) return Right(true);
 
+    if (_result.result == NetworkResult.ERROR)
+      return Left(Failure("please try again"));
+
+    if (_result.result == NetworkResult.UNAUTHORISED) {
+      print("function unauthorised");
+      return Left(Failure("not authorised, please try again"));
+    }
+
+    return Left(_result.failure);
+  }
 }

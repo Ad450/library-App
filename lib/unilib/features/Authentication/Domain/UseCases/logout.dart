@@ -9,7 +9,7 @@ class Logout implements UseCase<bool, VerifiedUser> {
   Logout(this._userRepository);
 
   @override
-  Future<Either<Failure, bool>> call(VerifiedUser? user) async {
+  Future<Either<Failure, bool>> call(VerifiedUser? user, {String? email}) async {
     return await _userRepository.logout(user!);
   }
 }

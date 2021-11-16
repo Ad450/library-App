@@ -1,6 +1,7 @@
 import 'package:library_project/unilib/core/Data/database/email_db.dart';
 import 'package:library_project/unilib/core/Data/network/network_service.dart';
 import 'package:library_project/unilib/core/domain/usecases/no_param.dart';
+import 'package:library_project/unilib/core/util.dart';
 import 'package:library_project/unilib/features/Authentication/Data/DataSources/remote_dataSources/remote_user_impl.dart';
 import 'package:library_project/unilib/features/Authentication/Data/repository/user_repositoryImpl.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/getVerificationCode.dart';
@@ -42,7 +43,7 @@ class VerificationBloc {
 
       print(event.email);
       Map<String, dynamic> userInfo = {"email": event.email};
-      _emailDatabase.store("email-collection", event.email);
+      _emailDatabase.store(emailCollection, event.email);
       print(userInfo);
       var result = await _getVerificationCode.call(userInfo);
 

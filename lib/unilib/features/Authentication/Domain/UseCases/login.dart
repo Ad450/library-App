@@ -10,7 +10,7 @@ class Login implements UseCase<User, Map<String, dynamic>> {
   UserRepository _userRepository;
   Login(this._userRepository);
 
-  Future<Either<Failure, User?>> call(Map<String, dynamic>? info) async {
+  Future<Either<Failure, User?>> call(Map<String, dynamic>? info, {String? email}) async {
     return await _userRepository.login(info!);
   }
 }

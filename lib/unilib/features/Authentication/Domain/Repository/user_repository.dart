@@ -11,6 +11,6 @@ abstract class UserRepository {
   Future<Either<Failure, User?>> login(Map<String, dynamic> info);
   Future<Either<Failure, bool>> logout(VerifiedUser user);
   Future<Either<Failure, bool>> getVerificationCode(Map<String, dynamic> info);
-  Future<Either<Failure, VerifiedUser>> verifyUser(User user, dynamic code);
+  Future<Either<Failure, bool>> verifyUser(String email, String code);
   Future<Either<Failure, UserWithProfile>> setProfile(VerifiedUser user);
 }
