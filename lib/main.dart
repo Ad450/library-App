@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/login/login_bloc.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/otp/otp_bloc.dart';
 
 
@@ -10,18 +11,17 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SignUpBloc _signUpBloc = SignUpBloc();
-  VerificationBloc _verificationBloc = VerificationBloc();
-  OTPBloc otpBloc = OTPBloc();
-  runApp(MyApp(signUpBloc :_signUpBloc, verificationBloc :_verificationBloc, otpBloc: otpBloc,));
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final SignUpBloc signUpBloc;
-  final VerificationBloc verificationBloc;
-  final OTPBloc otpBloc;
+  final  SignUpBloc signUpBloc = SignUpBloc();
+  final VerificationBloc verificationBloc = VerificationBloc();
+  final  OTPBloc otpBloc = OTPBloc();
+  final LoginBloc loginBloc = LoginBloc();
   final String _title = "Unilib";
-  MyApp({required this.signUpBloc, required this.verificationBloc, required this.otpBloc});
+  MyApp();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,8 @@ class MyApp extends StatelessWidget {
         
          Provider.value(value: signUpBloc),
          Provider.value(value: verificationBloc),
-         Provider.value(value: otpBloc)
+         Provider.value(value: otpBloc),
+         Provider.value(value: loginBloc)
         ],
       child: MaterialApp(
         title: _title,

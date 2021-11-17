@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:library_project/unilib/core/Data/network/network_response.dart';
 
 import 'package:library_project/unilib/core/Data/network/network_result.dart';
 import 'package:library_project/unilib/core/Data/network/network_service.dart';
@@ -90,9 +91,23 @@ class RemoteUserSourceImpl implements RemoteUserSource {
   }
 
   @override
-  Future<Either<Failure, UserModel?>> login(Map<String, dynamic> info) {
-    // TODO: implement login
-    throw UnimplementedError();
+  Future<Either<Failure, UserModel?>> login(Map<String, dynamic> info) async {
+    String loginEndpoint = "https://uenrlibrary.herokuapp.com/api/auth/login";
+    NetworkResponse _result;
+    _result = await _networkService.post(url: loginEndpoint, body: info);
+    // TODO: just trying out with dummy usermodel. The user model itself has to be changed
+    if (_result.result == NetworkResult.SUCESS)
+      return Right(UserModel(email: "", password: "", id: 0));
+
+    if (_result.result == NetworkResult.ERROR)
+      return Left(Failure("please try again"));
+
+    if (_result.result == NetworkResult.UNAUTHORISED) {
+      print("function unauthorised");
+      return Left(Failure("not authorised, please try again"));
+    }
+
+    return Left(_result.failure);
   }
 
   @override

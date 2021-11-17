@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
-
-
+import 'package:library_project/unilib/core/presentation/widgets/CustomForms.dart';
+import 'package:library_project/unilib/core/presentation/widgets/retry.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/login/login_bloc.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/login/login_events.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/screens/LoadingScreen.dart';
+import 'package:library_project/unilib/features/books/presentation/screens/BookScreen.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -10,22 +15,44 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
- 
-
- 
   @override
   Widget build(BuildContext context) {
-   
     MediaQueryData _mediaQuery = MediaQuery.of(context);
     var height = _mediaQuery.size.height / 4.5;
 
-   
-
     return Scaffold(
       // key: _loginScaffoldKey,
-      body:Container(),
-      );
-
+      body: Container(
+        child: Consumer<LoginBloc>(
+          builder: (_, loginbloc, __) {
+            return loginbloc.state.when(
+              initial: () => LoginInitial(),
+              loading: () => LoadingScreen(),
+              loaded: () => BookScreen(),
+              error: (error) => Retry(
+                message: error,
+              ),
+            );
+          },
+        ),
+      ),
+    );
   }
+}
 
+class LoginInitial extends StatelessWidget {
+  const LoginInitial({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomForms(
+      buttonTitle: "Login",
+      title: "Login",
+      paddingDecider: double.infinity,
+      onTap: ({required String email, required String password}) {
+        Provider.of<LoginBloc>(context, listen: false)
+            .login(LoginEvent.payload(email: email, password: password));
+      },
+    );
+  }
 }
