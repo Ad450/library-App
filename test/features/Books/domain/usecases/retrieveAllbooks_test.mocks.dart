@@ -4,6 +4,8 @@
 
 import 'dart:async' as _i3;
 
+import 'package:library_project/unilib/features/books/Data/Models/book_model.dart'
+    as _i5;
 import 'package:library_project/unilib/features/books/Domain/entities/books.dart'
     as _i4;
 import 'package:library_project/unilib/features/books/Domain/repository/books_repositroy.dart'
@@ -31,10 +33,10 @@ class MockBooksRepository extends _i1.Mock implements _i2.BooksRepository {
       (super.noSuchMethod(Invocation.method(#postBook, [book]),
           returnValue: Future<bool>.value(false)) as _i3.Future<bool>);
   @override
-  _i3.Future<List<_i4.Book>> retrieveAllBooks() =>
-      (super.noSuchMethod(Invocation.method(#retrieveAllBooks, []),
-              returnValue: Future<List<_i4.Book>>.value(<_i4.Book>[]))
-          as _i3.Future<List<_i4.Book>>);
+  _i3.Future<List<_i5.BookModels>> retrieveAllBooks() => (super.noSuchMethod(
+          Invocation.method(#retrieveAllBooks, []),
+          returnValue: Future<List<_i5.BookModels>>.value(<_i5.BookModels>[]))
+      as _i3.Future<List<_i5.BookModels>>);
   @override
   String toString() => super.toString();
 }
