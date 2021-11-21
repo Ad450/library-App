@@ -3,6 +3,7 @@ import 'package:library_project/unilib/core/presentation/widgets/CustomForms.dar
 import 'package:library_project/unilib/core/presentation/widgets/retry.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/login/login_bloc.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/login/login_events.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/login/login_state.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/LoadingScreen.dart';
 import 'package:library_project/unilib/features/books/presentation/screens/BookScreen.dart';
 import 'package:provider/provider.dart';
@@ -24,17 +25,16 @@ class _LoginScreenState extends State<LoginScreen> {
       // key: _loginScaffoldKey,
       body: Container(
         child: Consumer<LoginBloc>(
-          builder: (_, loginbloc, __) {
-            return loginbloc.state.when(
-              initial: () => LoginInitial(),
-              loading: () => LoadingScreen(),
-              loaded: () => BookScreen(),
-              error: (error) => Retry(
-                message: error,
-              ),
-            );
-          },
-        ),
+            builder: (_, loginBloc, __) => StreamBuilder<LoginState>(
+                  stream: loginBloc.loginStateStream,
+                  builder: (_, AsyncSnapshot<LoginState> snapshot) {
+                    return snapshot.data!.when(
+                        initial: () => LoginInitial(),
+                        loading: () => LoadingScreen(),
+                        loaded: () => BookScreen(),
+                        error: (message) => Retry(message: message));
+                  },
+                )),
       ),
     );
   }
@@ -51,7 +51,8 @@ class LoginInitial extends StatelessWidget {
       paddingDecider: double.infinity,
       onTap: ({required String email, required String password}) {
         Provider.of<LoginBloc>(context, listen: false)
-            .login(LoginEvent.payload(email: email, password: password));
+            .loginEventSink
+            .add(LoginEvent.payload(email: email, password: password));
       },
     );
   }
