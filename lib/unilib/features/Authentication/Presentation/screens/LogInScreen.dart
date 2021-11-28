@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_project/unilib/core/presentation/widgets/CustomForms.dart';
 import 'package:library_project/unilib/core/presentation/widgets/retry.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/login/login_bloc.dart';
@@ -26,6 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Container(
         child: Consumer<LoginBloc>(
             builder: (_, loginBloc, __) => StreamBuilder<LoginState>(
+                  initialData: LoginState.initial(),
                   stream: loginBloc.loginStateStream,
                   builder: (_, AsyncSnapshot<LoginState> snapshot) {
                     return snapshot.data!.when(

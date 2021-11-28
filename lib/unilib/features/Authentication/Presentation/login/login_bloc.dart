@@ -7,11 +7,13 @@ import 'package:library_project/unilib/features/Authentication/Data/repository/u
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/login.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/login/login_events.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/login/login_state.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/screens/LogInScreen.dart';
 import 'package:rxdart/rxdart.dart';
 
 // class LoginBloc extends Cubit<LoginState> {
 //   Login _login =
 //       Login(UserRepositoryImpl(RemoteUserSourceImpl(NetworkServiceImpl())));
+
 //   LoginBloc() : super(LoginState.initial());
 
 //   Future<void> login(LoginEvent event) async {
@@ -67,3 +69,6 @@ class LoginBloc {
     _loginEventController.close();
   }
 }
+
+
+

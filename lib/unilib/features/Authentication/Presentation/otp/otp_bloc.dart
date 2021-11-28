@@ -19,22 +19,24 @@ class OTPBloc {
     _otpEventStream.listen(mapEventToState);
   }
 
-  StreamController<OTPEvents> _otpEventController =
-      BehaviorSubject<OTPEvents>();
-  StreamSink<OTPEvents> get otpEventSink => _otpEventController.sink;
-  Stream<OTPEvents> get _otpEventStream => _otpEventController.stream;
+  StreamController<OtpEvent> _otpEventController = BehaviorSubject<OtpEvent>();
+  StreamSink<OtpEvent> get otpEventSink => _otpEventController.sink;
+  Stream<OtpEvent> get _otpEventStream => _otpEventController.stream;
 
-  StreamController<OTPState> _otpStateController = BehaviorSubject<OTPState>();
-  StreamSink<OTPState> get _otpStateSink => _otpStateController.sink;
-  Stream<OTPState> get otpStateStream => _otpStateController.stream;
+  StreamController<OtpState> _otpStateController = BehaviorSubject<OtpState>();
+  StreamSink<OtpState> get _otpStateSink => _otpStateController.sink;
+  Stream<OtpState> get otpStateStream => _otpStateController.stream;
 
   mapEventToState(event) async {
-    if (event is OTPEvents) {
-      _otpStateSink.add(OTPLoading());
+    _otpStateSink.add(OtpState.initial());
+    if (event is OtpEvent) {
+      _otpStateSink.add(OtpState.loading());
 
       String email = await _emailDatabase.retrieveCurrentItem(emailCollection);
       final result = await _verifyCode.call(event.code, email: email);
-      result.fold((l) => _otpStateSink.add(OTPError()), (r) => OTPLoaded());
+      result.fold(
+          (l) => _otpStateSink.add(OtpState.error(errorMessage: l.message)),
+          (r) => OtpState.loading());
     }
   }
 
@@ -45,10 +47,10 @@ class OTPBloc {
 }
 
 
-// class OTPBloc extends Bloc<OTPEvents, OTPState>{
+// class OTPBloc extends Bloc<OtpEvent, OtpState>{
 //   OTPBloc():super(OTPInitial());
 //   @override
-//   Stream<OTPState> mapEventToState(OTPEvents event) {
+//   Stream<OtpState> mapEventToState(OtpEvent event) {
 //     // TODO: implement mapEventToState
 //     throw UnimplementedError();
 //   }

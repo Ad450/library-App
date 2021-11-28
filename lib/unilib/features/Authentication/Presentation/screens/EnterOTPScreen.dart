@@ -24,44 +24,24 @@ class _EnterOTPScreenState extends State<EnterOTPScreen> {
   Widget build(BuildContext context) {
     var _height = MediaQuery.of(context).size.height;
     return Consumer<OTPBloc>(
-      builder: (_, otpBloc, __) => StreamBuilder<OTPState>(
-        initialData: OTPInitial(
-          height: _height,
-        ),
-        stream: otpBloc.otpStateStream,
-        builder: (_, snapshot) {
-          if (snapshot.connectionState == ConnectionState.active) {
-            if (snapshot.hasError)
-              return Center(
-                child: Text(" otp cation error occured"),
-              );
-
-            if (!snapshot.hasData)
-              return Center(
-                child: Text("otp no data error occured"),
-              );
-
-            if (snapshot.data is OTPLoading) return LoadingScreen();
-
-            if (snapshot.data is OTPLoaded) return BookScreen();
-
-            if (snapshot.data is OTPError)
-              return Retry(
-                message: "please try again",
-              );
-          }
-
-          return OTPInitial(
-            height: _height,
-          );
-        },
-      ),
+      builder: (_, otpBloc, __) => StreamBuilder<OtpState>(
+          initialData: OtpState.initial(),
+          stream: otpBloc.otpStateStream,
+          builder: (_, snapshot) {
+            return snapshot.data!.when(
+                initial: () => OTPInitial(
+                      height: 7,
+                    ),
+                loading: () => LoadingScreen(),
+                loaded: () => BookScreen(),
+                error: (error) => Retry(message: error));
+          }),
     );
   }
 }
 //   OTPInitial(height: _height,),
 
-class OTPInitial extends StatelessWidget implements OTPState {
+class OTPInitial extends StatelessWidget {
   const OTPInitial({
     Key? key,
     required double height,
@@ -96,7 +76,7 @@ class OTPInitial extends StatelessWidget implements OTPState {
                       Provider.of<OTPBloc>(context, listen: false)
                           .otpEventSink
                           .add(
-                            SendOTPEvent(code: otpCode),
+                            OtpEvent.payload(code: otpCode),
                           );
                     },
                   ),
