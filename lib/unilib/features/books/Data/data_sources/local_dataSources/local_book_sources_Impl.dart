@@ -9,7 +9,7 @@ class LocalBookSourceImpl implements LocalBookSource {
   LocalBookSourceImpl(this._bookDatabase);
 
   @override
- Future<List<BookModels>>  retrieveBooks() async {
-    return  await _bookDatabase.retrieveCurrentItem();
+  Future<List<BookModels>> retrieveBooks() async {
+    return await _bookDatabase.retrieveCurrentItem();
   }
 }

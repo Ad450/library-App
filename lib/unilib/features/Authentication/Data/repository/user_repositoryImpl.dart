@@ -6,7 +6,6 @@ import 'package:library_project/unilib/core/domain/entities/user/verifiedUser.da
 import 'package:library_project/unilib/core/domain/entities/user/user_set_profile.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/Repository/user_repository.dart';
 
-
 class UserRepositoryImpl implements UserRepository {
   RemoteUserSource _remoteUserSource;
   UserRepositoryImpl(this._remoteUserSource);
@@ -15,7 +14,8 @@ class UserRepositoryImpl implements UserRepository {
   // factory UserRepositoryImpl() => instance;
 
   @override
-  Future<Either<Failure, bool>> getVerificationCode(Map<String , dynamic> info) async {
+  Future<Either<Failure, bool>> getVerificationCode(
+      Map<String, dynamic> info) async {
     return await _remoteUserSource.getVerificationCode(info);
   }
 
@@ -34,7 +34,6 @@ class UserRepositoryImpl implements UserRepository {
     return await _remoteUserSource.setProfile(user);
   }
 
-
   @override
   Future<Either<Failure, bool>> signIn(Map<String, dynamic> info) async {
     return await _remoteUserSource.signIn(info);
@@ -50,5 +49,4 @@ class UserRepositoryImpl implements UserRepository {
   //   return await _remoteUserSource.verifyUser(user, code);
   // }
 
-  
 }

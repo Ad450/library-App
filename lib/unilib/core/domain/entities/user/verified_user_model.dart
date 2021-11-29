@@ -1,6 +1,5 @@
 import 'package:library_project/unilib/core/domain/entities/user/verifiedUser.dart';
 
-
 class VerifiedUserModel extends VerifiedUser {
   VerifiedUserModel(
       {required String password,

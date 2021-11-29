@@ -3,10 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:library_project/unilib/core/Data/platforms/assets/app_Images.dart';
 import 'package:library_project/unilib/core/presentation/widgets/customPinfield.dart';
 import 'package:library_project/unilib/core/presentation/widgets/retry.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/otp/otp_bloc.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/otp/otp_events.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/otp/otp_state.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/LoadingScreen.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/otp/otp_bloc.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/otp/otp_events.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/otp/otp_state.dart';
 import 'package:library_project/unilib/features/books/presentation/screens/BookScreen.dart';
 import 'package:provider/provider.dart';
 

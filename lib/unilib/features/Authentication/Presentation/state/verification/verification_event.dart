@@ -1,5 +1,3 @@
-
-
 abstract class Events {}
 
 class VerificationEvent extends Events {

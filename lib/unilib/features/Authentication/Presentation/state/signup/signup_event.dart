@@ -6,7 +6,8 @@ class SignUpEvents extends Events {
 
   SignUpEvents({required this.email, required this.password});
 
- factory SignUpEvents.containUserInfo({required String email, required String name}){
-    return SignUpEvents(email:email, password : name);
+  factory SignUpEvents.containUserInfo(
+      {required String email, required String name}) {
+    return SignUpEvents(email: email, password: name);
   }
 }

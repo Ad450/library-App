@@ -3,7 +3,6 @@ import 'package:library_project/unilib/core/presentation/widgets/book_card.dart'
 import 'package:library_project/unilib/core/presentation/widgets/header.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/LoadingScreen.dart';
 
-
 class BookScreen extends StatefulWidget {
   const BookScreen({Key? key}) : super(key: key);
 

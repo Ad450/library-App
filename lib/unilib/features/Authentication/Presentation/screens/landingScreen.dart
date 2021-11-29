@@ -6,7 +6,6 @@ import 'package:library_project/unilib/core/presentation/widgets/logo.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/LogInScreen.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/signUpScreen.dart';
 
-
 class LandingScreen extends StatelessWidget {
   const LandingScreen({Key? key}) : super(key: key);
 
@@ -102,9 +101,11 @@ class LandingScreen extends StatelessWidget {
                       ),
                       CustomButton(
                           onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SignUpScreen(),),),
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SignUpScreen(),
+                                ),
+                              ),
                           padding: _mediaQuery.size.longestSide / 14,
                           title: "Create an Account",
                           color: Colors.grey[800],

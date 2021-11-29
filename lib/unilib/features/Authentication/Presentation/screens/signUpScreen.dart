@@ -3,9 +3,9 @@ import 'package:library_project/unilib/core/presentation/widgets/CustomForms.dar
 import 'package:library_project/unilib/core/presentation/widgets/retry.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/LoadingScreen.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/verification.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_bloc.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_event.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_state.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/signup/signup_bloc.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/signup/signup_event.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/signup/signup_state.dart';
 import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {

@@ -16,8 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$LoginEventTearOff {
   const _$LoginEventTearOff();
 
-  _Payload payload({required String email, required String password}) {
-    return _Payload(
+  _LoginEventpayload payload(
+      {required String email, required String password}) {
+    return _LoginEventpayload(
       email: email,
       password: password,
     );
@@ -45,12 +46,12 @@ mixin _$LoginEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Payload value) payload,
+    required TResult Function(_LoginEventpayload value) payload,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Payload value)? payload,
+    TResult Function(_LoginEventpayload value)? payload,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -95,28 +96,32 @@ class _$LoginEventCopyWithImpl<$Res> implements $LoginEventCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$PayloadCopyWith<$Res> implements $LoginEventCopyWith<$Res> {
-  factory _$PayloadCopyWith(_Payload value, $Res Function(_Payload) then) =
-      __$PayloadCopyWithImpl<$Res>;
+abstract class _$LoginEventpayloadCopyWith<$Res>
+    implements $LoginEventCopyWith<$Res> {
+  factory _$LoginEventpayloadCopyWith(
+          _LoginEventpayload value, $Res Function(_LoginEventpayload) then) =
+      __$LoginEventpayloadCopyWithImpl<$Res>;
   @override
   $Res call({String email, String password});
 }
 
 /// @nodoc
-class __$PayloadCopyWithImpl<$Res> extends _$LoginEventCopyWithImpl<$Res>
-    implements _$PayloadCopyWith<$Res> {
-  __$PayloadCopyWithImpl(_Payload _value, $Res Function(_Payload) _then)
-      : super(_value, (v) => _then(v as _Payload));
+class __$LoginEventpayloadCopyWithImpl<$Res>
+    extends _$LoginEventCopyWithImpl<$Res>
+    implements _$LoginEventpayloadCopyWith<$Res> {
+  __$LoginEventpayloadCopyWithImpl(
+      _LoginEventpayload _value, $Res Function(_LoginEventpayload) _then)
+      : super(_value, (v) => _then(v as _LoginEventpayload));
 
   @override
-  _Payload get _value => super._value as _Payload;
+  _LoginEventpayload get _value => super._value as _LoginEventpayload;
 
   @override
   $Res call({
     Object? email = freezed,
     Object? password = freezed,
   }) {
-    return _then(_Payload(
+    return _then(_LoginEventpayload(
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -131,8 +136,8 @@ class __$PayloadCopyWithImpl<$Res> extends _$LoginEventCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Payload implements _Payload {
-  _$_Payload({required this.email, required this.password});
+class _$_LoginEventpayload implements _LoginEventpayload {
+  _$_LoginEventpayload({required this.email, required this.password});
 
   @override
   final String email;
@@ -147,7 +152,7 @@ class _$_Payload implements _Payload {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Payload &&
+        (other is _LoginEventpayload &&
             (identical(other.email, email) ||
                 const DeepCollectionEquality().equals(other.email, email)) &&
             (identical(other.password, password) ||
@@ -163,8 +168,8 @@ class _$_Payload implements _Payload {
 
   @JsonKey(ignore: true)
   @override
-  _$PayloadCopyWith<_Payload> get copyWith =>
-      __$PayloadCopyWithImpl<_Payload>(this, _$identity);
+  _$LoginEventpayloadCopyWith<_LoginEventpayload> get copyWith =>
+      __$LoginEventpayloadCopyWithImpl<_LoginEventpayload>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -189,7 +194,7 @@ class _$_Payload implements _Payload {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Payload value) payload,
+    required TResult Function(_LoginEventpayload value) payload,
   }) {
     return payload(this);
   }
@@ -197,7 +202,7 @@ class _$_Payload implements _Payload {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Payload value)? payload,
+    TResult Function(_LoginEventpayload value)? payload,
     required TResult orElse(),
   }) {
     if (payload != null) {
@@ -207,9 +212,9 @@ class _$_Payload implements _Payload {
   }
 }
 
-abstract class _Payload implements LoginEvent {
-  factory _Payload({required String email, required String password}) =
-      _$_Payload;
+abstract class _LoginEventpayload implements LoginEvent {
+  factory _LoginEventpayload(
+      {required String email, required String password}) = _$_LoginEventpayload;
 
   @override
   String get email => throw _privateConstructorUsedError;
@@ -217,6 +222,6 @@ abstract class _Payload implements LoginEvent {
   String get password => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$PayloadCopyWith<_Payload> get copyWith =>
+  _$LoginEventpayloadCopyWith<_LoginEventpayload> get copyWith =>
       throw _privateConstructorUsedError;
 }

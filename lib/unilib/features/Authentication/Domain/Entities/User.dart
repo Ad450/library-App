@@ -4,5 +4,9 @@ class User {
   final int id;
   dynamic code;
 
-  User({required this.password, required this.email, required this.id, this.code});
+  User(
+      {required this.password,
+      required this.email,
+      required this.id,
+      this.code});
 }

@@ -4,8 +4,8 @@ import 'package:library_project/unilib/core/Data/network/network_service.dart';
 import 'package:library_project/unilib/features/Authentication/Data/DataSources/remote_dataSources/remote_user_impl.dart';
 import 'package:library_project/unilib/features/Authentication/Data/repository/user_repositoryImpl.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/signIn.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_event.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_state.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/signup/signup_event.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/signup/signup_state.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SignUpBloc {
@@ -53,6 +53,5 @@ class SignUpBloc {
     _signUpEventController.close();
   }
 }
-
 
 // events for signing up a user

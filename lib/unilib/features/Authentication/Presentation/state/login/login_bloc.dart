@@ -5,9 +5,8 @@ import 'package:library_project/unilib/core/Data/network/network_service.dart';
 import 'package:library_project/unilib/features/Authentication/Data/DataSources/remote_dataSources/remote_user_impl.dart';
 import 'package:library_project/unilib/features/Authentication/Data/repository/user_repositoryImpl.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/login.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/login/login_events.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/login/login_state.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/screens/LogInScreen.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/login/login_events.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/login/login_state.dart';
 import 'package:rxdart/rxdart.dart';
 
 // class LoginBloc extends Cubit<LoginState> {
@@ -38,8 +37,8 @@ class LoginBloc {
   Stream<LoginState> get loginStateStream => _loginStateController.stream;
   StreamSink get _loginStateSink => _loginStateController.sink;
 
-  StreamController<LoginState> _loginEventController =
-      BehaviorSubject<LoginState>();
+  StreamController<LoginEvent> _loginEventController =
+      BehaviorSubject<LoginEvent>();
   StreamSink get loginEventSink => _loginEventController.sink;
   Stream get _loginEventSteam => _loginEventController.stream;
 
@@ -47,7 +46,7 @@ class LoginBloc {
     _loginEventSteam.listen(mapEventToStream);
   }
 
-  mapEventToStream(event) async{
+  mapEventToStream(event) async {
     _loginStateSink.add(LoginState.initial());
     if (event is LoginEvent) {
       _loginStateSink.add(LoginState.loading());
@@ -57,10 +56,13 @@ class LoginBloc {
         "password": event.password
       };
 
-          var result = await _login.call(_userInfo);
-    result.fold((l) => _loginStateSink.add(LoginState.error(email: l.message)),
-        (r) => _loginStateSink.add(LoginState.loaded()));
-
+      var result = await _login.call(_userInfo);
+      result.fold(
+        (l) => _loginStateSink.add(LoginState.error(email: l.message)),
+        (r) => _loginStateSink.add(
+          LoginState.loaded(),
+        ),
+      );
     }
   }
 
@@ -69,6 +71,3 @@ class LoginBloc {
     _loginEventController.close();
   }
 }
-
-
-

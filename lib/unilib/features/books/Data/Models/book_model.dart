@@ -6,7 +6,7 @@ class BookModels extends Book {
       required String description,
       required String id,
       required String img})
-      : super(name: name, description: description, img: img , id: id);
+      : super(name: name, description: description, img: img, id: id);
 
   factory BookModels.fromJson(Map<String, dynamic> bookMap) {
     return BookModels(

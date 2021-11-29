@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:library_project/unilib/core/Data/database/books_db.dart';
@@ -22,9 +21,9 @@ class EmailSharedPrefs implements EmailDatabase {
   }
 
   @override
-  Future<String > retrieveCurrentItem(String collectionName) async {
+  Future<String> retrieveCurrentItem(String collectionName) async {
     final _sharedPreferences = await SharedPreferences.getInstance();
-   String data= "";
+    String data = "";
     if (_sharedPreferences.containsKey(collectionName)) {
       data = _sharedPreferences.getString(collectionName)!;
     }

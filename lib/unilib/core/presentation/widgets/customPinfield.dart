@@ -4,15 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:library_project/unilib/core/presentation/widgets/customButton.dart';
 
-
-
-
 class CustomPinForm extends StatefulWidget {
   final Function onTap;
-  
-  const CustomPinForm({Key? key, required this.onTap})
-      : 
-        super(key: key);
+
+  const CustomPinForm({Key? key, required this.onTap}) : super(key: key);
 
   @override
   _CustomPinFormState createState() => _CustomPinFormState();
@@ -25,16 +20,11 @@ class _CustomPinFormState extends State<CustomPinForm> {
   bool _otpPinIsNull = false;
   String otpCode = "";
 
-
- 
-
   @override
   Widget build(BuildContext context) {
-    
     var _mediaHeight = MediaQuery.of(context).size.height;
     return Column(
       children: [
-       
         _otpPinIsNull
             ? Text(
                 errorText,
@@ -68,22 +58,19 @@ class _CustomPinFormState extends State<CustomPinForm> {
           textColor: Colors.black,
           padding: 6,
           onTap: () {
-            
-            bool isPinValid =  _isOTPvalidated(otpCode, _otpPinIsNull);
-              if(isPinValid){
-                 widget.onTap(otpCode: otpCode);
-              }
+            bool isPinValid = _isOTPvalidated(otpCode, _otpPinIsNull);
+            if (isPinValid) {
+              widget.onTap(otpCode: otpCode);
+            }
 
-              setState(() {
-                _otpPinIsNull = true;
-              });
-           
+            setState(() {
+              _otpPinIsNull = true;
+            });
           },
         ),
         SizedBox(
           height: 10,
         ),
-        
         Container(
           margin: EdgeInsets.only(top: _mediaHeight / 9),
           child: Text(
@@ -100,15 +87,14 @@ class _CustomPinFormState extends State<CustomPinForm> {
   }
 }
 
-
 // otp validation logic
 // will change to it to a more complex one
 
-bool _isOTPvalidated(String code, bool pinIsNull){
-  if(code.length >= 6){
+bool _isOTPvalidated(String code, bool pinIsNull) {
+  if (code.length >= 6) {
     pinIsNull = false;
     return true;
-  }else{
+  } else {
     pinIsNull = true;
     return false;
   }

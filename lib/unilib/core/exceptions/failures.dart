@@ -6,8 +6,6 @@ class Failure {
   String toString() => message;
 }
 
-
-class SocketFailure extends Failure{
-  SocketFailure(String message):super(message);
+class SocketFailure extends Failure {
+  SocketFailure(String message) : super(message);
 }
-

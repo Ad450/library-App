@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class GoogleFBWidget extends StatelessWidget {
   final String? authMessage;
   final String? authTextMessage;
@@ -9,17 +8,17 @@ class GoogleFBWidget extends StatelessWidget {
 
   const GoogleFBWidget(
       {Key? key,
-        @required this.authMessage,
-        @required this.authTextMessage,
-        @required this.authGoogleFunction,
-        @required this.authFBFunction
-      })
+      @required this.authMessage,
+      @required this.authTextMessage,
+      @required this.authGoogleFunction,
+      @required this.authFBFunction})
       : super(key: key);
 
   void _authGoogleFunction() {
     authGoogleFunction!();
   }
-  void _authFBFunction(){
+
+  void _authFBFunction() {
     authFBFunction!();
   }
 
@@ -83,7 +82,7 @@ class GoogleFBWidget extends StatelessWidget {
             //       height: 30,
             //       width: 20,
             //     ),
-                
+
             //     onPressed: _authGoogleFunction,
             //   ),
             // ),
@@ -92,17 +91,15 @@ class GoogleFBWidget extends StatelessWidget {
               elevation: 20,
               shape: CircleBorder(),
               child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
-                  shape: MaterialStateProperty.all<OutlinedBorder>(
-                    CircleBorder(),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
+                    shape: MaterialStateProperty.all<OutlinedBorder>(
+                      CircleBorder(),
+                    ),
                   ),
-                ),
-                child: Icon(Icons.facebook, color: Colors.indigo.shade900),
-              
-                onPressed:_authFBFunction
-              ),
+                  child: Icon(Icons.facebook, color: Colors.indigo.shade900),
+                  onPressed: _authFBFunction),
             ),
           ],
         ),

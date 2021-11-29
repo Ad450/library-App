@@ -6,17 +6,15 @@ import 'package:sqflite/sqflite.dart';
 /// have to inject BooksDatabaseImpl as dependency
 
 class BooksDatabaseImpl implements BookDatabase {
-
   // path of database
   String _databasePath = "books.db";
-  // creates or opens a database 
+  // creates or opens a database
   Database? _database;
   BooksDatabaseImpl._() {
     _initDB();
   }
 
-
-  // singleton 
+  // singleton
 
   static final BooksDatabaseImpl instance = BooksDatabaseImpl._();
 
@@ -44,10 +42,10 @@ class BooksDatabaseImpl implements BookDatabase {
   Future<List<BookModels>> retrieveCurrentItem() async {
     List<Map<String, dynamic>> items = await _database!.query("books");
 
-    List<BookModels> booksFromDB =  items.map((item) => BookModels.fromJson(item)).toList();
+    List<BookModels> booksFromDB =
+        items.map((item) => BookModels.fromJson(item)).toList();
     return booksFromDB;
   }
-
 
 // store book in database
   @override
@@ -58,10 +56,8 @@ class BooksDatabaseImpl implements BookDatabase {
       "img": _book.img,
       "id": _book.name
     };
-    if (_database != null)
-      _database!.insert("books", value);
+    if (_database != null) _database!.insert("books", value);
   }
-
 
   // delete book with matching id from database
 

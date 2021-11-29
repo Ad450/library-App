@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class SignUpWidget extends StatelessWidget {
   const SignUpWidget();
 

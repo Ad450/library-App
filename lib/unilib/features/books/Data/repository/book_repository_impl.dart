@@ -1,4 +1,3 @@
-
 import 'package:library_project/unilib/core/Data/platforms/connectivity/connectivity_contract.dart';
 import 'package:library_project/unilib/core/domain/entities/exceptions/logging_in_user_exception.dart';
 import 'package:library_project/unilib/core/util.dart';
@@ -25,7 +24,7 @@ class BooksRepositoryImpl implements BooksRepository {
   }
 
   @override
- Future<List<BookModels>>  retrieveAllBooks() async {
+  Future<List<BookModels>> retrieveAllBooks() async {
     NetworkStatus status = await networkInfo.call();
     if (status == NetworkStatus.mobile || status == NetworkStatus.Wifi) {
       return await remoteBookSource.call();

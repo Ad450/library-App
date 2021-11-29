@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:library_project/unilib/core/Data/platforms/assets/app_Images.dart';
 
-
 class CustomLogo extends StatelessWidget {
   final Color? _containerColor;
   const CustomLogo({Key? key, Color? containerColor})

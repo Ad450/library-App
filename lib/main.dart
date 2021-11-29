@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/login/login_bloc.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/otp/otp_bloc.dart';
-
-
 
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/welcomeScreen.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/signup/signup_bloc.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/verification/verification_bloc.dart';
+
+import 'package:library_project/unilib/features/Authentication/Presentation/state/login/login_bloc.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/otp/otp_bloc.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/signup/signup_bloc.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/verification/verification_bloc.dart';
+
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -16,9 +16,9 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final  SignUpBloc signUpBloc = SignUpBloc();
+  final SignUpBloc signUpBloc = SignUpBloc();
   final VerificationBloc verificationBloc = VerificationBloc();
-  final  OTPBloc otpBloc = OTPBloc();
+  final OTPBloc otpBloc = OTPBloc();
   final LoginBloc loginBloc = LoginBloc();
   final String _title = "Unilib";
   MyApp();
@@ -26,13 +26,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-        
-         Provider.value(value: signUpBloc),
-         Provider.value(value: verificationBloc),
-         Provider.value(value: otpBloc),
-         Provider.value(value: loginBloc)
-        ],
+      providers: [
+        Provider.value(value: signUpBloc),
+        Provider.value(value: verificationBloc),
+        Provider.value(value: otpBloc),
+        Provider.value(value: loginBloc)
+      ],
       child: MaterialApp(
         title: _title,
         home: UnilibHome(),
@@ -86,7 +85,6 @@ class UnilibHome extends StatelessWidget {
 //     );
 //   }
 // }
-
 
 //  _ongenerateRoutes (RouteSettings _settings){
 

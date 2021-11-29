@@ -5,9 +5,10 @@ import 'package:library_project/unilib/core/presentation/widgets/customButton.da
 import 'package:library_project/unilib/core/presentation/widgets/retry.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/EnterOTPScreen.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/LoadingScreen.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/verification/verfication_state.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/verification/verification_bloc.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/verification/verification_event.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/verification/verfication_state.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/verification/verification_bloc.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/verification/verification_event.dart';
+
 import 'package:provider/provider.dart';
 
 class VerificationScreen extends StatefulWidget {

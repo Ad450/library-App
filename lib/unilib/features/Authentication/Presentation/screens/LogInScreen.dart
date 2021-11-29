@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_project/unilib/core/presentation/widgets/CustomForms.dart';
 import 'package:library_project/unilib/core/presentation/widgets/retry.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/login/login_bloc.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/login/login_events.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/login/login_state.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/LoadingScreen.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/login/login_bloc.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/login/login_events.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/login/login_state.dart';
 import 'package:library_project/unilib/features/books/presentation/screens/BookScreen.dart';
 import 'package:provider/provider.dart';
 
@@ -52,9 +52,12 @@ class LoginInitial extends StatelessWidget {
       title: "Login",
       paddingDecider: double.infinity,
       onTap: ({required String email, required String password}) {
-        Provider.of<LoginBloc>(context, listen: false)
-            .loginEventSink
-            .add(LoginEvent.payload(email: email, password: password));
+        assert(
+            LoginEvent.payload(email: email, password: password) is LoginEvent);
+
+        Provider.of<LoginBloc>(context, listen: false).loginEventSink.add(
+              LoginEvent.payload(email: email, password: password),
+            );
       },
     );
   }

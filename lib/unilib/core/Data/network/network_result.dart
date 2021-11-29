@@ -1,4 +1,4 @@
-enum NetworkResult{
+enum NetworkResult {
   SUCESS,
   ERROR,
   FAILURE,

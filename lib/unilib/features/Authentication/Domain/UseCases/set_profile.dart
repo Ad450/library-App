@@ -5,13 +5,12 @@ import 'package:library_project/unilib/core/domain/entities/user/verifiedUser.da
 import 'package:library_project/unilib/core/domain/usecases/usecases.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/Repository/user_repository.dart';
 
-
 class SetProfile implements UseCase<UserWithProfile, VerifiedUser> {
   UserRepository _userRepository;
   SetProfile(this._userRepository);
 
-
-  Future<Either<Failure, UserWithProfile>> call(VerifiedUser? verifiedUser, {String? email}) async {
+  Future<Either<Failure, UserWithProfile>> call(VerifiedUser? verifiedUser,
+      {String? email}) async {
     return await _userRepository.setProfile(verifiedUser!);
   }
 }

@@ -5,10 +5,9 @@ import 'package:library_project/unilib/core/util.dart';
 import 'package:library_project/unilib/features/Authentication/Data/DataSources/remote_dataSources/remote_user_impl.dart';
 import 'package:library_project/unilib/features/Authentication/Data/repository/user_repositoryImpl.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/getVerificationCode.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/verification/verfication_state.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/verification/verfication_state.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/verification/verification_event.dart';
 import 'dart:async';
-
-import 'package:library_project/unilib/features/Authentication/Presentation/verification/verification_event.dart';
 
 class VerificationBloc {
   GetVerificationCode _getVerificationCode = GetVerificationCode(

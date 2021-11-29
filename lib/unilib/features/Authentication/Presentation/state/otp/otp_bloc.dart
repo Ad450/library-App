@@ -7,8 +7,8 @@ import 'package:library_project/unilib/core/util.dart';
 import 'package:library_project/unilib/features/Authentication/Data/DataSources/remote_dataSources/remote_user_impl.dart';
 import 'package:library_project/unilib/features/Authentication/Data/repository/user_repositoryImpl.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/verifyCode.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/otp/otp_events.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/otp/otp_state.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/otp/otp_events.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/otp/otp_state.dart';
 import 'package:rxdart/rxdart.dart';
 
 class OTPBloc {
@@ -45,7 +45,6 @@ class OTPBloc {
     _otpStateController.close();
   }
 }
-
 
 // class OTPBloc extends Bloc<OtpEvent, OtpState>{
 //   OTPBloc():super(OTPInitial());
