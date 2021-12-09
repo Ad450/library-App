@@ -1,0 +1,1 @@
+enum HiveBoxNames { books }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
-import 'package:library_project/unilib/core/presentation/widgets/customButton.dart';
+import 'package:library_project/unilib/core/widgets/widgets/customButton.dart';
 
 class CustomPinForm extends StatefulWidget {
   final Function onTap;

@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
-import 'package:library_project/unilib/core/Data/database/database_collections.dart';
-import 'package:library_project/unilib/core/Data/database/database_service.dart';
+import 'package:library_project/unilib/core/data/database/database_collections.dart';
+import 'package:library_project/unilib/core/data/database/database_service.dart';
 import 'package:library_project/unilib/core/failures.dart';
 import 'package:library_project/unilib/features/books/Data/Models/book_model.dart';
 

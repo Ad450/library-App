@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:library_project/unilib/core/Data/network/network_response.dart';
-import 'package:library_project/unilib/core/Data/network/network_service.dart';
+import 'package:library_project/unilib/core/data/network/network_response.dart';
+import 'package:library_project/unilib/core/data/network/network_service.dart';
 import 'package:library_project/unilib/core/configureUrls.dart';
 
 class NetworkServiceImpl implements NetworkService {

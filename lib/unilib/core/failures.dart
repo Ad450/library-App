@@ -14,3 +14,7 @@ class ApiFailure extends Failure {
 class DatabaseFailure extends Failure {
   const DatabaseFailure(String message) : super(message);
 }
+
+class NoInternetFailure extends Failure {
+  const NoInternetFailure(String message) : super(message);
+}
