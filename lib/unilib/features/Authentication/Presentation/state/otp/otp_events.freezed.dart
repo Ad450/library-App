@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'otp_events.dart';
 
@@ -36,6 +37,11 @@ mixin _$OtpEvent {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String code)? payload,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String code)? payload,
     required TResult orElse(),
@@ -44,6 +50,11 @@ mixin _$OtpEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_OtpEventpayload value) payload,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_OtpEventpayload value)? payload,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -159,6 +170,14 @@ class _$_OtpEventpayload implements _OtpEventpayload {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String code)? payload,
+  }) {
+    return payload?.call(code);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String code)? payload,
     required TResult orElse(),
@@ -175,6 +194,14 @@ class _$_OtpEventpayload implements _OtpEventpayload {
     required TResult Function(_OtpEventpayload value) payload,
   }) {
     return payload(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_OtpEventpayload value)? payload,
+  }) {
+    return payload?.call(this);
   }
 
   @override
