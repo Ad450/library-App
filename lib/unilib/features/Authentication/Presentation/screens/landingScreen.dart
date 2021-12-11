@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-import 'package:library_project/unilib/core/presentation/widgets/customButton.dart';
-import 'package:library_project/unilib/core/presentation/widgets/logo.dart';
+import 'package:library_project/unilib/core/widgets/widgets/customButton.dart';
+import 'package:library_project/unilib/core/widgets/widgets/logo.dart';
+
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/LogInScreen.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/signUpScreen.dart';
 

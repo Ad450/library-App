@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:library_project/unilib/core/presentation/widgets/CustomForms.dart';
-import 'package:library_project/unilib/core/presentation/widgets/retry.dart';
+import 'package:library_project/unilib/core/widgets/widgets/CustomForms.dart';
+import 'package:library_project/unilib/core/widgets/widgets/retry.dart';
+
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/LoadingScreen.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/state/login/login_bloc.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/state/login/login_events.dart';

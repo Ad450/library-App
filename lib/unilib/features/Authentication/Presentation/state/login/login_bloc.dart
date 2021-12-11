@@ -1,7 +1,6 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
-import 'package:library_project/unilib/core/Data/network/network_service.dart';
+import 'package:library_project/unilib/core/data/network/network_service_impl.dart';
 import 'package:library_project/unilib/features/Authentication/Data/DataSources/remote_dataSources/remote_user_impl.dart';
 import 'package:library_project/unilib/features/Authentication/Data/repository/user_repositoryImpl.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/login.dart';
@@ -30,7 +29,7 @@ import 'package:rxdart/rxdart.dart';
 
 class LoginBloc {
   Login _login =
-      Login(UserRepositoryImpl(RemoteUserSourceImpl(NetworkServiceImpl())));
+      LoginB(UserRepositoryImpl(RemoteUserSourceImpl(NetworkServiceImpl())));
 
   StreamController<LoginState> _loginStateController =
       BehaviorSubject<LoginState>();

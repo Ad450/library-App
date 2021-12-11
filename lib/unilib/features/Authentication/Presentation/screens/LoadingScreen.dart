@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:library_project/unilib/core/Data/platforms/assets/app_Images.dart';
+import 'package:library_project/unilib/core/utils/assets/app_Images.dart';
 
 class LoadingScreen extends StatelessWidget {
   final String? _authTitle;
