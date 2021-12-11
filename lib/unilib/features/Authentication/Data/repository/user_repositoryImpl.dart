@@ -31,21 +31,24 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<UserModel> getVerificationCode(
-      {required String email, required String password}) {
-    // TODO: implement getVerificationCode
-    throw UnimplementedError();
+      {required String email, required String password}) async {
+    return await guardedApiCall<UserModel>(() => _remoteUserDataSource
+        .getVerificationCode(email: email, password: password));
   }
 
   @override
-  Future<UserModel> login({required String email, required String password}) {
-    // TODO: implement login
-    throw UnimplementedError();
+  Future<UserModel> login(
+      {required String email, required String password}) async {
+    final _user = await guardedApiCall<UserModel>(
+        () => _remoteUserDataSource.login(email: email, password: password));
+    cacheUser(_user);
+
+    return _user;
   }
 
   @override
-  Future<void> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<void> logout() async {
+    return await deleteCachedUser();
   }
 
   @override
@@ -53,14 +56,20 @@ class UserRepositoryImpl implements UserRepository {
       {required String name,
       required String email,
       required String oldPassword,
-      required String newPassword}) {
-    // TODO: implement updateUser
-    throw UnimplementedError();
+      required String newPassword}) async {
+    final _user = await guardedApiCall(() => _remoteUserDataSource.updateUser(
+        name: name,
+        email: email,
+        oldPassword: oldPassword,
+        newPassword: newPassword));
+
+    cacheUser(_user);
+    return _user;
   }
 
   @override
-  Future<void> verifyCode({required String email, required String code}) {
-    // TODO: implement verifyCode
-    throw UnimplementedError();
+  Future<void> verifyCode({required String email, required String code}) async {
+    return await guardedApiCall<void>(
+        () => _remoteUserDataSource.verifyCode(email: email, code: code));
   }
 }
