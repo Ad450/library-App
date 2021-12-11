@@ -1,0 +1,4 @@
+sign in flow
+1. email and password ie. will comprise sending of otp
+2. verify otp
+3. update personal information.* not including mail update for now 

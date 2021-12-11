@@ -18,3 +18,11 @@ class DatabaseFailure extends Failure {
 class NoInternetFailure extends Failure {
   const NoInternetFailure(String message) : super(message);
 }
+
+class NetworkFailure extends Failure {
+  const NetworkFailure(String message) : super(message);
+}
+
+class CacheFailure extends Failure {
+  const CacheFailure(String message) : super(message);
+}

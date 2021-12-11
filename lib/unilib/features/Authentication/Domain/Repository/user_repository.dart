@@ -1,15 +1,20 @@
-// import 'package:dartz/dartz.dart';
-// import 'package:library_project/unilib/core/domain/entities/exceptions/logging_in_user_exception.dart';
-// import 'package:library_project/unilib/core/domain/entities/user/user_code_sent.dart';
-// import 'package:library_project/unilib/core/domain/entities/user/user_set_profile.dart';
-// import 'package:library_project/unilib/core/domain/entities/user/verifiedUser.dart';
-// import 'package:library_project/unilib/features/Authentication/Domain/Entities/User.dart';
+import '../../Data/Models/user_model/user_model.dart';
 
-// abstract class UserRepository {
-//   Future<Either<Failure, bool>> signIn(Map<String, dynamic> info);
-//   Future<Either<Failure, User?>> login(Map<String, dynamic> info);
-//   Future<Either<Failure, bool>> logout(VerifiedUser user);
-//   Future<Either<Failure, bool>> getVerificationCode(Map<String, dynamic> info);
-//   Future<Either<Failure, bool>> verifyUser(String email, String code);
-//   Future<Either<Failure, UserWithProfile>> setProfile(VerifiedUser user);
-// }
+abstract class UserRepository {
+  //local
+  Future<void> cacheUser(UserModel user);
+  Future<UserModel> getCachedUser();
+  Future<void> deleteCachedUser();
+
+  // remote
+  Future<UserModel> getVerificationCode(
+      {required String email, required String password});
+  Future<void> logout();
+  Future<void> verifyCode({required String email, required String code});
+  Future<UserModel> updateUser(
+      {required String name,
+      required String email,
+      required String oldPassword,
+      required String newPassword});
+  Future<UserModel> login({required String email, required String password});
+}
