@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:library_project/unilib/core/app_typedefs.dart';
+import 'package:library_project/unilib/features/Authentication/Domain/UseCases/check_login.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/getVerificationCode.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/login.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/logout.dart';
@@ -17,9 +18,10 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   final UpdateUser _updateUser;
   final VerifyCode _verifyCode;
   final Logout _logout;
+  final CheckLogin _checkLogin;
 
   AuthenticationCubit(this._getVerificationCode, this._login, this._logout,
-      this._updateUser, this._verifyCode)
+      this._updateUser, this._verifyCode, this._checkLogin)
       : super(AuthenticationState.initial(error: "", user: null));
 
   Future<void> login(String email, String password) async {
@@ -82,12 +84,28 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   Future<void> logout() async {
     emit(AuthenticationState.loading(error: state.error, user: state.user));
 
-    final _result = await _logout.call(NoParam());
+    final _result = await _logout.call(const NoParam());
 
     _result.fold(
         (l) =>
             emit(AuthenticationState.error(error: l.message, user: state.user)),
         (r) =>
             AuthenticationState.loaded(error: state.error, user: state.user));
+  }
+
+  Future<void> checkLogin() async {
+    emit(AuthenticationState.loading(error: state.error, user: state.user));
+
+    final _result = await _checkLogin.call(const NoParam());
+    _result.fold(
+        (l) =>
+            emit(AuthenticationState.error(error: l.message, user: state.user)),
+        (r) {
+      if (r != null) {
+        emit(AuthenticationState.loggedIn(error: state.error, user: r));
+      } else {
+        emit(AuthenticationState.loaded(user: state.user, error: state.error));
+      }
+    });
   }
 }
