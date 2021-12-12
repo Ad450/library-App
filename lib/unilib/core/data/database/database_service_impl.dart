@@ -2,11 +2,11 @@ import 'package:hive/hive.dart';
 import 'package:library_project/unilib/core/data/database/database_collections.dart';
 import 'package:library_project/unilib/core/data/database/database_service.dart';
 import 'package:library_project/unilib/core/failures.dart';
-import 'package:library_project/unilib/features/books/Data/Models/book_model.dart';
+import '../../../features/Authentication/Data/Models/user_model/user_model.dart';
 
-class BookDatabaseService implements Database<BookModels> {
+class BookDatabaseService implements Database<UserModel> {
   @override
-  Future<void> put(BookModels value, String? key, HiveBoxNames name) async {
+  Future<void> put(UserModel value, String? key, HiveBoxNames name) async {
     return await write(value, name, key);
   }
 
@@ -22,7 +22,7 @@ class BookDatabaseService implements Database<BookModels> {
   }
 
   @override
-  Future<void> write(BookModels value, HiveBoxNames name, String? key) async {
+  Future<void> write(UserModel value, HiveBoxNames name, String? key) async {
     if (name is HiveBoxNames) {
       final box = await _openHiveBox<Map>(name);
       // the data to be put is a map of key data and value , value
@@ -30,6 +30,16 @@ class BookDatabaseService implements Database<BookModels> {
       await box.put(key, _mappedData);
     } else {
       throw DatabaseFailure("couldnot write into database");
+    }
+  }
+
+  Future<void> delete(UserModel user, HiveBoxNames name, String key) async {
+    if (name is HiveBoxNames) {
+      final _box = await _openHiveBox(name);
+
+      _box.delete(key);
+    } else {
+      throw DatabaseFailure("couldnot delete user");
     }
   }
 

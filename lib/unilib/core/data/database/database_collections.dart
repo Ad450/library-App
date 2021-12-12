@@ -1,1 +1,1 @@
-enum HiveBoxNames { books }
+enum HiveBoxNames { users }
