@@ -33,7 +33,7 @@ class BookDatabaseService implements Database<UserModel> {
     }
   }
 
-  Future<void> delete(UserModel user, HiveBoxNames name, String key) async {
+  Future<void> delete(HiveBoxNames name, String key) async {
     if (name is HiveBoxNames) {
       final _box = await _openHiveBox(name);
 

@@ -1,3 +1,3 @@
 //TODO: kBaseUrl not set
 
-const kBaseUrl = "";
+const kBaseUrl = "https://uenrlibrary.herokuapp.com/api/";

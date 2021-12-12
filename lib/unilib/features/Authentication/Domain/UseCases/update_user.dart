@@ -14,7 +14,8 @@ class UpdateUser implements Usecase<UserModel, UpdateUserParam> {
           name: param.name,
           email: param.email,
           oldPassword: param.oldPassword,
-          newPassword: param.newPassword);
+          newPassword: param.newPassword,
+          id: param.id);
 
       return Right(_result);
     } on NetworkFailure catch (e) {
@@ -28,10 +29,12 @@ class UpdateUserParam {
   final String email;
   final String oldPassword;
   final String newPassword;
+  final String id;
 
   const UpdateUserParam(
       {required this.email,
       required this.oldPassword,
       required this.name,
-      required this.newPassword});
+      required this.newPassword,
+      required this.id});
 }

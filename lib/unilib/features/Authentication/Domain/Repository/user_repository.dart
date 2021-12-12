@@ -15,6 +15,7 @@ abstract class UserRepository {
       {required String name,
       required String email,
       required String oldPassword,
-      required String newPassword});
+      required String newPassword,
+      required String id});
   Future<UserModel> login({required String email, required String password});
 }

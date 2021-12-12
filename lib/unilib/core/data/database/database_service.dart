@@ -8,4 +8,6 @@ abstract class Database<T> {
     String? key,
     HiveBoxNames name,
   );
+
+  Future<void> delete(HiveBoxNames name, String key);
 }

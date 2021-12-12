@@ -56,12 +56,16 @@ class UserRepositoryImpl implements UserRepository {
       {required String name,
       required String email,
       required String oldPassword,
-      required String newPassword}) async {
-    final _user = await guardedApiCall(() => _remoteUserDataSource.updateUser(
-        name: name,
-        email: email,
-        oldPassword: oldPassword,
-        newPassword: newPassword));
+      required String newPassword,
+      required String id}) async {
+    final _user = await guardedApiCall(
+      () => _remoteUserDataSource.updateUser(
+          name: name,
+          email: email,
+          oldPassword: oldPassword,
+          newPassword: newPassword,
+          id: id),
+    );
 
     cacheUser(_user);
     return _user;
