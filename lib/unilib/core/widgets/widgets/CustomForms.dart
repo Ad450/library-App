@@ -5,35 +5,37 @@ import 'package:library_project/unilib/core/widgets/widgets/logo.dart';
 
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/verification.dart';
 
-class CustomForms extends StatefulWidget {
+class SignUpCustomForms extends StatefulWidget {
   final String title;
   final String buttonTitle;
   final double paddingDecider;
   final Function onTap;
-  const CustomForms(
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+  final GlobalKey<FormState> formKey;
+  const SignUpCustomForms(
       {Key? key,
       required this.buttonTitle,
       required this.title,
       required this.paddingDecider,
-      required this.onTap})
+      required this.onTap,
+      required this.emailController,
+      required this.passwordController,
+      required this.formKey})
       : super(key: key);
 
   @override
-  _CustomFormsState createState() => _CustomFormsState();
+  _SignUpCustomFormsState createState() => _SignUpCustomFormsState();
 }
 
-class _CustomFormsState extends State<CustomForms> {
-  final _formKey = GlobalKey<FormState>();
-
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+class _SignUpCustomFormsState extends State<SignUpCustomForms> {
   bool _obscureText = true;
 // bool _customFormStateMounted = _CustomFormsState().mounted;
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
+    widget.emailController.dispose();
+    widget.passwordController.dispose();
     super.dispose();
   }
 
@@ -65,7 +67,7 @@ class _CustomFormsState extends State<CustomForms> {
                 ),
                 SizedBox(height: 30),
                 Form(
-                  key: _formKey,
+                  key: widget.formKey,
                   child: Column(
                     children: <Widget>[
                       TextFormField(
@@ -77,7 +79,7 @@ class _CustomFormsState extends State<CustomForms> {
                           }
                           return null;
                         },
-                        controller: _emailController,
+                        controller: widget.emailController,
                         decoration: InputDecoration(
                           labelText: "Email",
                           labelStyle:
@@ -102,7 +104,7 @@ class _CustomFormsState extends State<CustomForms> {
                           }
                           return null;
                         },
-                        controller: _passwordController,
+                        controller: widget.passwordController,
                         decoration: InputDecoration(
                           alignLabelWithHint: true,
                           suffixIcon: InkWell(
@@ -158,10 +160,10 @@ class _CustomFormsState extends State<CustomForms> {
                         padding: _mediaQuery.size.longestSide /
                             widget.paddingDecider,
                         onTap: () async {
-                          if (_formKey.currentState!.validate())
+                          if (widget.formKey.currentState!.validate())
                             widget.onTap(
-                                password: _passwordController.value.text,
-                                email: _emailController.value.text);
+                                password: widget.passwordController.value.text,
+                                email: widget.emailController.value.text);
                         },
                       ),
                       Container(

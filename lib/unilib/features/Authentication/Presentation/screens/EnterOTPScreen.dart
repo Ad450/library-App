@@ -2,14 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:library_project/unilib/core/utils/assets/app_Images.dart';
 import 'package:library_project/unilib/core/widgets/widgets/customPinfield.dart';
-import 'package:library_project/unilib/core/widgets/widgets/retry.dart';
-
-import 'package:library_project/unilib/features/Authentication/Presentation/screens/LoadingScreen.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/state/otp/otp_bloc.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/state/otp/otp_events.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/state/otp/otp_state.dart';
-import 'package:library_project/unilib/features/books/presentation/screens/BookScreen.dart';
-import 'package:provider/provider.dart';
 
 class EnterOTPScreen extends StatefulWidget {
   const EnterOTPScreen({
@@ -24,26 +16,15 @@ class _EnterOTPScreenState extends State<EnterOTPScreen> {
   @override
   Widget build(BuildContext context) {
     var _height = MediaQuery.of(context).size.height;
-    return Consumer<OTPBloc>(
-      builder: (_, otpBloc, __) => StreamBuilder<OtpState>(
-          initialData: OtpState.initial(),
-          stream: otpBloc.otpStateStream,
-          builder: (_, snapshot) {
-            return snapshot.data!.when(
-                initial: () => OTPInitial(
-                      height: 7,
-                    ),
-                loading: () => LoadingScreen(),
-                loaded: () => BookScreen(),
-                error: (error) => Retry(message: error));
-          }),
+    return OTP(
+      height: _height,
     );
   }
 }
 //   OTPInitial(height: _height,),
 
-class OTPInitial extends StatelessWidget {
-  const OTPInitial({
+class OTP extends StatelessWidget {
+  const OTP({
     Key? key,
     required double height,
   })  : _height = height,
@@ -73,13 +54,7 @@ class OTPInitial extends StatelessWidget {
                 ),
                 Container(
                   child: CustomPinForm(
-                    onTap: ({required dynamic otpCode}) {
-                      Provider.of<OTPBloc>(context, listen: false)
-                          .otpEventSink
-                          .add(
-                            OtpEvent.payload(code: otpCode),
-                          );
-                    },
+                    onTap: ({required dynamic otpCode}) {},
                   ),
                 )
               ],

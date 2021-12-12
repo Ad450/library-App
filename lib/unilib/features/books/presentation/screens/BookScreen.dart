@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:library_project/unilib/core/presentation/widgets/book_card.dart';
-import 'package:library_project/unilib/core/presentation/widgets/header.dart';
+import 'package:library_project/unilib/core/widgets/widgets/header.dart';
+
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/LoadingScreen.dart';
 
 class BookScreen extends StatefulWidget {
@@ -110,32 +110,8 @@ class BooksScrollView extends StatelessWidget {
         child: SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
-        children: [
-          ..._trialBooks.map((bookCard) => Row(
-                children: [
-                  bookCard,
-                  SizedBox(
-                    width: 20,
-                  )
-                ],
-              ))
-        ],
+        children: [],
       ),
     ));
   }
 }
-
-List<BookCard> _trialBooks = <BookCard>[
-  BookCard(
-    child: Container(),
-    color: Colors.red,
-  ),
-  BookCard(
-    child: Container(),
-    color: Colors.yellow,
-  ),
-  BookCard(
-    child: Container(),
-    color: Colors.green,
-  )
-];

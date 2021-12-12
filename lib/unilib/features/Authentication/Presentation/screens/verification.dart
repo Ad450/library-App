@@ -2,15 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:library_project/unilib/core/utils/assets/app_Images.dart';
 import 'package:library_project/unilib/core/widgets/widgets/customButton.dart';
-import 'package:library_project/unilib/core/widgets/widgets/retry.dart';
-
-import 'package:library_project/unilib/features/Authentication/Presentation/screens/EnterOTPScreen.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/screens/LoadingScreen.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/state/verification/verfication_state.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/state/verification/verification_bloc.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/state/verification/verification_event.dart';
-
-import 'package:provider/provider.dart';
 
 class VerificationScreen extends StatefulWidget {
   const VerificationScreen({Key? key}) : super(key: key);
@@ -20,67 +11,13 @@ class VerificationScreen extends StatefulWidget {
 }
 
 class _VerificationScreenState extends State<VerificationScreen> {
-  TextEditingController _emailController = TextEditingController();
-  final _key = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     MediaQueryData _mediaQuery = MediaQuery.of(context);
     var height = _mediaQuery.size.height / 6;
-    return Consumer<VerificationBloc>(
-        builder: (_, verificationBloc, __) => StreamBuilder<VerificationState>(
-            stream: verificationBloc.verificationStateStream,
-            initialData: VerificationInitial(
-                formkey: _key,
-                emailController: _emailController,
-                height: height),
-            builder: (_, snapshot) {
-              if (snapshot.connectionState == ConnectionState.active) {
-                if (snapshot.hasError)
-                  return Center(
-                    child: Text(" verification error occured"),
-                  );
-
-                if (!snapshot.hasData)
-                  return Center(
-                    child: Text("verification no data error occured"),
-                  );
-
-                if (snapshot.data is VerificationLoading)
-                  return LoadingScreen();
-
-                if (snapshot.data is VerificationLoaded)
-                  return EnterOTPScreen();
-
-                if (snapshot.data is VerificationError)
-                  return Retry(
-                    message: "snapshot.data.error",
-                  );
-              }
-
-              return VerificationInitial(
-                  formkey: _key,
-                  emailController: _emailController,
-                  height: height);
-            }));
-  }
-}
-
-class VerificationInitial extends StatelessWidget implements VerificationState {
-  GlobalKey<FormState> formkey;
-  TextEditingController emailController;
-
-  double height;
-
-  VerificationInitial({
-    Key? key,
-    required this.formkey,
-    required this.emailController,
-    required this.height,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -89,7 +26,7 @@ class VerificationInitial extends StatelessWidget implements VerificationState {
             child: Container(
               margin: EdgeInsets.only(left: 30, right: 30, top: 30),
               child: Form(
-                key: formkey,
+                key: _formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -120,7 +57,7 @@ class VerificationInitial extends StatelessWidget implements VerificationState {
                         }
                         return null;
                       },
-                      controller: emailController,
+                      controller: _emailController,
                       decoration: InputDecoration(
                         labelText: "Email",
                         labelStyle: GoogleFonts.quicksand(color: Colors.black),
@@ -139,13 +76,9 @@ class VerificationInitial extends StatelessWidget implements VerificationState {
                       textColor: Colors.black,
                       padding: 7,
                       onTap: () {
-                        if (formkey.currentState!.validate())
-                          Provider.of<VerificationBloc>(context, listen: false)
-                              .verificationEventSink
-                              .add(
-                                VerificationEvent.withEmail(
-                                    email: emailController.value.text),
-                              );
+                        if (_formKey.currentState!.validate()) {
+                          // TODO : call
+                        }
                       },
                     ),
                     SizedBox(
