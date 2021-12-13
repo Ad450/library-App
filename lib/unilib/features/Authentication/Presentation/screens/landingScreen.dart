@@ -17,20 +17,20 @@ class LandingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     MediaQueryData _mediaQuery = MediaQuery.of(context);
     var height = _mediaQuery.size.height / 7;
-    return BlocListener<AuthenticationCubit, AuthenticationState>(
-      listener: (_, state) => state.maybeMap(
-          orElse: () => Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => LandingScreen()),
-              (route) => false),
-          loggedIn: (state) => Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => BookScreen()),
-              (route) => false),
-          error: (state) => ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(state.error)))),
-      child: Scaffold(
-        body: SafeArea(
+    return Scaffold(
+      body: BlocListener<AuthenticationCubit, AuthenticationState>(
+        listener: (_, state) => state.maybeMap(
+            orElse: () => Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (_) => LandingScreen()),
+                (route) => false),
+            loggedIn: (state) => Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (_) => BookScreen()),
+                (route) => false),
+            error: (state) => ScaffoldMessenger.of(_)
+                .showSnackBar(SnackBar(content: Text(state.error)))),
+        child: SafeArea(
           child: Container(
             margin: EdgeInsets.only(left: 30, right: 30),
             child: SingleChildScrollView(
@@ -73,10 +73,8 @@ class LandingScreen extends StatelessWidget {
                     height: 50,
                   ),
                   CustomButton(
-                      onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen())),
+                      onTap: () => Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => LoginScreen())),
                       padding: _mediaQuery.size.longestSide / 6,
                       title: "Login",
                       color: Colors.amberAccent,

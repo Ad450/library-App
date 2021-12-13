@@ -37,7 +37,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           loading: (state) => CircularProgressIndicator(),
           loaded: (state) => Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => EnterOTPScreen()),
+              MaterialPageRoute(builder: (_) => EnterOTPScreen()),
               (route) => false)),
       child: SignUpCustomForms(
         passwordController: _passwordController,

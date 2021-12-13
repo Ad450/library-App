@@ -16,7 +16,7 @@ part 'authentication_injector.g.dart';
 
 abstract class AuthenticationInjector {
   static late KiwiContainer container;
-  static final resolve = container.resolve();
+  static final resolve = container.resolve;
 
   void setUp() {
     container = KiwiContainer();
