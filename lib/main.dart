@@ -26,9 +26,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: UnilibHome(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+            create: (_) => AuthenticationCubit(
+                  AuthenticationInjector.resolve<GetVerificationCode>(),
+                  AuthenticationInjector.resolve<Login>(),
+                  AuthenticationInjector.resolve<Logout>(),
+                  AuthenticationInjector.resolve<UpdateUser>(),
+                  AuthenticationInjector.resolve<VerifyCode>(),
+                  AuthenticationInjector.resolve<CheckLogin>(),
+                )..checkLogin())
+      ],
+      child: MaterialApp(
+        title: _title,
+        home: UnilibHome(),
+      ),
     );
   }
 }
@@ -38,32 +51,19 @@ class UnilibHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-            create: (_) => AuthenticationCubit(
-                AuthenticationInjector.resolve<GetVerificationCode>(),
-                AuthenticationInjector.resolve<Login>(),
-                AuthenticationInjector.resolve<Logout>(),
-                AuthenticationInjector.resolve<UpdateUser>(),
-                AuthenticationInjector.resolve<VerifyCode>(),
-                AuthenticationInjector.resolve<CheckLogin>())
-              ..checkLogin())
-      ],
-      child: Scaffold(
-        body: SafeArea(
-          child: Container(
-            child: PageView(
-              children: <Widget>[
-                BlocBuilder<AuthenticationCubit, AuthenticationState>(
-                  buildWhen: (_, state) {
-                    return state.maybeMap(
-                        orElse: () => false, loggedOut: (state) => true);
-                  },
-                  builder: (_, state) => WelcomeScreen(),
-                ),
-              ],
-            ),
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          child: PageView(
+            children: <Widget>[
+              BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                buildWhen: (_, state) {
+                  return state.maybeMap(
+                      orElse: () => false, loggedOut: (state) => true);
+                },
+                builder: (_, state) => WelcomeScreen(),
+              ),
+            ],
           ),
         ),
       ),

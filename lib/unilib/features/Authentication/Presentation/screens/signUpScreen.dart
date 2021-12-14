@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_project/unilib/core/widgets/widgets/CustomForms.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/EnterOTPScreen.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/state/authentication_cubit.dart';
+import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -20,8 +21,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     FocusScope.of(context).unfocus();
     if (_formKey.currentState!.validate()) {
       if (mounted) {
-        await context
-            .watch<AuthenticationCubit>()
+        await Provider.of<AuthenticationCubit>(context, listen: false)
             .getVerificationCode(email: email, password: password);
       }
     }
@@ -31,7 +31,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationCubit, AuthenticationState>(
       listener: (_, state) => state.maybeMap(
-          orElse: () {},
+          orElse: () {
+            // return ScaffoldMessenger.of(context)
+            //     .showSnackBar(SnackBar(content: Text(state.error)));
+          },
           error: (state) => ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(state.error))),
           loading: (state) => CircularProgressIndicator(),
