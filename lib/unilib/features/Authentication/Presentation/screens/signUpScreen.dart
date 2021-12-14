@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_project/unilib/core/widgets/widgets/CustomForms.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/EnterOTPScreen.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/screens/LoadingScreen.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/state/authentication_cubit.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,8 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  bool _loading = false;
+
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -21,6 +24,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
     FocusScope.of(context).unfocus();
     if (_formKey.currentState!.validate()) {
       if (mounted) {
+        setState(() {
+          _loading = !_loading;
+        });
+
         await Provider.of<AuthenticationCubit>(context, listen: false)
             .getVerificationCode(email: email, password: password);
       }
@@ -28,16 +35,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationCubit, AuthenticationState>(
       listener: (_, state) => state.maybeMap(
           orElse: () {
-            // return ScaffoldMessenger.of(context)
-            //     .showSnackBar(SnackBar(content: Text(state.error)));
+            setState(() {
+              _loading = false;
+            });
           },
           error: (state) => ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(state.error))),
-          loading: (state) => CircularProgressIndicator(),
+          loading: (state) {
+            if (mounted)
+              setState(() {
+                _loading = true;
+              });
+            return CircularProgressIndicator();
+          },
           loaded: (state) => Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => EnterOTPScreen()),
@@ -47,6 +68,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         emailController: _emailController,
         formKey: _formKey,
         buttonTitle: "Register",
+        loading: _loading,
         title: "Sign Up",
         paddingDecider: double.infinity,
         onTap: ({required String email, required String password}) async =>

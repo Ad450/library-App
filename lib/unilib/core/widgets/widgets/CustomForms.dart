@@ -13,6 +13,7 @@ class SignUpCustomForms extends StatefulWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final GlobalKey<FormState> formKey;
+  final bool loading;
   const SignUpCustomForms(
       {Key? key,
       required this.buttonTitle,
@@ -21,6 +22,7 @@ class SignUpCustomForms extends StatefulWidget {
       required this.onTap,
       required this.emailController,
       required this.passwordController,
+      this.loading = false,
       required this.formKey})
       : super(key: key);
 
