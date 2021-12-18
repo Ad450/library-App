@@ -20,10 +20,7 @@ class LandingScreen extends StatelessWidget {
     return Scaffold(
       body: BlocListener<AuthenticationCubit, AuthenticationState>(
         listener: (_, state) => state.maybeMap(
-            orElse: () => Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (_) => LandingScreen()),
-                (route) => false),
+            orElse: () {},
             loggedIn: (state) => Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (_) => BookScreen()),
@@ -73,8 +70,10 @@ class LandingScreen extends StatelessWidget {
                     height: 50,
                   ),
                   CustomButton(
-                      onTap: () => Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => LoginScreen())),
+                      onTap: () => Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (_) => LoginScreen()),
+                          (route) => false),
                       padding: _mediaQuery.size.longestSide / 6,
                       title: "Login",
                       color: Colors.amberAccent,
@@ -116,12 +115,12 @@ class LandingScreen extends StatelessWidget {
                           height: 10,
                         ),
                         CustomButton(
-                            onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => SignUpScreen(),
-                                  ),
+                            onTap: () => Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SignUpScreen(),
                                 ),
+                                (route) => false),
                             padding: _mediaQuery.size.longestSide / 14,
                             title: "Create an Account",
                             color: Colors.grey[800],

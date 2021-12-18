@@ -4,7 +4,6 @@ import 'package:library_project/unilib/core/widgets/widgets/CustomForms.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/EnterOTPScreen.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/LoadingScreen.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/state/authentication_cubit.dart';
-import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -28,27 +27,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
           _loading = !_loading;
         });
 
-        await Provider.of<AuthenticationCubit>(context, listen: false)
+        await BlocProvider.of<AuthenticationCubit>(context, listen: false)
             .getVerificationCode(email: email, password: password);
       }
+    } else {
+      FocusScope.of(context).requestFocus();
     }
   }
 
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _emailController.dispose();
+  //   _passwordController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationCubit, AuthenticationState>(
       listener: (_, state) => state.maybeMap(
           orElse: () {
-            setState(() {
-              _loading = false;
-            });
+            if (mounted)
+              setState(() {
+                _loading = false;
+              });
           },
           error: (state) => ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(state.error))),
@@ -57,7 +59,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               setState(() {
                 _loading = true;
               });
-            return CircularProgressIndicator();
+            return LoadingScreen();
           },
           loaded: (state) => Navigator.pushAndRemoveUntil(
               context,

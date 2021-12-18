@@ -54,7 +54,7 @@ class OTP extends StatelessWidget {
                 ),
                 Container(
                   child: CustomPinForm(
-                    onTap: ({required dynamic otpCode}) {},
+                    onTap: ({required String otpCode}) {},
                   ),
                 )
               ],
