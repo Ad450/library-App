@@ -35,12 +35,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
   }
 
-  // @override
-  // void dispose() {
-  //   _emailController.dispose();
-  //   _passwordController.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,14 +52,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 _loading = false;
               });
           },
-          error: (state) => ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(state.error))),
+          error: (state) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(state.error),
+                  TextButton(
+                    onPressed: () =>
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+                    child: Text(
+                      "OK",
+                      style: TextStyle(color: Colors.amberAccent, fontSize: 15),
+                    ),
+                  )
+                ],
+              ))),
           loading: (state) {
             if (mounted)
               setState(() {
                 _loading = true;
               });
-            return LoadingScreen();
+            return ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text("loading...")));
           },
           loaded: (state) => Navigator.pushAndRemoveUntil(
               context,

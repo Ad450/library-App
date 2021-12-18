@@ -78,7 +78,7 @@ NetworkResponse handleErrorResponse(DioError error) {
             "error": "no response from server"
           },
           result: NetworkResult.BAD_REQUEST,
-          error: ApiFailure("couldn ot perform operation"));
+          error: ApiFailure("no response from server"));
     }
 
     return _switchStatus(error.response!);
@@ -91,7 +91,7 @@ NetworkResponse handleErrorResponse(DioError error) {
         error: ApiFailure("couldn not perform operation"));
   }
 
-  // this return will take of DioErrorType.other
+  // this return will take care of DioErrorType.other
   return NetworkResponse(data: {
     "message": "something bad happened",
     "error": "connetion time out"

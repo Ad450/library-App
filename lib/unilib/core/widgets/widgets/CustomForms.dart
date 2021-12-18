@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:library_project/unilib/core/utils/validator_helpers.dart';
 import 'package:library_project/unilib/core/widgets/widgets/customButton.dart';
 import 'package:library_project/unilib/core/widgets/widgets/logo.dart';
 
@@ -75,11 +76,13 @@ class _SignUpCustomFormsState extends State<SignUpCustomForms> {
                       TextFormField(
                         keyboardType: TextInputType.emailAddress,
                         cursorColor: Colors.amberAccent,
-                        validator: (input) {
-                          if (input!.isEmpty) {
+                        validator: (email) {
+                          if (email!.isEmpty) {
                             return "please enter your email";
                           }
-                          return null;
+                          return Validator.validateEmail(email)
+                              ? null
+                              : "invalid email";
                         },
                         controller: widget.emailController,
                         decoration: InputDecoration(
@@ -100,11 +103,13 @@ class _SignUpCustomFormsState extends State<SignUpCustomForms> {
                         keyboardType: TextInputType.visiblePassword,
                         obscureText: _obscureText,
                         cursorColor: Colors.amberAccent,
-                        validator: (input) {
-                          if (input!.isEmpty) {
+                        validator: (password) {
+                          if (password!.isEmpty) {
                             return "please enter your password";
                           }
-                          return null;
+                          return Validator.validatePassword(password)
+                              ? null
+                              : "invalid password";
                         },
                         controller: widget.passwordController,
                         decoration: InputDecoration(
