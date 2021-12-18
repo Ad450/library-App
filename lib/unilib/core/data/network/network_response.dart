@@ -52,7 +52,7 @@ NetworkResponse handleResponse(Response _response) {
         result: NetworkResult.SUCCESS);
   }
 
-  throw ApiFailure("something bad happened");
+  return handleResponse(_response);
 }
 
 // to be used in catch block where the Dioerror is passed here
@@ -64,7 +64,7 @@ NetworkResponse handleErrorResponse(DioError error) {
     return NetworkResponse(
         data: {
           "message": "something bad happened",
-          "error": "connetion time out"
+          "error": "connetion time out. try again"
         },
         result: NetworkResult.SERVER_TIMEOUT,
         error: ApiFailure("connection time out"));
@@ -75,10 +75,10 @@ NetworkResponse handleErrorResponse(DioError error) {
       return NetworkResponse(
           data: {
             "message": "something bad happened",
-            "error": "cnull response"
+            "error": "no response from server"
           },
           result: NetworkResult.BAD_REQUEST,
-          error: ApiFailure("couldnot perform operation"));
+          error: ApiFailure("couldn ot perform operation"));
     }
 
     return _switchStatus(error.response!);
@@ -88,7 +88,7 @@ NetworkResponse handleErrorResponse(DioError error) {
     return NetworkResponse(
         data: {"message": "something bad happened", "error": "cancelled"},
         result: NetworkResult.METHOD_DISALLOWED,
-        error: ApiFailure("please try again"));
+        error: ApiFailure("couldn not perform operation"));
   }
 
   // this return will take of DioErrorType.other
