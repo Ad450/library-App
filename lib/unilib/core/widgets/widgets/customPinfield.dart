@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:library_project/unilib/core/utils/validator_helpers.dart';
 import 'package:library_project/unilib/core/widgets/widgets/customButton.dart';
 
 class CustomPinForm extends StatefulWidget {
@@ -17,7 +18,7 @@ class _CustomPinFormState extends State<CustomPinForm> {
   String errorText = "please enter missing value(s)";
   //bool _showError = false;
 
-  bool _otpPinIsNull = false;
+  //bool _otpPinIsNull = false;
   String otpCode = "";
 
   @override
@@ -25,7 +26,7 @@ class _CustomPinFormState extends State<CustomPinForm> {
     var _mediaHeight = MediaQuery.of(context).size.height;
     return Column(
       children: [
-        _otpPinIsNull
+        Validator.validateOtp(otpCode)
             ? Text(
                 errorText,
                 style: GoogleFonts.quicksand(fontSize: 20, color: Colors.red),
@@ -47,6 +48,9 @@ class _CustomPinFormState extends State<CustomPinForm> {
               otpCode = code;
               code = "";
             });
+            if (Validator.validateOtp(otpCode)) {
+              widget.onTap(otpCode: otpCode);
+            }
           },
         ),
         SizedBox(
@@ -58,14 +62,9 @@ class _CustomPinFormState extends State<CustomPinForm> {
           textColor: Colors.black,
           padding: 6,
           onTap: () {
-            bool isPinValid = _isOTPvalidated(otpCode, _otpPinIsNull);
-            if (isPinValid) {
+            if (Validator.validateOtp(otpCode)) {
               widget.onTap(otpCode: otpCode);
             }
-
-            setState(() {
-              _otpPinIsNull = true;
-            });
           },
         ),
         SizedBox(
@@ -89,13 +88,3 @@ class _CustomPinFormState extends State<CustomPinForm> {
 
 // otp validation logic
 // will change to it to a more complex one
-
-bool _isOTPvalidated(String code, bool pinIsNull) {
-  if (code.length >= 6) {
-    pinIsNull = false;
-    return true;
-  } else {
-    pinIsNull = true;
-    return false;
-  }
-}

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:library_project/unilib/core/utils/assets/app_Images.dart';
+import 'package:library_project/unilib/core/utils/validator_helpers.dart';
 import 'package:library_project/unilib/core/widgets/widgets/customPinfield.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/state/authentication_cubit.dart';
 
 class EnterOTPScreen extends StatefulWidget {
   const EnterOTPScreen({
@@ -13,27 +16,20 @@ class EnterOTPScreen extends StatefulWidget {
 }
 
 class _EnterOTPScreenState extends State<EnterOTPScreen> {
+  late String otpCode;
+
+  void verifyOtp(String code) {
+    FocusScope.of(context).unfocus();
+    if (mounted) {
+      if (Validator.validateOtp(code)) {
+        // BlocProvider.of<AuthenticationCubit>(context).verifyCode(email: email, code: code)
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var _height = MediaQuery.of(context).size.height;
-    return OTP(
-      height: _height,
-    );
-  }
-}
-//   OTPInitial(height: _height,),
-
-class OTP extends StatelessWidget {
-  const OTP({
-    Key? key,
-    required double height,
-  })  : _height = height,
-        super(key: key);
-
-  final double _height;
-
-  @override
-  Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -55,6 +51,7 @@ class OTP extends StatelessWidget {
                 Container(
                   child: CustomPinForm(
                     onTap: ({required String otpCode}) {},
+                    getOtp: (code) => otpCode = code,
                   ),
                 )
               ],
