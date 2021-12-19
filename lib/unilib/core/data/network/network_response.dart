@@ -14,11 +14,7 @@ class NetworkResponse {
 
   NetworkResult result;
 
-  NetworkResponse(
-      {required this.data,
-      required this.error,
-      this.headers,
-      required this.result});
+  NetworkResponse({required this.data, required this.error, this.headers, required this.result});
 }
 
 enum NetworkResult {
@@ -41,15 +37,11 @@ NetworkResponse handleResponse(Response _response) {
   if (_response.statusCode.toString().startsWith("2")) {
     if ((_response.data as Map<String, dynamic>).containsKey("data")) {
       return NetworkResponse(
-          data: _response.data as Map<String, dynamic>,
-          error: ApiFailure(""),
-          result: NetworkResult.SUCCESS);
+          data: _response.data as Map<String, dynamic>, error: ApiFailure(""), result: NetworkResult.SUCCESS);
     }
 
     return NetworkResponse(
-        data: _response.data as Map<String, dynamic>,
-        error: ApiFailure(""),
-        result: NetworkResult.SUCCESS);
+        data: _response.data as Map<String, dynamic>, error: ApiFailure(""), result: NetworkResult.SUCCESS);
   }
 
   return handleResponse(_response);
@@ -62,10 +54,7 @@ NetworkResponse handleErrorResponse(DioError error) {
       error.type == DioErrorType.sendTimeout ||
       error.type == DioErrorType.receiveTimeout) {
     return NetworkResponse(
-        data: {
-          "message": "something bad happened",
-          "error": "connetion time out. try again"
-        },
+        data: {"message": "something bad happened", "error": "connetion time out. try again"},
         result: NetworkResult.SERVER_TIMEOUT,
         error: ApiFailure("connection time out"));
   }
@@ -73,10 +62,7 @@ NetworkResponse handleErrorResponse(DioError error) {
   if (error.type == DioErrorType.response) {
     if (error.response == null) {
       return NetworkResponse(
-          data: {
-            "message": "something bad happened",
-            "error": "no response from server"
-          },
+          data: {"message": "something bad happened", "error": "no response from server"},
           result: NetworkResult.BAD_REQUEST,
           error: ApiFailure("no response from server"));
     }
@@ -88,41 +74,38 @@ NetworkResponse handleErrorResponse(DioError error) {
     return NetworkResponse(
         data: {"message": "something bad happened", "error": "cancelled"},
         result: NetworkResult.METHOD_DISALLOWED,
-        error: ApiFailure("couldn not perform operation"));
+        error: ApiFailure("could not perform operation"));
   }
 
   // this return will take care of DioErrorType.other
-  return NetworkResponse(data: {
-    "message": "something bad happened",
-    "error": "connetion time out"
-  }, result: NetworkResult.FAILURE, error: ApiFailure("please try again"));
+  return NetworkResponse(
+      data: {"message": "something bad happened", "error": "connetion time out"},
+      result: NetworkResult.FAILURE,
+      error: ApiFailure("please try again"));
 }
 
 _switchStatus(Response _response) {
   switch (_response.statusCode) {
     case 400:
       return NetworkResponse(
-          data: {
-            "message": "something bad happened",
-            "error": "connetion time out"
-          },
+          data: {"message": "something bad happened", "error": "connetion time out"},
           result: NetworkResult.FAILURE,
           error: ApiFailure("not authorised to carry this operation"));
     case 404:
-      return NetworkResponse(data: {
-        "message": "something bad happened",
-        "error": "connetion time out"
-      }, result: NetworkResult.NOT_FOUND, error: ApiFailure(" not foundx="));
+      return NetworkResponse(
+          data: {"message": "something bad happened", "error": "connetion time out"},
+          result: NetworkResult.NOT_FOUND,
+          error: ApiFailure(" not found"));
     case 500:
-      return NetworkResponse(data: {
-        "message": "something bad happened",
-        "error": "connetion time out"
-      }, result: NetworkResult.SERVER_ERROR, error: ApiFailure("server error"));
+      return NetworkResponse(
+          data: {"message": "something bad happened", "error": "connetion time out"},
+          result: NetworkResult.SERVER_ERROR,
+          error: ApiFailure("server error"));
 
     default:
-      return NetworkResponse(data: {
-        "message": "something bad happened",
-        "error": "connetion time out"
-      }, result: NetworkResult.FAILURE, error: ApiFailure("failure"));
+      return NetworkResponse(
+          data: {"message": "something bad happened", "error": "connetion time out"},
+          result: NetworkResult.FAILURE,
+          error: ApiFailure("failure"));
   }
 }

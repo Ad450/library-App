@@ -46,39 +46,47 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationCubit, AuthenticationState>(
       listener: (_, state) => state.maybeMap(
-          orElse: () {
-            if (mounted)
-              setState(() {
-                _loading = false;
-              });
-          },
-          error: (state) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(state.error),
-                  TextButton(
-                    onPressed: () =>
-                        ScaffoldMessenger.of(context).hideCurrentSnackBar(),
-                    child: Text(
-                      "OK",
-                      style: TextStyle(color: Colors.amberAccent, fontSize: 15),
-                    ),
-                  )
-                ],
-              ))),
-          loading: (state) {
-            if (mounted)
-              setState(() {
-                _loading = true;
-              });
-            return ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text("loading...")));
-          },
-          loaded: (state) => Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (_) => EnterOTPScreen()),
-              (route) => false)),
+        orElse: () {
+          if (mounted)
+            setState(() {
+              _loading = false;
+            });
+        },
+        error: (state) => ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(state.error),
+                TextButton(
+                  onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+                  child: Text(
+                    "OK",
+                    style: TextStyle(color: Colors.amberAccent, fontSize: 15),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+        loading: (state) {
+          if (mounted)
+            setState(() {
+              _loading = true;
+            });
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("loading..."),
+            ),
+          );
+        },
+        loaded: (state) => Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (_) => EnterOTPScreen(),
+            ),
+            (route) => false),
+      ),
       child: SignUpCustomForms(
         passwordController: _passwordController,
         emailController: _emailController,
@@ -87,8 +95,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         loading: _loading,
         title: "Sign Up",
         paddingDecider: double.infinity,
-        onTap: ({required String email, required String password}) async =>
-            getOtp(email, password),
+        onTap: ({required String email, required String password}) async => getOtp(email, password),
       ),
     );
   }

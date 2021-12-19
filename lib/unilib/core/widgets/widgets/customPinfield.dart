@@ -7,8 +7,9 @@ import 'package:library_project/unilib/core/widgets/widgets/customButton.dart';
 
 class CustomPinForm extends StatefulWidget {
   final Function onTap;
+  final Function(String)? getOtp;
 
-  const CustomPinForm({Key? key, required this.onTap}) : super(key: key);
+  const CustomPinForm({Key? key, required this.onTap, this.getOtp}) : super(key: key);
 
   @override
   _CustomPinFormState createState() => _CustomPinFormState();
@@ -46,6 +47,7 @@ class _CustomPinFormState extends State<CustomPinForm> {
           onSubmit: (String code) {
             setState(() {
               otpCode = code;
+              widget.getOtp!(code);
               code = "";
             });
             if (Validator.validateOtp(otpCode)) {
@@ -88,3 +90,8 @@ class _CustomPinFormState extends State<CustomPinForm> {
 
 // otp validation logic
 // will change to it to a more complex one
+
+
+void code(String testing){
+String trying = testing;
+}

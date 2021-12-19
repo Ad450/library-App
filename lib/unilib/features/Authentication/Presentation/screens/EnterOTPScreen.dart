@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:library_project/unilib/core/utils/assets/app_Images.dart';
 import 'package:library_project/unilib/core/utils/validator_helpers.dart';
 import 'package:library_project/unilib/core/widgets/widgets/customPinfield.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/screens/GiveDetailScreen.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/state/authentication_cubit.dart';
 
 class EnterOTPScreen extends StatefulWidget {
@@ -16,14 +17,25 @@ class EnterOTPScreen extends StatefulWidget {
 }
 
 class _EnterOTPScreenState extends State<EnterOTPScreen> {
+  var _email = "";
   late String otpCode;
 
   void verifyOtp(String code) {
     FocusScope.of(context).unfocus();
     if (mounted) {
       if (Validator.validateOtp(code)) {
-        // BlocProvider.of<AuthenticationCubit>(context).verifyCode(email: email, code: code)
+        BlocProvider.of<AuthenticationCubit>(context).verifyCode(email: _email, code: code);
       }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    final _user = context.read<AuthenticationCubit>().state.user;
+    if (_user != null) {
+      _email = _user.email;
     }
   }
 
@@ -41,17 +53,33 @@ class _EnterOTPScreenState extends State<EnterOTPScreen> {
               children: <Widget>[
                 Text(
                   "Enter 5 digit verification code sent to your email",
-                  style:
-                      GoogleFonts.quicksand(fontSize: 20, color: Colors.black),
+                  style: GoogleFonts.quicksand(fontSize: 20, color: Colors.black),
                 ),
                 Image.asset(AppAssets.otp),
                 SizedBox(
                   height: 30,
                 ),
                 Container(
-                  child: CustomPinForm(
-                    onTap: ({required String otpCode}) {},
-                    getOtp: (code) => otpCode = code,
+                  child: BlocListener<AuthenticationCubit, AuthenticationState>(
+                    listener: (_, state) => state.maybeMap(
+                      orElse: () {},
+                      error: (state) => ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(state.error),
+                        ),
+                      ),
+                      loaded: (state) => Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => GiveDetailsScreen(),
+                        ),
+                        (route) => false,
+                      ),
+                    ),
+                    child: CustomPinForm(
+                      onTap: ({required String otpCode}) => verifyOtp(otpCode),
+                      getOtp: (code) => otpCode = code,
+                    ),
                   ),
                 )
               ],
