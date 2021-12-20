@@ -5,12 +5,12 @@ import 'package:library_project/unilib/core/utils/error_helpers.dart';
 import 'package:library_project/unilib/features/books/Data/Models/book_model.dart';
 import 'package:library_project/unilib/features/books/Domain/repository/books_repositroy.dart';
 
-class GetBooks implements Usecase<BookModel, VoidType> {
+class GetBooks implements Usecase<BookModel, NoParam> {
   BookRepository _bookRepository;
   GetBooks(this._bookRepository);
 
   @override
-  Future<Either<Failure, BookModel>> call(VoidType param) async {
+  Future<Either<Failure, BookModel>> call(param) async {
     try {
       final _result = await _bookRepository.getBooks();
       return Right(_result);
