@@ -6,8 +6,7 @@ import 'package:library_project/unilib/core/failures.dart';
 /// a [UIError] with a custom message
 /// this is intended to be used by all usecases
 
-UIError getUIErrorFromNetworkFailure(
-    NetworkFailure networkFailure, StackTrace stackTrace) {
+UIError getUIErrorFromNetworkFailure(NetworkFailure networkFailure, StackTrace stackTrace) {
   /// the stackTrace is there for conventional purposes
   /// At this stage can be ignored
   ///
@@ -17,8 +16,7 @@ UIError getUIErrorFromNetworkFailure(
 
 /// similarly, we want to return a network failure
 /// this will be used in the repository layer
-NetworkFailure networkFailureFromApiFailure(
-    ApiFailure apiFailure, StackTrace stackTrace) {
+NetworkFailure networkFailureFromApiFailure(ApiFailure apiFailure, StackTrace stackTrace) {
   /// the stackTrace is there for conventional purposes
   /// At this stage can be ignored
   ///

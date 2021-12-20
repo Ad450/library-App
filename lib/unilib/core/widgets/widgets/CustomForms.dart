@@ -4,8 +4,6 @@ import 'package:library_project/unilib/core/utils/validator_helpers.dart';
 import 'package:library_project/unilib/core/widgets/widgets/customButton.dart';
 import 'package:library_project/unilib/core/widgets/widgets/logo.dart';
 
-import 'package:library_project/unilib/features/Authentication/Presentation/screens/verification.dart';
-
 class SignUpCustomForms extends StatefulWidget {
   final String title;
   final String buttonTitle;
@@ -15,6 +13,9 @@ class SignUpCustomForms extends StatefulWidget {
   final TextEditingController passwordController;
   final GlobalKey<FormState> formKey;
   final bool loading;
+  final FocusNode emailFocus;
+  final FocusNode passwordFocus;
+
   const SignUpCustomForms(
       {Key? key,
       required this.buttonTitle,
@@ -23,6 +24,8 @@ class SignUpCustomForms extends StatefulWidget {
       required this.onTap,
       required this.emailController,
       required this.passwordController,
+      required this.emailFocus,
+      required this.passwordFocus,
       this.loading = false,
       required this.formKey})
       : super(key: key);
@@ -64,8 +67,7 @@ class _SignUpCustomFormsState extends State<SignUpCustomForms> {
                 Container(
                   child: Text(
                     widget.title,
-                    style: GoogleFonts.quicksand(
-                        color: Colors.black, fontSize: 30),
+                    style: GoogleFonts.quicksand(color: Colors.black, fontSize: 30),
                   ),
                 ),
                 SizedBox(height: 30),
@@ -74,32 +76,27 @@ class _SignUpCustomFormsState extends State<SignUpCustomForms> {
                   child: Column(
                     children: <Widget>[
                       TextFormField(
+                        focusNode: widget.emailFocus,
                         keyboardType: TextInputType.emailAddress,
                         cursorColor: Colors.amberAccent,
                         validator: (email) {
                           if (email!.isEmpty) {
                             return "please enter your email";
                           }
-                          return Validator.validateEmail(email)
-                              ? null
-                              : "invalid email";
+                          return Validator.validateEmail(email) ? null : "invalid email";
                         },
                         controller: widget.emailController,
                         decoration: InputDecoration(
                           labelText: "Email",
-                          labelStyle:
-                              GoogleFonts.quicksand(color: Colors.black),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.amberAccent)),
-                          hintStyle: TextStyle(
-                              fontSize: 15, color: Colors.amberAccent),
+                          labelStyle: GoogleFonts.quicksand(color: Colors.black),
+                          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.amberAccent)),
+                          hintStyle: TextStyle(fontSize: 15, color: Colors.amberAccent),
                         ),
+                        onEditingComplete: widget.passwordFocus.requestFocus,
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      const SizedBox(height: 10),
                       TextFormField(
+                        focusNode: widget.passwordFocus,
                         keyboardType: TextInputType.visiblePassword,
                         obscureText: _obscureText,
                         cursorColor: Colors.amberAccent,
@@ -107,9 +104,7 @@ class _SignUpCustomFormsState extends State<SignUpCustomForms> {
                           if (password!.isEmpty) {
                             return "please enter your password";
                           }
-                          return Validator.validatePassword(password)
-                              ? null
-                              : "invalid password";
+                          return Validator.validatePassword(password) ? null : "invalid password";
                         },
                         controller: widget.passwordController,
                         decoration: InputDecoration(
@@ -121,66 +116,48 @@ class _SignUpCustomFormsState extends State<SignUpCustomForms> {
                                 });
                               },
                               child: Icon(
-                                _obscureText
-                                    ? Icons.remove_red_eye_sharp
-                                    : Icons.remove_red_eye_outlined,
+                                _obscureText ? Icons.remove_red_eye_sharp : Icons.remove_red_eye_outlined,
                                 color: Colors.amberAccent,
                               )),
                           labelText: "password",
-                          labelStyle:
-                              GoogleFonts.quicksand(color: Colors.black),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.amberAccent)),
+                          labelStyle: GoogleFonts.quicksand(color: Colors.black),
+                          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.amberAccent)),
                         ),
+                        onEditingComplete: () => widget.onTap,
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      const SizedBox(height: 10),
                       Container(
                         alignment: Alignment.centerRight,
                         child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                // Post to VerificationScreen()...just testing with OTPScreen()
-                                builder: (context) => VerificationScreen(),
-                              ),
-                            );
-                          },
+                          onTap: () {},
                           child: Text(
                             "resend verification code",
-                            style: GoogleFonts.quicksand(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
+                            style: GoogleFonts.quicksand(color: Colors.black, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 40,
-                      ),
-                      CustomButton(
-                        title: widget.buttonTitle,
-                        color: Colors.amberAccent,
-                        textColor: Colors.black,
-                        padding: _mediaQuery.size.longestSide /
-                            widget.paddingDecider,
-                        onTap: () async {
-                          if (widget.formKey.currentState!.validate())
-                            widget.onTap(
-                                password: widget.passwordController.value.text,
-                                email: widget.emailController.value.text);
-                        },
-                      ),
+                      const SizedBox(height: 40),
+                      widget.loading
+                          ? CircularProgressIndicator(
+                              color: Colors.amberAccent,
+                            )
+                          : CustomButton(
+                              title: widget.buttonTitle,
+                              color: Colors.amberAccent,
+                              textColor: Colors.black,
+                              padding: _mediaQuery.size.longestSide / widget.paddingDecider,
+                              onTap: () async {
+                                if (widget.formKey.currentState!.validate())
+                                  widget.onTap(
+                                      password: widget.passwordController.value.text,
+                                      email: widget.emailController.value.text);
+                              },
+                            ),
                       Container(
                         margin: EdgeInsets.only(top: height),
                         child: Text("unilib",
                             style: GoogleFonts.quicksand(
-                                color: Colors.black,
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 2)),
+                                color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold, letterSpacing: 2)),
                       ),
                     ],
                   ),

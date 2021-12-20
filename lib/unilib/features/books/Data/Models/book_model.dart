@@ -1,18 +1,13 @@
-import 'package:library_project/unilib/features/books/Domain/entities/books.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class BookModels extends Book {
-  BookModels(
-      {required String name,
-      required String description,
-      required String id,
-      required String img})
-      : super(name: name, description: description, img: img, id: id);
+part 'book_model.freezed.dart';
+part 'book_model.g.dart';
 
-  factory BookModels.fromJson(Map<String, dynamic> bookMap) {
-    return BookModels(
-        name: bookMap["name"],
-        description: bookMap["description"],
-        img: bookMap["img"],
-        id: bookMap["id"]);
-  }
+@freezed
+abstract class BookModel with _$BookModel {
+  factory BookModel({required String name, required String url, required String description, required String image}) =
+      _BookModel;
+
+  factory BookModel.fromJson(Map<String, dynamic> json) =>
+      _$BookModelFromJson(Map.castFrom<dynamic, dynamic, String, dynamic>(json));
 }

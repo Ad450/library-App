@@ -19,9 +19,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  final _emailFocus = FocusNode();
+  final _passwordFocus = FocusNode();
+
   void getOtp(String email, String password) async {
-    FocusScope.of(context).unfocus();
     if (_formKey.currentState!.validate()) {
+      FocusScope.of(context).unfocus();
       if (mounted) {
         setState(() {
           _loading = !_loading;
@@ -31,7 +34,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             .getVerificationCode(email: email, password: password);
       }
     } else {
-      FocusScope.of(context).requestFocus();
+      _emailFocus.requestFocus();
     }
   }
 
@@ -39,6 +42,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+
+    _emailFocus.dispose();
+    _passwordFocus.dispose();
     super.dispose();
   }
 
@@ -52,44 +58,51 @@ class _SignUpScreenState extends State<SignUpScreen> {
               _loading = false;
             });
         },
-        error: (state) => ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(state.error),
-                TextButton(
-                  onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
-                  child: Text(
-                    "OK",
-                    style: TextStyle(color: Colors.amberAccent, fontSize: 15),
-                  ),
-                )
-              ],
+        error: (state) {
+          setState(() {
+            _loading = false;
+          });
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(state.error),
+                  TextButton(
+                    onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+                    child: Text(
+                      "OK",
+                      style: TextStyle(color: Colors.amberAccent, fontSize: 15),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        ),
+          );
+        },
         loading: (state) {
           if (mounted)
             setState(() {
               _loading = true;
             });
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text("loading..."),
-            ),
-          );
         },
-        loaded: (state) => Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (_) => EnterOTPScreen(),
-            ),
-            (route) => false),
+        loaded: (state) {
+          setState(() {
+            _loading = false;
+          });
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (_) => EnterOtpScreen(),
+              ),
+              (route) => false);
+        },
       ),
       child: SignUpCustomForms(
         passwordController: _passwordController,
         emailController: _emailController,
+        emailFocus: _emailFocus,
+        passwordFocus: _passwordFocus,
         formKey: _formKey,
         buttonTitle: "Register",
         loading: _loading,

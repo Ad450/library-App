@@ -15,8 +15,7 @@ abstract class Validator {
     }
   }
 
-  static bool validatePassword(String? password) =>
-      password != null && password.length > 2;
+  static bool validatePassword(String? password) => password != null && password.length > 2;
 
   static bool validateOtp(String? code) {
     if (code == null) return false;

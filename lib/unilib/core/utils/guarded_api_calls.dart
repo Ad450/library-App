@@ -6,8 +6,7 @@ Future<T> guardedApiCall<T>(Function run, {String errorMessage = ""}) async {
   } on ApiFailure catch (e) {
     throw NetworkFailure(e.message);
   } catch (_) {
-    TODO: // propemport 'package:library_project/unilib/core/data/network/network_result.dart';r string to be inserted here
-    throw NetworkFailure("something bad happened");
+    throw NetworkFailure("oops. please try again");
   }
 }
 
@@ -17,6 +16,6 @@ guardedCache<T>(Function run, {String errorMessage = ""}) async {
   } on DatabaseFailure catch (e) {
     throw CacheFailure(e.message);
   } catch (_) {
-    throw CacheFailure("something bad happened. Couldnot cache ");
+    throw CacheFailure("no user");
   }
 }

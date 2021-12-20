@@ -1,7 +1,11 @@
 import 'package:library_project/unilib/features/books/Data/Models/book_model.dart';
-import 'package:library_project/unilib/features/books/Domain/entities/books.dart';
 
-abstract class BooksRepository {
-  Future<bool> postBook(Book book);
-  Future<List<BookModels>> retrieveAllBooks();
+abstract class BookRepository {
+  Future<BookModel> getBooks();
+  Future<BookModel> postBook({
+    required String name,
+    required String description,
+    required String url,
+    required String image,
+  });
 }

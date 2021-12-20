@@ -13,6 +13,9 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  final _emailFocus = FocusNode();
+  final _passwordFocus = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     // MediaQueryData _mediaQuery = MediaQuery.of(context);
@@ -21,6 +24,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
         body: SignUpCustomForms(
       emailController: _emailController,
+      emailFocus: _emailFocus,
+      passwordFocus: _passwordFocus,
       formKey: _formKey,
       passwordController: _passwordController,
       buttonTitle: "Login",

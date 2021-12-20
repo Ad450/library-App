@@ -7,16 +7,16 @@ import 'package:library_project/unilib/core/widgets/widgets/customPinfield.dart'
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/GiveDetailScreen.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/state/authentication_cubit.dart';
 
-class EnterOTPScreen extends StatefulWidget {
-  const EnterOTPScreen({
+class EnterOtpScreen extends StatefulWidget {
+  const EnterOtpScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  _EnterOTPScreenState createState() => _EnterOTPScreenState();
+  _EnterOtpScreenState createState() => _EnterOtpScreenState();
 }
 
-class _EnterOTPScreenState extends State<EnterOTPScreen> {
+class _EnterOtpScreenState extends State<EnterOtpScreen> {
   var _email = "";
   late String otpCode;
 
@@ -64,9 +64,7 @@ class _EnterOTPScreenState extends State<EnterOTPScreen> {
                     listener: (_, state) => state.maybeMap(
                       orElse: () {},
                       error: (state) => ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(state.error),
-                        ),
+                        SnackBar(content: Text(state.error)),
                       ),
                       loaded: (state) => Navigator.pushAndRemoveUntil(
                         context,

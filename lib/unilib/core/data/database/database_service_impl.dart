@@ -17,7 +17,7 @@ class BookDatabaseService implements Database<UserModel> {
       final data = box.get(key);
       return data?.cast<String, dynamic>() ?? {"data": "notFound"};
     } else {
-      throw DatabaseFailure("couldnot read from database");
+      throw DatabaseFailure("could not read from database");
     }
   }
 
@@ -29,7 +29,7 @@ class BookDatabaseService implements Database<UserModel> {
       final _mappedData = <String, dynamic>{"data": value};
       await box.put(key, _mappedData);
     } else {
-      throw DatabaseFailure("couldnot write into database");
+      throw DatabaseFailure("could not write into database");
     }
   }
 
@@ -39,7 +39,7 @@ class BookDatabaseService implements Database<UserModel> {
 
       _box.delete(key);
     } else {
-      throw DatabaseFailure("couldnot delete user");
+      throw DatabaseFailure("could not delete user");
     }
   }
 
