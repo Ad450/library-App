@@ -1,35 +1,29 @@
-// import 'package:library_project/unilib/core/Data/platforms/connectivity/connectivity_contract.dart';
-// import 'package:library_project/unilib/core/domain/entities/exceptions/logging_in_user_exception.dart';
-// import 'package:library_project/unilib/core/util.dart';
-// import 'package:library_project/unilib/features/books/Data/Models/book_model.dart';
-// import 'package:library_project/unilib/features/books/Data/data_sources/local_dataSources/local_book_source.dart';
-// import 'package:library_project/unilib/features/books/Data/data_sources/remote_dataSources/remote_book_source.dart';
-// import 'package:library_project/unilib/features/books/Domain/entities/books.dart';
-// import 'package:library_project/unilib/features/books/Domain/repository/books_repositroy.dart';
+import 'package:library_project/unilib/core/utils/guarded_api_calls.dart';
+import 'package:library_project/unilib/features/books/Data/Models/book_model.dart';
+import 'package:library_project/unilib/features/books/Data/data_sources/book_remote_datasource.dart';
+import 'package:library_project/unilib/features/books/Domain/repository/books_repositroy.dart';
 
-// class BooksRepositoryImpl implements BooksRepository {
-//   RemoteBookSource remoteBookSource;
-//   LocalBookSource localBookSource;
-//   NetworkInfo networkInfo;
+class BookRepositoryImpl implements BookRepository {
+  BookRemoteDatasource _bookRemoteDatasource;
+  BookRepositoryImpl(this._bookRemoteDatasource);
 
-//   BooksRepositoryImpl(
-//       {required this.remoteBookSource,
-//       required this.localBookSource,
-//       required this.networkInfo});
+  @override
+  Future<BookModel> getBooks() async {
+    return await guardedApiCall<BookModel>(
+      () => _bookRemoteDatasource.getBooks(),
+    );
+  }
 
-//   @override
-//   Future<bool> postBook(Book book) {
-//     // TODO: implement postBook
-//     throw UnimplementedError();
-//   }
-
-//   @override
-//   Future<List<BookModels>> retrieveAllBooks() async {
-//     NetworkStatus status = await networkInfo.call();
-//     if (status == NetworkStatus.mobile || status == NetworkStatus.Wifi) {
-//       return await remoteBookSource.call();
-//     } else {
-//       return await localBookSource.retrieveBooks();
-//     }
-//   }
-// }
+  @override
+  Future<BookModel> postBook(
+      {required String name, required String description, required String url, required String image}) async {
+    return await guardedApiCall(
+      () => _bookRemoteDatasource.postBook(
+        name: name,
+        description: description,
+        url: url,
+        image: image,
+      ),
+    );
+  }
+}
