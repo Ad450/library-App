@@ -20,10 +20,10 @@ abstract class BookState with _$BookState {
   const factory BookState.booksLoaded({
     required String error,
     required BookModel? book,
-  }) = _Loaded;
+  }) = _BooksLoaded;
 
   const factory BookState.bookPosted({
     required String error,
     required BookModel? book,
-  }) = _Loaded;
+  }) = _BookPosted;
 }

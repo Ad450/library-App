@@ -13,7 +13,7 @@ class _$BookInjector extends BookInjector {
     container
       ..registerSingleton((c) => GetBooks(c<BookRepository>()))
       ..registerSingleton((c) => PostBook(c<BookRepository>()))
-      ..registerFactory<BookRepositoryImpl>(
+      ..registerFactory<BookRepository>(
           (c) => BookRepositoryImpl(c<BookRemoteDatasource>()))
       ..registerFactory<BookRemoteDatasource>(
           (c) => BookRemoteDatasourceImpl());
