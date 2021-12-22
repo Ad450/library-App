@@ -31,9 +31,14 @@ class BookRemoteDatasourceImpl implements BookRemoteDatasource {
 
   @override
   Future<BookModel> postBook(
-      {required String name, required String description, required String url, required String image}) {
-    // TODO: implement postBook
-    throw UnimplementedError();
+      {required String name, required String description, required String url, required String image}) async {
+    final _response = await _networkService.post(
+        url: "library/post-books", body: {"title": name, "book_file": url, "image": image, "category": description});
+    if (_response.result == NetworkResult.SUCCESS) {
+      return BookModel.fromJson(_response.data["data"] as Map<String, dynamic>);
+    }
+
+    throw ApiFailure(_response.error.message);
   }
 
   @override
