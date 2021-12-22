@@ -16,6 +16,6 @@ class _$BookInjector extends BookInjector {
       ..registerFactory<BookRepository>(
           (c) => BookRepositoryImpl(c<BookRemoteDatasource>()))
       ..registerFactory<BookRemoteDatasource>(
-          (c) => BookRemoteDatasourceImpl());
+          (c) => BookRemoteDatasourceImpl(c<NetworkService>()));
   }
 }

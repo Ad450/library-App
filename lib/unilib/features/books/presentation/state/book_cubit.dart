@@ -11,16 +11,16 @@ part 'book_cubit.freezed.dart';
 class BookCubit extends Cubit<BookState> {
   GetBooks _getBooks;
   PostBook _postBook;
-  BookCubit(this._getBooks, this._postBook) : super(BookState.initial(error: "", book: null));
+  BookCubit(this._getBooks, this._postBook) : super(BookState.initial(error: "", book: null, books: <BookModel>[]));
 
   Future<void> getBooks() async {
-    emit(BookState.loading(error: state.error, book: state.book));
+    emit(BookState.loading(error: state.error, book: state.book, books: state.books));
     final _result = await _getBooks.call(NoParam());
 
     _result.fold(
-      (l) => emit(BookState.error(error: l.message, book: state.book)),
+      (l) => emit(BookState.error(error: l.message, book: state.book, books: state.books)),
       (r) => emit(
-        BookState.booksLoaded(error: state.error, book: r),
+        BookState.loaded(error: state.error, book: state.book, books: r),
       ),
     );
   }
@@ -31,7 +31,7 @@ class BookCubit extends Cubit<BookState> {
     required String url,
     required String description,
   }) async {
-    emit(BookState.loading(error: state.error, book: state.book));
+    emit(BookState.loading(error: state.error, book: state.book, books: state.books));
 
     final _result = await _postBook.call(
       PostBookParam(
@@ -43,8 +43,8 @@ class BookCubit extends Cubit<BookState> {
     );
 
     _result.fold(
-      (l) => emit(BookState.error(error: l.message, book: state.book)),
-      (r) => emit(BookState.bookPosted(error: state.error, book: r)),
+      (l) => emit(BookState.error(error: l.message, book: state.book, books: state.books)),
+      (r) => emit(BookState.loaded(error: state.error, book: state.book, books: state.books)),
     );
   }
 }

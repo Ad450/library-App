@@ -8,9 +8,16 @@ class BookRepositoryImpl implements BookRepository {
   BookRepositoryImpl(this._bookRemoteDatasource);
 
   @override
-  Future<BookModel> getBooks() async {
-    return await guardedApiCall<BookModel>(
+  Future<List<BookModel>> getBooks() async {
+    return await guardedApiCall<List<BookModel>>(
       () => _bookRemoteDatasource.getBooks(),
+    );
+  }
+
+  @override
+  Future<BookModel> getBook(String uid) async {
+    return await guardedApiCall<BookModel>(
+      () => _bookRemoteDatasource.getBook(uid),
     );
   }
 
