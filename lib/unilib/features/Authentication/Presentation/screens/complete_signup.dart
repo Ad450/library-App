@@ -12,7 +12,7 @@ class GiveDetailsScreen extends StatefulWidget {
   _GiveDetailsScreenState createState() => _GiveDetailsScreenState();
 }
 
-class _GiveDetailsScreenState extends State<GiveDetailsScreen> with SingleTickerProviderStateMixin {
+class _GiveDetailsScreenState extends State<GiveDetailsScreen> {
   final _nameController = TextEditingController();
   final _institutionController = TextEditingController();
 

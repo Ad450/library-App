@@ -70,10 +70,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Text(state.error),
                   TextButton(
                     onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
-                    child: Text(
-                      "OK",
-                      style: TextStyle(color: Colors.amberAccent, fontSize: 15),
-                    ),
+                    child: const Text("OK", style: TextStyle(color: Colors.amberAccent, fontSize: 15)),
                   )
                 ],
               ),
@@ -93,7 +90,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (_) => EnterOtpScreen(),
+                builder: (_) => const EnterOtpScreen(),
               ),
               (route) => false);
         },

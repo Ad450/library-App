@@ -22,11 +22,8 @@ class LandingScreen extends StatelessWidget {
         listener: (_, state) => state.maybeMap(
             orElse: () {},
             loggedIn: (state) => Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (_) => BookScreen()),
-                (route) => false),
-            error: (state) => ScaffoldMessenger.of(_)
-                .showSnackBar(SnackBar(content: Text(state.error)))),
+                context, MaterialPageRoute(builder: (_) => BookScreen()), (route) => false),
+            error: (state) => ScaffoldMessenger.of(_).showSnackBar(SnackBar(content: Text(state.error)))),
         child: SafeArea(
           child: Container(
             margin: EdgeInsets.only(left: 30, right: 30),
@@ -34,36 +31,28 @@ class LandingScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  SizedBox(
-                    height: 70,
+                  const SizedBox(height: 70),
+                  const CustomLogo(containerColor: Colors.amberAccent),
+                  const SizedBox(height: 40),
+                  Text(
+                    "Welcome",
+                    textAlign: TextAlign.start,
+                    style: GoogleFonts.quicksand(
+                      color: Colors.black,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  CustomLogo(
-                    containerColor: Colors.amberAccent,
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  Text("Welcome",
-                      textAlign: TextAlign.start,
-                      style: GoogleFonts.quicksand(
-                          color: Colors.black,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold)),
                   RichText(
                     textAlign: TextAlign.start,
                     text: TextSpan(children: <TextSpan>[
                       TextSpan(
                           text: "sign in to continue \n",
-                          style: GoogleFonts.quicksand(
-                              color: Colors.black,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold)),
+                          style: GoogleFonts.quicksand(color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold)),
                       TextSpan(
                           text: "on Unilib",
                           style: GoogleFonts.quicksand(
-                              color: Colors.amberAccent,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold))
+                              color: Colors.amberAccent, fontSize: 30, fontWeight: FontWeight.bold))
                     ]),
                   ),
                   SizedBox(
@@ -71,27 +60,20 @@ class LandingScreen extends StatelessWidget {
                   ),
                   CustomButton(
                       onTap: () => Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (_) => LoginScreen()),
-                          (route) => false),
+                          context, MaterialPageRoute(builder: (_) => const LoginScreen()), (route) => false),
                       padding: _mediaQuery.size.longestSide / 6,
                       title: "Login",
                       color: Colors.amberAccent,
                       textColor: Colors.black),
-                  SizedBox(
-                    height: 15,
-                  ),
+                  const SizedBox(height: 15),
                   Container(
                     alignment: Alignment.center,
                     child: Text(
                       "Or",
-                      style: GoogleFonts.quicksand(
-                          color: Colors.grey, fontSize: 20),
+                      style: GoogleFonts.quicksand(color: Colors.grey, fontSize: 20),
                     ),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   CustomButton(
                       //TODO: login with google here
                       onTap: () {},
@@ -107,13 +89,10 @@ class LandingScreen extends StatelessWidget {
                           alignment: Alignment.center,
                           child: Text(
                             "Not registered yet?",
-                            style: GoogleFonts.quicksand(
-                                color: Colors.grey, fontSize: 15),
+                            style: GoogleFonts.quicksand(color: Colors.grey, fontSize: 15),
                           ),
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
+                        const SizedBox(height: 10),
                         CustomButton(
                             onTap: () => Navigator.pushAndRemoveUntil(
                                 context,

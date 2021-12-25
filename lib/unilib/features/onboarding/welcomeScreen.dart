@@ -25,7 +25,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           loggedIn: (state) => Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (_) => UnilibHome(),
+              builder: (_) => const UnilibHome(),
             ),
             (route) => false,
           ),
@@ -45,9 +45,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           Scaffold(
             body: Stack(
               children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(color: Colors.amberAccent),
-                ),
+                Container(decoration: BoxDecoration(color: Colors.amberAccent)),
                 Positioned(
                   top: _mediaHeight * 0.4,
                   left: _mediaWidth * 0.2,
@@ -58,7 +56,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ],
             ),
           ),
-          LandingScreen()
+          const LandingScreen()
         ]),
       ),
     );
