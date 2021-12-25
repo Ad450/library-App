@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:library_project/unilib/core/app_typedefs.dart';
 import 'package:library_project/unilib/features/books/Data/Models/book_model.dart';
@@ -8,7 +8,7 @@ import 'package:library_project/unilib/features/books/Domain/useCases/postBook.d
 part 'book_state.dart';
 part 'book_cubit.freezed.dart';
 
-class BookCubit extends Cubit<BookState> {
+class BookCubit extends HydratedCubit<BookState> {
   GetBooks _getBooks;
   PostBook _postBook;
   BookCubit(this._getBooks, this._postBook) : super(BookState.initial(error: "", book: null, books: <BookModel>[]));
@@ -46,5 +46,13 @@ class BookCubit extends Cubit<BookState> {
       (l) => emit(BookState.error(error: l.message, book: state.book, books: state.books)),
       (r) => emit(BookState.loaded(error: state.error, book: state.book, books: state.books)),
     );
+  }
+
+  @override
+  BookState? fromJson(Map<String, dynamic> json) => json["value"];
+
+  @override
+  Map<String, dynamic>? toJson(BookState state) {
+    return {"value": state};
   }
 }
