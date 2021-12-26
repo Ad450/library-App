@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:library_project/main.dart';
 import 'package:library_project/unilib/core/utils/assets/app_Images.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/state/authentication_cubit.dart';
+import 'package:library_project/unilib/features/books/presentation/screens/BookScreen.dart';
+import 'package:library_project/unilib/features/books/presentation/state/book_cubit.dart';
 
 import 'landingScreen.dart';
 
@@ -13,6 +14,12 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+  @override
+  initState() {
+    super.initState();
+    context.read<BookCubit>().getBooks();
+  }
+
   @override
   Widget build(BuildContext context) {
     final _mediaHeight = MediaQuery.of(context).size.height;
@@ -25,7 +32,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           loggedIn: (state) => Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (_) => const UnilibHome(),
+              builder: (_) => const BookScreen(),
             ),
             (route) => false,
           ),
@@ -51,7 +58,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   left: _mediaWidth * 0.2,
                   right: _mediaWidth * 0.2,
                   bottom: _mediaHeight * 0.4,
-                  child: CustomLogo(),
+                  child: const CustomLogo(),
                 ),
               ],
             ),

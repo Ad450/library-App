@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:library_project/unilib/core/utils/validator_helpers.dart';
 
-class GiveDetailsScreen extends StatefulWidget {
-  const GiveDetailsScreen({Key? key}) : super(key: key);
+class CompleteSignUpScreen extends StatefulWidget {
+  const CompleteSignUpScreen({Key? key}) : super(key: key);
 
   static final detailsUrl = "/booksPage";
 
   @override
-  _GiveDetailsScreenState createState() => _GiveDetailsScreenState();
+  _CompleteSignUpScreenState createState() => _CompleteSignUpScreenState();
 }
 
-class _GiveDetailsScreenState extends State<GiveDetailsScreen> {
+class _CompleteSignUpScreenState extends State<CompleteSignUpScreen> {
   final _nameController = TextEditingController();
   final _institutionController = TextEditingController();
 

@@ -25,3 +25,5 @@ abstract class BookInjector {
   @Register.factory(BookRemoteDatasource, from: BookRemoteDatasourceImpl)
   void _configure();
 }
+
+BookInjector bookInjector() => _$BookInjector();

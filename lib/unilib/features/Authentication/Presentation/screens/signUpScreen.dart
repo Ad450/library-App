@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_project/unilib/core/widgets/widgets/CustomForms.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/EnterOTPScreen.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/screens/LoadingScreen.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/state/authentication_cubit.dart';
 
 class SignUpScreen extends StatefulWidget {

@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:library_project/unilib/core/utils/assets/app_Images.dart';
 import 'package:library_project/unilib/core/utils/validator_helpers.dart';
 import 'package:library_project/unilib/core/widgets/widgets/customPinfield.dart';
-import 'package:library_project/unilib/features/Authentication/Presentation/screens/GiveDetailScreen.dart';
+import 'package:library_project/unilib/features/Authentication/Presentation/screens/complete_signup.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/state/authentication_cubit.dart';
 
 class EnterOtpScreen extends StatefulWidget {
@@ -69,7 +69,7 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
                       loaded: (state) => Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => GiveDetailsScreen(),
+                          builder: (_) => CompleteSignUpScreen(),
                         ),
                         (route) => false,
                       ),

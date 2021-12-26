@@ -36,8 +36,7 @@ class _CustomPinFormState extends State<CustomPinForm> {
         SizedBox(height: 10),
         OtpTextField(
           keyboardType: TextInputType.text,
-          decoration: InputDecoration(
-              fillColor: Colors.amberAccent, focusColor: Colors.amberAccent),
+          decoration: InputDecoration(fillColor: Colors.amberAccent, focusColor: Colors.amberAccent),
           numberOfFields: 6,
           borderColor: Colors.amberAccent,
           cursorColor: Colors.amberAccent,
@@ -76,22 +75,11 @@ class _CustomPinFormState extends State<CustomPinForm> {
           margin: EdgeInsets.only(top: _mediaHeight / 9),
           child: Text(
             "unilib",
-            style: GoogleFonts.quicksand(
-                color: Colors.black,
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 2),
+            style:
+                GoogleFonts.quicksand(color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold, letterSpacing: 2),
           ),
         ),
       ],
     );
   }
-}
-
-// otp validation logic
-// will change to it to a more complex one
-
-
-void code(String testing){
-String trying = testing;
 }
