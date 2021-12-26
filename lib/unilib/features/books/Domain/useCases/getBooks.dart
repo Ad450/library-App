@@ -15,7 +15,7 @@ class GetBooks implements Usecase<List<BookModel>, NoParam> {
       final _result = await _bookRepository.getBooks();
       return Right(_result);
     } on NetworkFailure catch (e, s) {
-      return Left(getUIErrorFromNetworkFailure(e, s));
+      return Left(getUIErrorFromFailure(e, s));
     }
   }
 }

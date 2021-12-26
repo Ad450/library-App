@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:library_project/unilib/core/widgets/widgets/CustomForms.dart';
+import 'package:library_project/unilib/core/custom_widgets/CustomForms.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

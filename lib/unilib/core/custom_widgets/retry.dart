@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:library_project/unilib/core/utils/assets/app_Images.dart';
-import 'package:library_project/unilib/core/widgets/widgets/customButton.dart';
+import 'package:library_project/unilib/core/custom_widgets/customButton.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/signUpScreen.dart';
 
 class Retry extends StatelessWidget {
@@ -29,8 +29,7 @@ class Retry extends StatelessWidget {
               Container(
                 child: Text(
                   message ?? "Something went wrong",
-                  style:
-                      GoogleFonts.quicksand(color: Colors.black, fontSize: 30),
+                  style: GoogleFonts.quicksand(color: Colors.black, fontSize: 30),
                 ),
               ),
               SizedBox(
@@ -39,8 +38,7 @@ class Retry extends StatelessWidget {
               Container(
                 child: Text(
                   "Please try again",
-                  style:
-                      GoogleFonts.quicksand(color: Colors.black, fontSize: 15),
+                  style: GoogleFonts.quicksand(color: Colors.black, fontSize: 15),
                 ),
               ),
               SizedBox(
@@ -70,10 +68,7 @@ class Retry extends StatelessWidget {
                 margin: EdgeInsets.only(top: height),
                 child: Text("unilib",
                     style: GoogleFonts.quicksand(
-                        color: Colors.black,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 2)),
+                        color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold, letterSpacing: 2)),
               ),
             ],
           ),

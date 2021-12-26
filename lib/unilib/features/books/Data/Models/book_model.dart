@@ -5,9 +5,16 @@ part 'book_model.g.dart';
 
 @freezed
 abstract class BookModel with _$BookModel {
-  factory BookModel({required String name, required String url, required String description, required String image}) =
-      _BookModel;
+  factory BookModel({
+    required String name,
+    required String url,
+    required String description,
+    required String image,
+  }) = _BookModel;
 
-  factory BookModel.fromJson(Map<String, dynamic> json) =>
-      _$BookModelFromJson(Map.castFrom<dynamic, dynamic, String, dynamic>(json));
+  factory BookModel.fromJson(Map<String, dynamic> json) {
+    return _$BookModelFromJson(Map.castFrom<dynamic, dynamic, String, dynamic>(json));
+  }
+
+  Map<String, dynamic> toJson() => _$BookModelToJson(this);
 }

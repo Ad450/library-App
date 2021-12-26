@@ -1,4 +1,5 @@
 import 'package:library_project/unilib/core/failures.dart';
+import 'package:library_project/unilib/core/utils/logger.dart';
 
 /// this will return a UIError carrying a more user friendly
 /// message to aid comprehension.
@@ -6,12 +7,13 @@ import 'package:library_project/unilib/core/failures.dart';
 /// a [UIError] with a custom message
 /// this is intended to be used by all usecases
 
-UIError getUIErrorFromNetworkFailure(NetworkFailure networkFailure, StackTrace stackTrace) {
+UIError getUIErrorFromFailure(Failure failure, StackTrace stackTrace) {
   /// the stackTrace is there for conventional purposes
   /// At this stage can be ignored
   ///
   ///
-  return UIError(networkFailure.message);
+  logger.d(failure.message);
+  return UIError(failure.message);
 }
 
 /// similarly, we want to return a network failure
@@ -20,6 +22,7 @@ NetworkFailure networkFailureFromApiFailure(ApiFailure apiFailure, StackTrace st
   /// the stackTrace is there for conventional purposes
   /// At this stage can be ignored
   ///
+  logger.d(apiFailure.message);
   return NetworkFailure(apiFailure.message);
 }
 
@@ -31,6 +34,6 @@ ApiFailure apiFailureFromApis(String errorMessage) {
   // if(errorMessage.contains("host lookup")){
   //   InternetConnectivity.instance().init();
   // }
-
+  logger.d(errorMessage);
   return ApiFailure(errorMessage);
 }

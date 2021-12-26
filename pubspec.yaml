@@ -37,10 +37,12 @@ dependencies:
   http: ^0.13.3
   hydrated_bloc: ^7.1.0
   image_picker: ^0.8.4
+  json_annotation: ^4.4.0
   json_serializable: ^6.1.1
   kiwi: ^4.0.1
   kiwi_generator: ^4.0.1
   loading_indicator: ^3.0.1
+  logger: ^1.1.0
   mockito: ^5.0.15
   path: ^1.8.0
   provider: ^5.0.0

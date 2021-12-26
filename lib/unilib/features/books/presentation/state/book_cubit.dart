@@ -49,10 +49,20 @@ class BookCubit extends HydratedCubit<BookState> {
   }
 
   @override
-  BookState? fromJson(Map<String, dynamic> json) => json["value"];
+  BookState? fromJson(Map<String, dynamic> json) {
+    try {
+      final _restoredBook = BookModel.fromJson(json);
+      state.books.add(_restoredBook);
+      return BookState.loaded(error: state.error, book: _restoredBook, books: state.books);
+    } catch (_) {
+      return null;
+    }
+  }
 
   @override
   Map<String, dynamic>? toJson(BookState state) {
-    return {"value": state};
+    if (state.books.length != 0) {
+      //return Book
+    }
   }
 }

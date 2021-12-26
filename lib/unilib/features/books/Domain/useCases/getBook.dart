@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:library_project/unilib/core/app_typedefs.dart';
 import 'package:library_project/unilib/core/failures.dart';
+import 'package:library_project/unilib/core/utils/error_helpers.dart';
 import 'package:library_project/unilib/features/books/Data/Models/book_model.dart';
 import 'package:library_project/unilib/features/books/Domain/repository/books_repositroy.dart';
 
@@ -12,8 +13,8 @@ class GetBook implements Usecase<BookModel, GetBookParam> {
     try {
       final _result = await _bookRepository.getBook(param.uid);
       return Right(_result);
-    } on NetworkFailure catch (e) {
-      return Left(UIError(e.message));
+    } on NetworkFailure catch (e, s) {
+      return Left(getUIErrorFromFailure(e, s));
     }
   }
 }

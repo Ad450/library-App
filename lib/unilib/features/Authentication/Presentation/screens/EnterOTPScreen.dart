@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:library_project/unilib/core/utils/assets/app_Images.dart';
 import 'package:library_project/unilib/core/utils/validator_helpers.dart';
-import 'package:library_project/unilib/core/widgets/widgets/customPinfield.dart';
+import 'package:library_project/unilib/core/custom_widgets/customPinfield.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/complete_signup.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/state/authentication_cubit.dart';
 
