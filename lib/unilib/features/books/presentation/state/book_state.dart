@@ -25,4 +25,7 @@ abstract class BookState with _$BookState {
     required BookModel? book,
     required List<BookModel?> books,
   }) = _Loaded;
+
+  factory BookState.fromJson(Map<String, dynamic> json) =>
+      _$BookStateFromJson(Map.castFrom<dynamic, dynamic, String, dynamic>(json));
 }

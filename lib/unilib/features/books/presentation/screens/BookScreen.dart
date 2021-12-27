@@ -14,7 +14,9 @@ class _BookScreenState extends State<BookScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<BookCubit, BookState>(
       buildWhen: (previousState, newState) => previousState != newState,
-      builder: (_, state) => Column(children: <Widget>[]),
+      builder: (_, state) =>
+          Column(children: <Widget>[
+          ],),
     );
   }
 }

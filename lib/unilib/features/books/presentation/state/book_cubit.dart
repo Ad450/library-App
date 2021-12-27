@@ -6,12 +6,16 @@ import 'package:library_project/unilib/features/books/Domain/useCases/getBooks.d
 import 'package:library_project/unilib/features/books/Domain/useCases/postBook.dart';
 
 part 'book_state.dart';
+
 part 'book_cubit.freezed.dart';
+
+part 'book_cubit.g.dart';
 
 class BookCubit extends HydratedCubit<BookState> {
   GetBooks _getBooks;
   PostBook _postBook;
-  BookCubit(this._getBooks, this._postBook) : super(BookState.initial(error: "", book: null, books: <BookModel>[]));
+  static const _initialState = BookState.initial(error: "", book: null, books: <BookModel>[]);
+  BookCubit(this._getBooks, this._postBook) : super(_initialState);
 
   Future<void> getBooks() async {
     emit(BookState.loading(error: state.error, book: state.book, books: state.books));
@@ -51,18 +55,12 @@ class BookCubit extends HydratedCubit<BookState> {
   @override
   BookState? fromJson(Map<String, dynamic> json) {
     try {
-      final _restoredBook = BookModel.fromJson(json);
-      state.books.add(_restoredBook);
-      return BookState.loaded(error: state.error, book: _restoredBook, books: state.books);
+      return BookState.fromJson(Map.castFrom<dynamic, dynamic, String, dynamic>(json));
     } catch (_) {
-      return null;
+      return _initialState;
     }
   }
 
   @override
-  Map<String, dynamic>? toJson(BookState state) {
-    if (state.books.length != 0) {
-      //return Book
-    }
-  }
+  Map<String, dynamic>? toJson(BookState state) => state.toJson();
 }

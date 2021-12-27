@@ -13,6 +13,23 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+BookState _$BookStateFromJson(Map<String, dynamic> json) {
+  switch (json['runtimeType'] as String?) {
+    case 'initial':
+      return _Initial.fromJson(json);
+    case 'error':
+      return _Error.fromJson(json);
+    case 'loading':
+      return _Loading.fromJson(json);
+    case 'loaded':
+      return _Loaded.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(json, 'runtimeType', 'BookState',
+          'Invalid union type "${json['runtimeType']}"!');
+  }
+}
+
 /// @nodoc
 class _$BookStateTearOff {
   const _$BookStateTearOff();
@@ -59,6 +76,10 @@ class _$BookStateTearOff {
       book: book,
       books: books,
     );
+  }
+
+  BookState fromJson(Map<String, Object> json) {
+    return BookState.fromJson(json);
   }
 }
 
@@ -137,7 +158,7 @@ mixin _$BookState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $BookStateCopyWith<BookState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -238,10 +259,13 @@ class __$InitialCopyWithImpl<$Res> extends _$BookStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_Initial implements _Initial {
   const _$_Initial(
       {required this.error, required this.book, required this.books});
+
+  factory _$_Initial.fromJson(Map<String, dynamic> json) =>
+      _$$_InitialFromJson(json);
 
   @override
   final String error;
@@ -368,6 +392,11 @@ class _$_Initial implements _Initial {
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_InitialToJson(this)..['runtimeType'] = 'initial';
+  }
 }
 
 abstract class _Initial implements BookState {
@@ -375,6 +404,8 @@ abstract class _Initial implements BookState {
       {required String error,
       required BookModel? book,
       required List<BookModel?> books}) = _$_Initial;
+
+  factory _Initial.fromJson(Map<String, dynamic> json) = _$_Initial.fromJson;
 
   @override
   String get error => throw _privateConstructorUsedError;
@@ -432,10 +463,13 @@ class __$ErrorCopyWithImpl<$Res> extends _$BookStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_Error implements _Error {
   const _$_Error(
       {required this.error, required this.book, required this.books});
+
+  factory _$_Error.fromJson(Map<String, dynamic> json) =>
+      _$$_ErrorFromJson(json);
 
   @override
   final String error;
@@ -562,6 +596,11 @@ class _$_Error implements _Error {
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ErrorToJson(this)..['runtimeType'] = 'error';
+  }
 }
 
 abstract class _Error implements BookState {
@@ -569,6 +608,8 @@ abstract class _Error implements BookState {
       {required String error,
       required BookModel? book,
       required List<BookModel?> books}) = _$_Error;
+
+  factory _Error.fromJson(Map<String, dynamic> json) = _$_Error.fromJson;
 
   @override
   String get error => throw _privateConstructorUsedError;
@@ -625,10 +666,13 @@ class __$LoadingCopyWithImpl<$Res> extends _$BookStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_Loading implements _Loading {
   const _$_Loading(
       {required this.error, required this.book, required this.books});
+
+  factory _$_Loading.fromJson(Map<String, dynamic> json) =>
+      _$$_LoadingFromJson(json);
 
   @override
   final String error;
@@ -755,6 +799,11 @@ class _$_Loading implements _Loading {
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_LoadingToJson(this)..['runtimeType'] = 'loading';
+  }
 }
 
 abstract class _Loading implements BookState {
@@ -762,6 +811,8 @@ abstract class _Loading implements BookState {
       {required String error,
       required BookModel? book,
       required List<BookModel?> books}) = _$_Loading;
+
+  factory _Loading.fromJson(Map<String, dynamic> json) = _$_Loading.fromJson;
 
   @override
   String get error => throw _privateConstructorUsedError;
@@ -819,10 +870,13 @@ class __$LoadedCopyWithImpl<$Res> extends _$BookStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_Loaded implements _Loaded {
   const _$_Loaded(
       {required this.error, required this.book, required this.books});
+
+  factory _$_Loaded.fromJson(Map<String, dynamic> json) =>
+      _$$_LoadedFromJson(json);
 
   @override
   final String error;
@@ -949,6 +1003,11 @@ class _$_Loaded implements _Loaded {
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_LoadedToJson(this)..['runtimeType'] = 'loaded';
+  }
 }
 
 abstract class _Loaded implements BookState {
@@ -956,6 +1015,8 @@ abstract class _Loaded implements BookState {
       {required String error,
       required BookModel? book,
       required List<BookModel?> books}) = _$_Loaded;
+
+  factory _Loaded.fromJson(Map<String, dynamic> json) = _$_Loaded.fromJson;
 
   @override
   String get error => throw _privateConstructorUsedError;
