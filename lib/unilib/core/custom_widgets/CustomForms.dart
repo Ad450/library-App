@@ -146,13 +146,7 @@ class _SignUpCustomFormsState extends State<SignUpCustomForms> {
                               color: Colors.amberAccent,
                               textColor: Colors.black,
                               padding: _mediaQuery.size.longestSide / widget.paddingDecider,
-                              onTap: () async {
-                                if (widget.formKey.currentState!.validate())
-                                  widget.onTap(
-                                      password: widget.passwordController.value.text,
-                                      email: widget.emailController.value.text);
-                              },
-                            ),
+                              onTap: () async => widget.onTap()),
                       Container(
                         margin: EdgeInsets.only(top: height),
                         child: Text("unilib",
