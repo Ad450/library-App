@@ -44,9 +44,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               );
             }
           },
-          error: (state) => ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.error)),
-          ),
         ),
         child: PageView(children: [
           Scaffold(

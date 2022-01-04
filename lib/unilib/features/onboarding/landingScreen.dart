@@ -55,7 +55,7 @@ class LandingScreen extends StatelessWidget {
                               color: Colors.amberAccent, fontSize: 30, fontWeight: FontWeight.bold))
                     ]),
                   ),
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 30),
                   CustomButton(
                       onTap: () => Navigator.pushAndRemoveUntil(
                           context, MaterialPageRoute(builder: (_) => const LoginScreen()), (route) => false),
