@@ -19,28 +19,26 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<void> deleteCachedUser() async {
-    return await guardedCache<void>(
-        () => _localUserDataSource.deleteCachedUser());
+    return await guardedCache<void>(() => _localUserDataSource.deleteCachedUser());
   }
 
   @override
   Future<UserModel> getCachedUser() async {
-    return await guardedCache(
-        <UserModel>() => _localUserDataSource.getCachedUser());
+    return await guardedCache(<UserModel>() => _localUserDataSource.getCachedUser());
   }
 
   @override
-  Future<UserModel> getVerificationCode(
-      {required String email, required String password}) async {
-    return await guardedApiCall<UserModel>(() => _remoteUserDataSource
-        .getVerificationCode(email: email, password: password));
+  Future<UserModel> getVerificationCode({required String email, required String password}) async {
+    return await guardedApiCall<UserModel>(
+      () => _remoteUserDataSource.getVerificationCode(email: email, password: password),
+    );
   }
 
   @override
-  Future<UserModel> login(
-      {required String email, required String password}) async {
+  Future<UserModel> login({required String email, required String password}) async {
     final _user = await guardedApiCall<UserModel>(
-        () => _remoteUserDataSource.login(email: email, password: password));
+      () => _remoteUserDataSource.login(email: email, password: password),
+    );
     cacheUser(_user);
 
     return _user;
@@ -60,11 +58,7 @@ class UserRepositoryImpl implements UserRepository {
       required String id}) async {
     final _user = await guardedApiCall(
       () => _remoteUserDataSource.updateUser(
-          name: name,
-          email: email,
-          oldPassword: oldPassword,
-          newPassword: newPassword,
-          id: id),
+          name: name, email: email, oldPassword: oldPassword, newPassword: newPassword, id: id),
     );
 
     cacheUser(_user);
@@ -74,6 +68,7 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<void> verifyCode({required String email, required String code}) async {
     return await guardedApiCall<void>(
-        () => _remoteUserDataSource.verifyCode(email: email, code: code));
+      () => _remoteUserDataSource.verifyCode(email: email, code: code),
+    );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:library_project/unilib/core/utils/assets/app_Images.dart';
+import 'package:library_project/unilib/core/utils/app_Images.dart';
 import 'package:library_project/unilib/core/custom_widgets/customButton.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/screens/signUpScreen.dart';
 

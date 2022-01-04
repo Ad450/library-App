@@ -21,7 +21,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _emailFocus = FocusNode();
   final _passwordFocus = FocusNode();
 
-  void getOtp(String email, String password) async {
+  void getOtp() async {
     if (_formKey.currentState!.validate()) {
       FocusScope.of(context).unfocus();
       if (mounted) {
@@ -29,8 +29,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
           _loading = !_loading;
         });
 
-        await BlocProvider.of<AuthenticationCubit>(context, listen: false)
-            .getVerificationCode(email: email, password: password);
+        await BlocProvider.of<AuthenticationCubit>(context, listen: false).getVerificationCode(
+          email: _emailController.value.text,
+          password: _passwordController.value.text,
+        );
       }
     } else {
       _emailFocus.requestFocus();
@@ -104,7 +106,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         loading: _loading,
         title: "Sign Up",
         paddingDecider: double.infinity,
-        onTap: ({required String email, required String password}) async => getOtp(email, password),
+        onTap: () async => getOtp(),
       ),
     );
   }

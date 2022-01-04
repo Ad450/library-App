@@ -23,9 +23,10 @@ class BookRemoteDatasourceImpl implements BookRemoteDatasource {
     final _response = await _networkService.get(url: "library/retrieve-all-books");
     if (_response.result == NetworkResult.SUCCESS) {
       return (_response.data["data"] as List).map((e) => BookModel.fromJson(e)).toList();
+    } else if (_response.data.containsKey("error")) {
+      throw ApiFailure(_response.data["message"]);
     }
-
-    throw ApiFailure(_response.error.message);
+    return getBooks();
   }
 
   @override
@@ -35,9 +36,15 @@ class BookRemoteDatasourceImpl implements BookRemoteDatasource {
         url: "library/post-books", body: {"title": name, "book_file": url, "image": image, "category": description});
     if (_response.result == NetworkResult.SUCCESS) {
       return BookModel.fromJson(_response.data["data"] as Map<String, dynamic>);
+    } else if (_response.data.containsKey("error")) {
+      throw ApiFailure(_response.data["message"]);
     }
-
-    throw ApiFailure(_response.error.message);
+    return postBook(
+      name: name,
+      description: description,
+      url: url,
+      image: image,
+    );
   }
 
   @override

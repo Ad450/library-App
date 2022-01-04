@@ -1,4 +1,5 @@
 import 'package:library_project/unilib/core/failures.dart';
+import 'package:library_project/unilib/core/utils/app_strings.dart';
 
 Future<T> guardedApiCall<T>(Function run, {String errorMessage = ""}) async {
   try {
@@ -6,7 +7,7 @@ Future<T> guardedApiCall<T>(Function run, {String errorMessage = ""}) async {
   } on ApiFailure catch (e) {
     throw NetworkFailure(e.message);
   } catch (_) {
-    throw NetworkFailure("oops. please try again");
+    throw NetworkFailure(AppStrings.apiErrors[ApiErrors.apiUnknown]!);
   }
 }
 
@@ -16,6 +17,6 @@ guardedCache<T>(Function run, {String errorMessage = ""}) async {
   } on DatabaseFailure catch (e) {
     throw CacheFailure(e.message);
   } catch (_) {
-    throw CacheFailure("no user");
+    throw CacheFailure(AppStrings.apiErrors[ApiErrors.databaseException]!);
   }
 }
