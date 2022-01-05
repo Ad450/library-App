@@ -57,7 +57,8 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
       },
     );
     if (_response.result == NetworkResult.SUCCESS) {
-      return _response.data["data"];
+      final json = _response.data;
+      return UserModel.fromJson(json);
     } else if (_response.data.containsKey("error")) {
       throw ApiFailure(_response.data["message"]);
     }
@@ -87,7 +88,8 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
       },
     );
     if (_response.result == NetworkResult.SUCCESS) {
-      return _response.data["data"];
+      final json = _response.data;
+      return UserModel.fromJson(json);
     } else if (_response.data.containsKey("error")) {
       throw ApiFailure(_response.data["message"]);
     }
@@ -111,6 +113,10 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
       if (_response.data.containsKey("error")) {
         throw ApiFailure(_response.data["message"]);
       }
+
+      verifyCode(email: email, code: code);
+    } else {
+      return;
     }
   }
 }
