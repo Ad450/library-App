@@ -1,13 +1,20 @@
+import 'dart:io';
+
 import 'package:library_project/unilib/core/failures.dart';
 import 'package:library_project/unilib/core/utils/app_strings.dart';
 
 Future<T> guardedApiCall<T>(Function run, {String errorMessage = ""}) async {
   try {
+    // InternetConnectivity.instance().init();
     return await run() as T;
   } on ApiFailure catch (e) {
     throw NetworkFailure(e.message);
-  } catch (_) {
-    throw NetworkFailure(AppStrings.apiErrors[ApiErrors.apiUnknown]!);
+  } on SocketException catch (e) {
+    if (e.message.contains('host lookup')) {
+      throw NetworkFailure('no internet');
+    } else {
+      throw NetworkFailure(AppStrings.apiErrors[ApiErrors.apiUnknown]!);
+    }
   }
 }
 

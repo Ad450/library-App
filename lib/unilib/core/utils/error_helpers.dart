@@ -1,4 +1,5 @@
 import 'package:library_project/unilib/core/failures.dart';
+import 'package:library_project/unilib/core/platform/connectivity.dart';
 import 'package:library_project/unilib/core/utils/logger.dart';
 
 /// this will return a UIError carrying a more user friendly
@@ -23,7 +24,7 @@ NetworkFailure networkFailureFromApiFailure(ApiFailure apiFailure, StackTrace st
   /// At this stage can be ignored
   ///
   logger.d(apiFailure.message);
-  return NetworkFailure(apiFailure.message);
+  throw NetworkFailure(apiFailure.message);
 }
 
 // lets start with a comment
@@ -31,9 +32,8 @@ NetworkFailure networkFailureFromApiFailure(ApiFailure apiFailure, StackTrace st
 // the problem now is how to get the particular error
 
 ApiFailure apiFailureFromApis(String errorMessage) {
-  // if(errorMessage.contains("host lookup")){
-  //   InternetConnectivity.instance().init();
-  // }
+  InternetConnectivity.instance().init();
+
   logger.d(errorMessage);
-  return ApiFailure(errorMessage);
+  throw ApiFailure(errorMessage);
 }

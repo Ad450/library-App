@@ -28,19 +28,25 @@ class InternetConnectivity {
 
   init() {
     onConnectivityChange.listen((result) async {
-      if (!result) throw NoInternetFailure("no internet connection");
+      if (!result) throw ApiFailure("no internet connection");
     });
 
-    _checkInternetConnectivity();
+    checkInternetConnectivity();
   }
 
 // check if platform is connected to the internet by address lookup
 
-  Future<bool> _checkInternetConnectivity() async {
+  Future<bool> checkInternetConnectivity() async {
     // get previous Connection Status
     bool previouslyConnected = isConnected;
+    List<InternetAddress> addresses;
+    try {
+      addresses = await InternetAddress.lookup("example.com");
+    } on SocketException catch (_) {
+      _connectivitySink.add(isConnected);
+      return isConnected;
+    }
 
-    final addresses = await InternetAddress.lookup("example.com");
     if (addresses.isNotEmpty && addresses[0].rawAddress.isNotEmpty) {
       isConnected = true;
 
@@ -49,6 +55,8 @@ class InternetConnectivity {
         _connectivitySink.add(isConnected);
       }
     }
+
+    _connectivitySink.add(isConnected);
 
     return isConnected;
   }

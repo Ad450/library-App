@@ -64,18 +64,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             _loading = false;
           });
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(state.error),
-                  TextButton(
-                    onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
-                    child: const Text("OK", style: TextStyle(color: Colors.amberAccent, fontSize: 15)),
-                  )
-                ],
-              ),
-            ),
+            SnackBar(content: Text(state.error)),
           );
         },
         loading: (state) {
