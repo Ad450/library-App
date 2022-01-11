@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:provider/provider.dart';
-
 class Profile extends StatefulWidget {
   final dynamic _id;
   const Profile({Key? key, dynamic id})
@@ -97,17 +95,14 @@ class _ProfileState extends State<Profile> {
                   controller: _usernameController,
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(color: Colors.amberAccent)),
-                    hintStyle:
-                        TextStyle(fontSize: 15, color: Colors.amberAccent),
+                        borderRadius: BorderRadius.circular(20), borderSide: BorderSide(color: Colors.amberAccent)),
+                    hintStyle: TextStyle(fontSize: 15, color: Colors.amberAccent),
                   ),
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                Text("Name of school",
-                    style: GoogleFonts.quicksand(fontSize: 15)),
+                Text("Name of school", style: GoogleFonts.quicksand(fontSize: 15)),
                 SizedBox(
                   height: 10,
                 ),
@@ -123,15 +118,12 @@ class _ProfileState extends State<Profile> {
                   controller: _nameOfSchoolController,
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(color: Colors.amberAccent)),
-                    hintStyle:
-                        TextStyle(fontSize: 15, color: Colors.amberAccent),
+                        borderRadius: BorderRadius.circular(20), borderSide: BorderSide(color: Colors.amberAccent)),
+                    hintStyle: TextStyle(fontSize: 15, color: Colors.amberAccent),
                   ),
                 ),
                 SizedBox(height: 10),
-                Text("Program Of study",
-                    style: GoogleFonts.quicksand(fontSize: 15)),
+                Text("Program Of study", style: GoogleFonts.quicksand(fontSize: 15)),
                 SizedBox(
                   height: 20,
                 ),
@@ -147,10 +139,8 @@ class _ProfileState extends State<Profile> {
                   controller: _programOfStudyController,
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(color: Colors.amberAccent)),
-                    hintStyle:
-                        TextStyle(fontSize: 15, color: Colors.amberAccent),
+                        borderRadius: BorderRadius.circular(20), borderSide: BorderSide(color: Colors.amberAccent)),
+                    hintStyle: TextStyle(fontSize: 15, color: Colors.amberAccent),
                   ),
                 ),
                 SizedBox(
@@ -161,8 +151,7 @@ class _ProfileState extends State<Profile> {
                   children: [
                     Text(
                       "Select level",
-                      style: GoogleFonts.quicksand(
-                          color: Colors.black, fontSize: 20),
+                      style: GoogleFonts.quicksand(color: Colors.black, fontSize: 20),
                     ),
                     // Container(
                     //   alignment: Alignment.centerRight,
@@ -201,8 +190,7 @@ class _ProfileState extends State<Profile> {
                     onPressed: () {},
                     child: Text(
                       "submit",
-                      style: GoogleFonts.quicksand(
-                          color: Colors.amberAccent, fontSize: 20),
+                      style: GoogleFonts.quicksand(color: Colors.amberAccent, fontSize: 20),
                     ),
                     fillColor: Colors.black,
                     shape: RoundedRectangleBorder(
