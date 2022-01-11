@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:library_project/unilib/core/di/configure_dependencies.dart';
-import 'package:library_project/unilib/features/Authentication/Domain/UseCases/getVerificationCode.dart';
+import 'package:library_project/unilib/features/Authentication/Domain/UseCases/get_verification_code.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/di/authentication_injector.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/login.dart';
 import 'package:library_project/unilib/features/books/Domain/di/book_injector.dart';

@@ -7,7 +7,7 @@ import 'package:library_project/unilib/core/utils/error_helpers.dart';
 import '../Models/user_model/user_model.dart';
 
 abstract class RemoteUserDataSource {
-  Future<UserModel> getVerificationCode({required String email, required String password});
+  Future<void> getVerificationCode({required String email, required String password});
 
   Future<UserModel> login({required String email, required String password});
   Future<void> logout();
@@ -27,7 +27,7 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
   RemoteUserDataSourceImpl(this._networkService);
 
   @override
-  Future<UserModel> getVerificationCode({
+  Future<void> getVerificationCode({
     required String email,
     required String password,
   }) async {
@@ -36,9 +36,7 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
       body: {"email": email},
     );
 
-    if (_response.result == NetworkResult.SUCCESS) {
-      return _response.data["data"];
-    } else if (_response.data.containsKey("error")) {
+    if (_response.result != NetworkResult.SUCCESS) {
       throw ApiFailure(_response.data["message"]);
     }
 

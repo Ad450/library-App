@@ -28,8 +28,8 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<UserModel> getVerificationCode({required String email, required String password}) async {
-    return await guardedApiCall<UserModel>(
+  Future<void> getVerificationCode({required String email, required String password}) async {
+    return await guardedApiCall<void>(
       () => _remoteUserDataSource.getVerificationCode(email: email, password: password),
     );
   }

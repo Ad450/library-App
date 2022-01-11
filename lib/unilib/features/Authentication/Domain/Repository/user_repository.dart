@@ -7,8 +7,7 @@ abstract class UserRepository {
   Future<void> deleteCachedUser();
 
   // remote
-  Future<UserModel> getVerificationCode(
-      {required String email, required String password});
+  Future<void> getVerificationCode({required String email, required String password});
   Future<void> logout();
   Future<void> verifyCode({required String email, required String code});
   Future<UserModel> updateUser(

@@ -6,7 +6,7 @@ import 'package:library_project/unilib/features/Authentication/Data/DataSources/
 import 'package:library_project/unilib/features/Authentication/Data/repository/user_repositoryImpl.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/Repository/user_repository.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/check_login.dart';
-import 'package:library_project/unilib/features/Authentication/Domain/UseCases/getVerificationCode.dart';
+import 'package:library_project/unilib/features/Authentication/Domain/UseCases/get_verification_code.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/login.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/logout.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/update_user.dart';

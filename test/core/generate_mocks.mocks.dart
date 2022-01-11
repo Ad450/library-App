@@ -2,12 +2,16 @@
 // in library_project/test/core/generate_mocks.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i4;
+import 'dart:async' as _i5;
 
 import 'package:library_project/unilib/features/Authentication/Data/Models/user_model/user_model.dart'
     as _i2;
 import 'package:library_project/unilib/features/Authentication/Domain/Repository/user_repository.dart'
+    as _i4;
+import 'package:library_project/unilib/features/books/Data/Models/book_model.dart'
     as _i3;
+import 'package:library_project/unilib/features/books/Domain/repository/books_repositroy.dart'
+    as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: avoid_redundant_argument_values
@@ -20,50 +24,51 @@ import 'package:mockito/mockito.dart' as _i1;
 
 class _FakeUserModel_0 extends _i1.Fake implements _i2.UserModel {}
 
+class _FakeBookModel_1 extends _i1.Fake implements _i3.BookModel {}
+
 /// A class which mocks [UserRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserRepository extends _i1.Mock implements _i3.UserRepository {
+class MockUserRepository extends _i1.Mock implements _i4.UserRepository {
   MockUserRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<void> cacheUser(_i2.UserModel? user) =>
+  _i5.Future<void> cacheUser(_i2.UserModel? user) =>
       (super.noSuchMethod(Invocation.method(#cacheUser, [user]),
           returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
   @override
-  _i4.Future<_i2.UserModel> getCachedUser() =>
+  _i5.Future<_i2.UserModel> getCachedUser() =>
       (super.noSuchMethod(Invocation.method(#getCachedUser, []),
               returnValue: Future<_i2.UserModel>.value(_FakeUserModel_0()))
-          as _i4.Future<_i2.UserModel>);
+          as _i5.Future<_i2.UserModel>);
   @override
-  _i4.Future<void> deleteCachedUser() =>
+  _i5.Future<void> deleteCachedUser() =>
       (super.noSuchMethod(Invocation.method(#deleteCachedUser, []),
           returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
   @override
-  _i4.Future<_i2.UserModel> getVerificationCode(
-          {String? email, String? password}) =>
+  _i5.Future<void> getVerificationCode({String? email, String? password}) =>
       (super.noSuchMethod(
-              Invocation.method(#getVerificationCode, [],
-                  {#email: email, #password: password}),
-              returnValue: Future<_i2.UserModel>.value(_FakeUserModel_0()))
-          as _i4.Future<_i2.UserModel>);
+          Invocation.method(
+              #getVerificationCode, [], {#email: email, #password: password}),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
   @override
-  _i4.Future<void> logout() =>
+  _i5.Future<void> logout() =>
       (super.noSuchMethod(Invocation.method(#logout, []),
           returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
   @override
-  _i4.Future<void> verifyCode({String? email, String? code}) =>
+  _i5.Future<void> verifyCode({String? email, String? code}) =>
       (super.noSuchMethod(
           Invocation.method(#verifyCode, [], {#email: email, #code: code}),
           returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
   @override
-  _i4.Future<_i2.UserModel> updateUser(
+  _i5.Future<_i2.UserModel> updateUser(
           {String? name,
           String? email,
           String? oldPassword,
@@ -78,13 +83,47 @@ class MockUserRepository extends _i1.Mock implements _i3.UserRepository {
                 #id: id
               }),
               returnValue: Future<_i2.UserModel>.value(_FakeUserModel_0()))
-          as _i4.Future<_i2.UserModel>);
+          as _i5.Future<_i2.UserModel>);
   @override
-  _i4.Future<_i2.UserModel> login({String? email, String? password}) => (super
+  _i5.Future<_i2.UserModel> login({String? email, String? password}) => (super
       .noSuchMethod(
           Invocation.method(#login, [], {#email: email, #password: password}),
-          returnValue: Future<_i2.UserModel>.value(_FakeUserModel_0())) as _i4
+          returnValue: Future<_i2.UserModel>.value(_FakeUserModel_0())) as _i5
       .Future<_i2.UserModel>);
+  @override
+  String toString() => super.toString();
+}
+
+/// A class which mocks [BookRepository].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockBookRepository extends _i1.Mock implements _i6.BookRepository {
+  MockBookRepository() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i5.Future<List<_i3.BookModel>> getBooks() =>
+      (super.noSuchMethod(Invocation.method(#getBooks, []),
+              returnValue: Future<List<_i3.BookModel>>.value(<_i3.BookModel>[]))
+          as _i5.Future<List<_i3.BookModel>>);
+  @override
+  _i5.Future<_i3.BookModel> getBook(String? uid) =>
+      (super.noSuchMethod(Invocation.method(#getBook, [uid]),
+              returnValue: Future<_i3.BookModel>.value(_FakeBookModel_1()))
+          as _i5.Future<_i3.BookModel>);
+  @override
+  _i5.Future<_i3.BookModel> postBook(
+          {String? name, String? description, String? url, String? image}) =>
+      (super.noSuchMethod(
+              Invocation.method(#postBook, [], {
+                #name: name,
+                #description: description,
+                #url: url,
+                #image: image
+              }),
+              returnValue: Future<_i3.BookModel>.value(_FakeBookModel_1()))
+          as _i5.Future<_i3.BookModel>);
   @override
   String toString() => super.toString();
 }
