@@ -15,8 +15,11 @@ void main() {
     final failure = UIError('could not get otp from the server');
     final mockUserRespository = MockUserRepository();
     final getVerificationCode = GetVerificationCode(mockUserRespository);
-    when(mockUserRespository.getVerificationCode(email: 'adjeimanue@gmail.com', password: 'Manu450666'))
-        .thenAnswer((_) async => ApiFailure('could not perform operation'));
+    when(
+      mockUserRespository.getVerificationCode(email: 'adjeimanue@gmail.com', password: 'Manu450666'),
+    ).thenAnswer(
+      (_) async => ApiFailure('could not perform operation'),
+    );
 
     // Act
     final actual =
