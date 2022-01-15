@@ -4,6 +4,8 @@
 
 import 'dart:async' as _i5;
 
+import 'package:library_project/unilib/features/account/domain/repository/account_repository.dart'
+    as _i7;
 import 'package:library_project/unilib/features/Authentication/Data/Models/user_model/user_model.dart'
     as _i2;
 import 'package:library_project/unilib/features/Authentication/Domain/Repository/user_repository.dart'
@@ -124,6 +126,31 @@ class MockBookRepository extends _i1.Mock implements _i6.BookRepository {
               }),
               returnValue: Future<_i3.BookModel>.value(_FakeBookModel_1()))
           as _i5.Future<_i3.BookModel>);
+  @override
+  String toString() => super.toString();
+}
+
+/// A class which mocks [AccountRepository].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAccountRepository extends _i1.Mock implements _i7.AccountRepository {
+  MockAccountRepository() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i5.Future<_i2.UserModel> updateUser(
+          {String? name, String? email, String? password}) =>
+      (super.noSuchMethod(
+              Invocation.method(#updateUser, [],
+                  {#name: name, #email: email, #password: password}),
+              returnValue: Future<_i2.UserModel>.value(_FakeUserModel_0()))
+          as _i5.Future<_i2.UserModel>);
+  @override
+  _i5.Future<_i2.UserModel> getUser(String? id) =>
+      (super.noSuchMethod(Invocation.method(#getUser, [id]),
+              returnValue: Future<_i2.UserModel>.value(_FakeUserModel_0()))
+          as _i5.Future<_i2.UserModel>);
   @override
   String toString() => super.toString();
 }

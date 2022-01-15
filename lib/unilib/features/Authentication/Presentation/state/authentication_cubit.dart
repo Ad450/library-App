@@ -5,8 +5,8 @@ import 'package:library_project/unilib/features/Authentication/Domain/UseCases/c
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/get_verification_code.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/login.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/logout.dart';
-import 'package:library_project/unilib/features/Authentication/Domain/UseCases/update_user.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/verify_code.dart';
+import 'package:library_project/unilib/features/account/domain/usecases/update_user.dart';
 import '../../Data/Models/user_model/user_model.dart';
 
 part 'authentication_state.dart';
@@ -41,15 +41,10 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   }
 
   Future<void> updateUser(
-      {required String email,
-      required String oldPassword,
-      required String newPassword,
-      required String name,
-      required String id}) async {
+      {required String email, required String password, required String name, required String id}) async {
     emit(AuthenticationState.loading(user: state.user, error: state.error));
 
-    final _result = await _updateUser
-        .call(UpdateUserParam(email: email, oldPassword: oldPassword, name: name, newPassword: newPassword, id: id));
+    final _result = await _updateUser.call(UpdateUserParam(email: email, password: password, name: name));
     _result.fold((l) => emit(AuthenticationState.error(error: l.message, user: state.user)),
         (r) => emit(AuthenticationState.loaded(error: state.error, user: r)));
   }

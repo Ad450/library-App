@@ -9,8 +9,9 @@ import 'package:library_project/unilib/features/Authentication/Domain/UseCases/c
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/get_verification_code.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/login.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/logout.dart';
-import 'package:library_project/unilib/features/Authentication/Domain/UseCases/update_user.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/verify_code.dart';
+import 'package:library_project/unilib/features/account/domain/repository/account_repository.dart';
+import 'package:library_project/unilib/features/account/domain/usecases/update_user.dart';
 
 part 'authentication_injector.g.dart';
 

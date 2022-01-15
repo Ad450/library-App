@@ -6,6 +6,7 @@ import 'package:library_project/unilib/core/di/configure_dependencies.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/get_verification_code.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/di/authentication_injector.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/login.dart';
+import 'package:library_project/unilib/features/account/domain/usecases/update_user.dart';
 import 'package:library_project/unilib/features/books/Domain/di/book_injector.dart';
 import 'package:library_project/unilib/features/books/Domain/useCases/getBooks.dart';
 import 'package:library_project/unilib/features/books/Domain/useCases/postBook.dart';
@@ -13,7 +14,6 @@ import 'package:library_project/unilib/features/books/presentation/state/book_cu
 import 'package:library_project/unilib/features/onboarding/welcomeScreen.dart';
 import 'package:library_project/unilib/features/Authentication/Presentation/state/authentication_cubit.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/logout.dart';
-import 'package:library_project/unilib/features/Authentication/Domain/UseCases/update_user.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/verify_code.dart';
 import 'package:library_project/unilib/features/Authentication/Domain/UseCases/check_login.dart';
 import 'package:path_provider/path_provider.dart';

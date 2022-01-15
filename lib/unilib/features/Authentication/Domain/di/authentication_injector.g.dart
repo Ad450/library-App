@@ -20,7 +20,7 @@ class _$AuthenticationInjector extends AuthenticationInjector {
       ..registerSingleton((c) => CheckLogin(c<UserRepository>()))
       ..registerSingleton((c) => GetVerificationCode(c<UserRepository>()))
       ..registerSingleton((c) => Login(c<UserRepository>()))
-      ..registerSingleton((c) => UpdateUser(c<UserRepository>()))
+      ..registerSingleton((c) => UpdateUser(c<AccountRepository>()))
       ..registerSingleton((c) => VerifyCode(c<UserRepository>()))
       ..registerSingleton((c) => Logout(c<UserRepository>()));
   }
