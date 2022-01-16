@@ -16,7 +16,7 @@ void main() {
 
   group('verify code', () {
     final voidType = const VoidType();
-    test("should call only update user in UserRepository", () {
+    test("should call only verify code in UserRepository", () {
       when(mockUserRepository.verifyCode(email: "dd@gmail.com", code: "123456"))
           .thenAnswer((realInvocation) async => voidType);
 
@@ -26,7 +26,7 @@ void main() {
       verifyNoMoreInteractions(mockUserRepository);
     });
 
-    test("should return a user model when update is successful", () async {
+    test("should return a void type when update is successful", () async {
       // arrange
 
       when(mockUserRepository.verifyCode(email: "dd@gmail.com", code: "123456"))
@@ -43,7 +43,7 @@ void main() {
 
     test("should return an error message when update fails", () async {
       // arrange
-      final message = "could not update";
+      final message = "could not verify";
 
       when(mockUserRepository.verifyCode(email: "dd@gmail.com", code: "123456")).thenThrow(NetworkFailure(message));
 
