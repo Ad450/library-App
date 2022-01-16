@@ -2,7 +2,6 @@ import 'package:library_project/unilib/core/data/network/network_response.dart';
 
 import 'package:library_project/unilib/core/data/network/network_service.dart';
 import 'package:library_project/unilib/core/failures.dart';
-import 'package:library_project/unilib/core/utils/error_helpers.dart';
 
 import '../Models/user_model/user_model.dart';
 
@@ -38,9 +37,11 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
 
     if (_response.result != NetworkResult.SUCCESS) {
       throw ApiFailure(_response.data["message"]);
+    } else {
+      return;
     }
 
-    return getVerificationCode(email: email, password: password);
+    // return getVerificationCode(email: email, password: password);
   }
 
   @override
