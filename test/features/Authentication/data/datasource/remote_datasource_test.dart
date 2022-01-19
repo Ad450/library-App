@@ -14,10 +14,10 @@ void main() {
   });
 
   group('User Auth remote data source', () {
-    test("should rmake a post req to auth/resend-verification-link", () async {
+    test("should make a post req to auth/resend-verification-link", () async {
       // arrange
       final email = "dd@gmail.com";
-      final password = " ";
+      final password = "12345";
       final response = NetworkResponse(data: {"code": ""}, result: NetworkResult.SUCCESS);
       when(mockNetworkService.post(url: 'auth/resend-verification-link', body: {"email": email}))
           .thenAnswer((realInvocation) async => response);
@@ -29,5 +29,7 @@ void main() {
       // assert
       verify(mockNetworkService.post(url: 'auth/resend-verification-link', body: {"email": email}));
     });
+
+    test('should throw an api error if network result is not successful', () {});
   });
 }
