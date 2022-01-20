@@ -3,9 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:library_project/unilib/core/data/network/network_response.dart';
 import 'package:library_project/unilib/core/data/network/network_service_impl.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
-import 'package:mockito/mockito.dart';
+import 'package:library_project/unilib/core/utils/app_strings.dart';
 
-import '../../generate_mocks.mocks.dart';
 // setup variables for all test cases
 
 late NetworkServiceImpl networkService;
@@ -45,6 +44,33 @@ void main() {
       // expect(result.data, equals(response['data']));
     });
 
+    test('get request returns a networkResponse that contains error', () async {
+      // ARRANGE
+      // mocking dio with dioAdapter
+      final error = DioError(
+          requestOptions: RequestOptions(path: path),
+          response: Response(data: <String, dynamic>{
+            "message": " error",
+            "error": ApiErrors.apiBadRequest,
+          }, statusCode: 404, requestOptions: RequestOptions(path: path)));
+
+      dioAdapter.onGet(path, (server) {
+        server.throws(
+          404,
+          error,
+        );
+      });
+
+      // ACT
+      // call network service.post() to return a network Response containing field error
+      final result = await networkService.post(url: path, body: {'user': 'emmanuel'});
+
+      // ASSERT
+      // expect result to be a networkResponse and data to contain key `error`
+      expect(result, isA<NetworkResponse>());
+      expect(result.data['error'], error.response!.data['error']);
+    });
+
     test('post request returns NetworkResult ', () async {
       // ACT
       // mocking dio with dioAdapter
@@ -59,6 +85,33 @@ void main() {
 
       expect(result, isA<NetworkResponse>());
     });
+
+    test('get request returns a networkResponse that contains error', () async {
+      // ARRANGE
+      // mocking dio with dioAdapter
+      final error = DioError(
+          requestOptions: RequestOptions(path: path),
+          response: Response(data: <String, dynamic>{
+            "message": " error",
+            "error": ApiErrors.apiBadRequest,
+          }, statusCode: 404, requestOptions: RequestOptions(path: path)));
+
+      dioAdapter.onPost(path, (server) {
+        server.throws(
+          404,
+          error,
+        );
+      });
+
+      // ACT
+      // call network service.post() to return a network Response containing field error
+      final result = await networkService.post(url: path, body: {'user': 'emmanuel'});
+
+      // ASSERT
+      // expect result to be a networkResponse and data to contain key `error`
+      expect(result, isA<NetworkResponse>());
+      expect(result.data['error'], error.response!.data['error']);
+    });
   });
 }
 
@@ -67,7 +120,7 @@ void main() {
 // `get`
 // `post`
 
-// what you need to test the above
+// what you need to be able to test the above
 // setup
 // `dio.get()`
 //  mock dio by using dioAdapters
