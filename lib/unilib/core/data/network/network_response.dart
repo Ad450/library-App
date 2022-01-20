@@ -44,7 +44,7 @@ NetworkResponse handleResponse(Response _response) {
     }
 
     return NetworkResponse(
-      data: _response.data['data'] as Map<String, dynamic>,
+      data: <String, dynamic>{'data': _response.data},
       result: NetworkResult.SUCCESS,
     );
   }

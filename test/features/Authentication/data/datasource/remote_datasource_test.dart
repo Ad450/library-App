@@ -30,6 +30,20 @@ void main() {
       verify(mockNetworkService.post(url: 'auth/resend-verification-link', body: {"email": email}));
     });
 
-    test('should throw an api error if network result is not successful', () {});
+    test('should throw an api error if network result is not successful', () async {
+      // arrange
+      final failureResponse = NetworkResponse(data: {}, result: NetworkResult.FAILURE);
+      final email = "dd@gmail.com";
+      final password = "12345";
+      final response = NetworkResponse(data: {"code": ""}, result: NetworkResult.SUCCESS);
+      when(mockNetworkService.post(url: 'auth/resend-verification-link', body: {"email": email}))
+          .thenAnswer((realInvocation) async => failureResponse);
+
+      // act
+      final result = await mockNetworkService.post(url: 'auth/resend-verification-link');
+
+      // assert
+      verify(mockNetworkService.post(url: 'auth/resend-verification-link'));
+    });
   });
 }
