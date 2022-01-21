@@ -49,10 +49,7 @@ void main() {
       // mocking dio with dioAdapter
       final error = DioError(
           requestOptions: RequestOptions(path: path),
-          response: Response(data: <String, dynamic>{
-            "message": " error",
-            "error": ApiErrors.apiBadRequest,
-          }, statusCode: 404, requestOptions: RequestOptions(path: path)));
+          response: Response(statusCode: 404, requestOptions: RequestOptions(path: path)));
 
       dioAdapter.onGet(path, (server) {
         server.throws(
@@ -68,7 +65,7 @@ void main() {
       // ASSERT
       // expect result to be a networkResponse and data to contain key `error`
       expect(result, isA<NetworkResponse>());
-      expect(result.data['error'], error.response!.data['error']);
+      expect(result.data['error'], isA<ApiErrors>());
     });
 
     test('post request returns NetworkResult ', () async {
@@ -86,15 +83,12 @@ void main() {
       expect(result, isA<NetworkResponse>());
     });
 
-    test('get request returns a networkResponse that contains error', () async {
+    test('post request returns a networkResponse that contains error', () async {
       // ARRANGE
       // mocking dio with dioAdapter
       final error = DioError(
           requestOptions: RequestOptions(path: path),
-          response: Response(data: <String, dynamic>{
-            "message": " error",
-            "error": ApiErrors.apiBadRequest,
-          }, statusCode: 404, requestOptions: RequestOptions(path: path)));
+          response: Response(statusCode: 404, requestOptions: RequestOptions(path: path)));
 
       dioAdapter.onPost(path, (server) {
         server.throws(
@@ -110,7 +104,7 @@ void main() {
       // ASSERT
       // expect result to be a networkResponse and data to contain key `error`
       expect(result, isA<NetworkResponse>());
-      expect(result.data['error'], error.response!.data['error']);
+      expect(result.data['error'], isA<ApiErrors>());
     });
   });
 }
