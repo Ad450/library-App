@@ -16,7 +16,7 @@ abstract class CoreInjector {
   }
 
   @Register.factory(NetworkService, from: NetworkServiceImpl)
-  @Register.singleton(Database, from: BookDatabaseService)
+  @Register.singleton(Database, from: BookDatabaseServiceImpl)
   void _configure();
 }
 

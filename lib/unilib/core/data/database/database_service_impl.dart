@@ -4,7 +4,7 @@ import 'package:library_project/unilib/core/data/database/database_service.dart'
 import 'package:library_project/unilib/core/failures.dart';
 import '../../../features/Authentication/Data/Models/user_model/user_model.dart';
 
-class BookDatabaseService implements Database<UserModel> {
+class BookDatabaseServiceImpl implements Database<UserModel> {
   @override
   Future<void> put(UserModel value, String? key, HiveBoxNames name) async {
     return await write(value, name, key);

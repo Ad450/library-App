@@ -12,6 +12,6 @@ class _$CoreInjector extends CoreInjector {
     final KiwiContainer container = KiwiContainer();
     container
       ..registerFactory<NetworkService>((c) => NetworkServiceImpl())
-      ..registerSingleton<Database<dynamic>>((c) => BookDatabaseService());
+      ..registerSingleton<Database<dynamic>>((c) => BookDatabaseServiceImpl());
   }
 }
