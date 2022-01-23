@@ -24,7 +24,7 @@ void main() {
     test('should put into data when value and HiveBoxName are passed in', () {
       // ARRANGE
       // create a stub that returns a hivebox
-      when(mockHiveInterface.openBox(any)).thenAnswer((realInvocation) async => mockBox);
+      when(mockHiveInterface.openBox(any)).thenAnswer((_) async => mockBox);
 
       // ACT
       database.write(user, hive, 'data');

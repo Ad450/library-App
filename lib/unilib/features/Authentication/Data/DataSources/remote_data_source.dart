@@ -38,8 +38,7 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
     if (_response.result != NetworkResult.SUCCESS) {
       throw ApiFailure(_response.data["message"]);
     }
-    return;
-    // return getVerificationCode(email: email, password: password);
+    return getVerificationCode(email: email, password: password);
   }
 
   @override

@@ -56,6 +56,7 @@ void main() {
 
       // assert
       expect(result.isLeft(), true);
+      result.fold((l) => expect(l, isA<UIError>()), (r) => null);
       result.fold((l) => expect(l.message, message), (r) => null);
     });
   });

@@ -9,6 +9,15 @@ class UIError extends Failure {
 
 class ApiFailure extends Failure {
   const ApiFailure(String message) : super(message);
+
+  @override
+  bool operator ==(Object object) {
+    if (identical(this, object)) return true;
+    return object is ApiFailure && object.message == message;
+  }
+
+  @override
+  int get hashCode => message.hashCode;
 }
 
 class DatabaseFailure extends Failure {
