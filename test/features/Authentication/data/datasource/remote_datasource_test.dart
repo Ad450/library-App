@@ -50,7 +50,7 @@ void main() {
       // should throw an apiFailure when remote.getVerificationCode is called
       expect(
         remoteUserDataSourceImpl.getVerificationCode(email: email, password: password),
-        throwsA(isA<ApiFailure>()),
+        throwsA(isInstanceOf<ApiFailure>()),
       );
     });
   });

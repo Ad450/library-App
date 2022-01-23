@@ -38,7 +38,7 @@ NetworkResponse handleResponse(Response _response) {
   if (_response.statusCode.toString().startsWith("2")) {
     if ((_response.data as Map<String, dynamic>).containsKey("data")) {
       return NetworkResponse(
-        data: _response.data['data'] as Map<String, dynamic>,
+        data: _response.data as Map<String, dynamic>,
         result: NetworkResult.SUCCESS,
       );
     }
