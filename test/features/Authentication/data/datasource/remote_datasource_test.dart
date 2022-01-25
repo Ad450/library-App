@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:library_project/unilib/core/data/network/network_response.dart';
 import 'package:library_project/unilib/core/failures.dart';
+import 'package:library_project/unilib/core/utils/app_strings.dart';
 import 'package:library_project/unilib/features/Authentication/Data/DataSources/remote_data_source.dart';
 import 'package:mockito/mockito.dart';
 import '../../../../core/generate_mocks.mocks.dart';
@@ -69,6 +70,47 @@ void main() {
         // ASSERT
         // should call network.post in the remoteDatasourceImpl.login method
         verify(mockNetworkService.post(url: 'auth/login', body: {"email": "dd@gmail.com", "password": "12345"}));
+        expect(result, isA<UserModel>());
+      });
+
+      test("should an api failure when login is unsuccessful", () async {
+        // mocking network service.post
+
+        when(mockNetworkService.post(url: 'auth/login', body: {"email": "dd@gmail.com", "password": "12345"}))
+            .thenAnswer((_) async => NetworkResponse(
+                data: {'error': ApiErrors.apiBadRequest, "message": "please try again"},
+                result: NetworkResult.FAILURE));
+
+        // should throw an api failure when remote datasourceImpl.login is called
+        expect(remoteUserDataSourceImpl.login(email: "dd@gmail.com", password: "12345"), throwsA(isA<ApiFailure>()));
+      });
+    });
+
+    group("update user", () {
+      test("should return a user model when update is successful", () async {
+        // ARRANGE
+        final payload = <String, dynamic>{
+          "name": "dillon",
+          "email": "dd@gmail.com",
+          "oldPassword": "12345",
+          "newPassword": "67890",
+        };
+
+        when(mockNetworkService.post(url: "auth/user-edit-profile/10", body: payload)).thenAnswer((_) async =>
+            NetworkResponse(
+                data: {'email': "dd@gmail.com", "name": "dillon", "password": "12345"}, result: NetworkResult.SUCCESS));
+
+        // ACT
+        final result = await remoteUserDataSourceImpl.updateUser(
+          name: "dillon",
+          email: "dd@gmail.com",
+          oldPassword: "12345",
+          newPassword: "67890",
+          id: "10",
+        );
+
+        // ASSERT
+        verify(mockNetworkService.post(url: "auth/user-edit-profile/10", body: payload));
         expect(result, isA<UserModel>());
       });
     });
