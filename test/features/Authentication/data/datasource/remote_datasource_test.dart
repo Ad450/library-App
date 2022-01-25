@@ -57,7 +57,7 @@ void main() {
       test("login returns a user model when successful", () async {
         // we need a mock network service
         // ARRANGE
-        //  final testModel = UserModel(email: "dd@gmail.com", password: "emmanuel", name: "dd");
+        final testModel = UserModel(email: "dd@gmail.com", name: "dillon", password: "12345");
         when(mockNetworkService.post(url: 'auth/login', body: {"email": "dd@gmail.com", "password": "12345"}))
             .thenAnswer((_) async => NetworkResponse(
                 data: {'email': "dd@gmail.com", "name": "dillon", "password": "12345"}, result: NetworkResult.SUCCESS));
@@ -70,7 +70,7 @@ void main() {
         // ASSERT
         // should call network.post in the remoteDatasourceImpl.login method
         verify(mockNetworkService.post(url: 'auth/login', body: {"email": "dd@gmail.com", "password": "12345"}));
-        expect(result, isA<UserModel>());
+        expect(result.toJson(), testModel.toJson());
       });
 
       test("should an api failure when login is unsuccessful", () async {
@@ -96,6 +96,8 @@ void main() {
           "newPassword": "67890",
         };
 
+        final testModel = UserModel(email: "dd@gmail.com", name: "dillon", password: "12345");
+
         when(mockNetworkService.post(url: "auth/user-edit-profile/10", body: payload)).thenAnswer((_) async =>
             NetworkResponse(
                 data: {'email': "dd@gmail.com", "name": "dillon", "password": "12345"}, result: NetworkResult.SUCCESS));
@@ -109,9 +111,9 @@ void main() {
           id: "10",
         );
 
-        // ASSERT
+        // // ASSERT
         verify(mockNetworkService.post(url: "auth/user-edit-profile/10", body: payload));
-        expect(result, isA<UserModel>());
+        expect(result.toJson(), testModel.toJson());
       });
     });
   });
