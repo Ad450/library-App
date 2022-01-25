@@ -34,8 +34,8 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
     super.initState();
 
     final _user = context.read<AuthenticationCubit>().state.user;
-    if (_user != null) {
-      _email = _user.email;
+    if (_user != null && _user.email != null) {
+      _email = _user.email!;
     }
   }
 

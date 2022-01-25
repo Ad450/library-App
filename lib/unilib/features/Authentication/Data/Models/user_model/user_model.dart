@@ -6,11 +6,11 @@ part 'user_model.g.dart';
 @freezed
 abstract class UserModel with _$UserModel {
   factory UserModel({
-    required String name,
-    required String email,
-    required String password,
+    required String? name,
+    required String? email,
+    required String? password,
   }) = _UserModel;
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(
-      Map.castFrom<dynamic, dynamic, String, dynamic>(json));
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
+      _$UserModelFromJson(Map.castFrom<dynamic, dynamic, String, dynamic>(json));
 }
