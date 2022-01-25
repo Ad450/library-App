@@ -115,6 +115,60 @@ void main() {
         verify(mockNetworkService.post(url: "auth/user-edit-profile/10", body: payload));
         expect(result.toJson(), testModel.toJson());
       });
+
+      test("should throw an apiFailure when update user is not successful", () {
+        final payload = <String, dynamic>{
+          "name": "dillon",
+          "email": "dd@gmail.com",
+          "oldPassword": "12345",
+          "newPassword": "67890",
+        };
+
+        when(mockNetworkService.post(url: "auth/user-edit-profile/10", body: payload)).thenAnswer((_) async =>
+            NetworkResponse(
+                data: {'error': ApiErrors.apiBadRequest, "message": "bad request"}, result: NetworkResult.FAILURE));
+
+        expect(
+          remoteUserDataSourceImpl.updateUser(
+            name: "dillon",
+            email: "dd@gmail.com",
+            oldPassword: "12345",
+            newPassword: "67890",
+            id: "10",
+          ),
+          throwsA(isA<ApiFailure>()),
+        );
+      });
+    });
+
+    group("verify code", () {
+      test("should return if verify code is successful ", () async {
+        // ARRANGE
+
+        final email = "dd@gmail.com";
+        final code = "12345";
+
+        when(mockNetworkService.get(url: "auth/email-verify/$code/$email"))
+            .thenAnswer((_) async => NetworkResponse(result: NetworkResult.SUCCESS, data: {}));
+
+        // ACT
+        await remoteUserDataSourceImpl.verifyCode(email: email, code: code);
+
+        // verify network.get is called in verify code
+        verify(mockNetworkService.get(url: "auth/email-verify/$code/$email"));
+      });
+
+      test("should throw an apiFailure when verify code fails", () {
+        //ARRANGE
+
+        final email = "dd@gmail.com";
+        final code = "12345";
+
+        when(mockNetworkService.get(url: "auth/email-verify/$code/$email")).thenAnswer((_) async => NetworkResponse(
+            result: NetworkResult.FAILURE, data: {"error": ApiErrors.apiBadRequest, "message": "bad request"}));
+
+        expect(remoteUserDataSourceImpl.verifyCode(email: email, code: code), throwsA(isA<ApiFailure>()));
+      });
     });
   });
 }
