@@ -27,7 +27,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   Future<void> login(String email, String password) async {
     emit(AuthenticationState.loading(error: state.error, user: state.user));
 
-    final _result = await _login.call(LoginParam(email: email, password: password));
+    final _result = await _login(LoginParam(email: email, password: password));
     _result.fold((l) => emit(AuthenticationState.error(error: l.message, user: state.user)),
         (r) => emit(AuthenticationState.loaded(error: state.error, user: r)));
   }
@@ -35,7 +35,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   Future<void> getVerificationCode({required String email, required String password}) async {
     emit(AuthenticationState.loading(error: state.error, user: state.user));
 
-    final _result = await _getVerificationCode.call(GetVerificationCodeParam(email: email, password: password));
+    final _result = await _getVerificationCode(GetVerificationCodeParam(email: email, password: password));
     _result.fold((l) => emit(AuthenticationState.error(user: state.user, error: l.message)),
         (r) => emit(AuthenticationState.loaded(error: state.error, user: state.user)));
   }
@@ -44,7 +44,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       {required String email, required String password, required String name, required String id}) async {
     emit(AuthenticationState.loading(user: state.user, error: state.error));
 
-    final _result = await _updateUser.call(UpdateUserParam(email: email, password: password, name: name));
+    final _result = await _updateUser(UpdateUserParam(email: email, password: password, name: name));
     _result.fold((l) => emit(AuthenticationState.error(error: l.message, user: state.user)),
         (r) => emit(AuthenticationState.loaded(error: state.error, user: r)));
   }
@@ -52,7 +52,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   Future<void> verifyCode({required String email, required String code}) async {
     emit(AuthenticationState.loading(error: state.error, user: state.user));
 
-    final _result = await _verifyCode.call(VerifyCodeParam(code: code, email: email));
+    final _result = await _verifyCode(VerifyCodeParam(code: code, email: email));
     _result.fold(
         (l) => emit(
               AuthenticationState.error(error: l.message, user: state.user),
@@ -63,7 +63,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   Future<void> logout() async {
     emit(AuthenticationState.loading(error: state.error, user: state.user));
 
-    final _result = await _logout.call(const NoParam());
+    final _result = await _logout(const NoParam());
 
     _result.fold((l) => emit(AuthenticationState.error(error: l.message, user: state.user)),
         (r) => AuthenticationState.loaded(error: state.error, user: state.user));
@@ -72,7 +72,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   Future<void> checkLogin() async {
     emit(AuthenticationState.loading(error: state.error, user: state.user));
 
-    final _result = await _checkLogin.call(const NoParam());
+    final _result = await _checkLogin(const NoParam());
     _result.fold((l) => emit(AuthenticationState.error(error: l.message, user: state.user)), (r) {
       if (r != null) {
         emit(AuthenticationState.loggedIn(error: state.error, user: r));
