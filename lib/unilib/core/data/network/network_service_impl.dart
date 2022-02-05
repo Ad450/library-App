@@ -13,15 +13,12 @@ class NetworkServiceImpl implements NetworkService {
       InterceptorsWrapper(
         onResponse: (response, handler) => handler.resolve(
           Response(
-            statusCode: response.statusCode,
-            requestOptions: RequestOptions(path: kBaseUrl),
-            headers: response.headers,
-            statusMessage: response.statusMessage,
-            extra: response.extra,
-            data: {
-              'data': response.data,
-            },
-          ),
+              statusCode: response.statusCode,
+              requestOptions: RequestOptions(path: kBaseUrl),
+              headers: response.headers,
+              statusMessage: response.statusMessage,
+              extra: response.extra,
+              data: response.data),
         ),
       ),
     );
