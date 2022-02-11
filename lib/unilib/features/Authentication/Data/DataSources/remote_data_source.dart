@@ -104,7 +104,7 @@ class RemoteUserDataSourceImpl implements RemoteUserDataSource {
     required String email,
     required String code,
   }) async {
-    final _response = await _networkService.get(url: "auth/email-verify/$code/$email");
+    final _response = await _networkService.get(url: "auth/email-verify/verification-code/$email/$code");
 
     if (_response.result != NetworkResult.SUCCESS) {
       if (_response.data.containsKey("error")) {
